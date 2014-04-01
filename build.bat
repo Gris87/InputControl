@@ -1,5 +1,5 @@
 @echo off
-set APP_NAME=SceneManager
+set APP_NAME=InputControl
 
 set UNITY="C:\Program Files\Unity\Editor\Unity.exe"
 
