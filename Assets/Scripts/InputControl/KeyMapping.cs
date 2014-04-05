@@ -1,4 +1,4 @@
-﻿public class KeyMapping
+public class KeyMapping
 {
     private string      mName;
     private CustomInput mPrimaryInput;
@@ -13,7 +13,7 @@
             return mName;
         }
     }
-    
+
     public CustomInput primaryInput
     {
         get
@@ -33,7 +33,7 @@
             }
         }
     }
-    
+
     public CustomInput secondaryInput
     {
         get
@@ -74,7 +74,7 @@
         }
     }
     #endregion
-    
+
     public KeyMapping(string aName="", CustomInput aPrimaryInput=null, CustomInput aSecondaryInput=null, CustomInput aThirdInput=null)
     {
         mName=aName;
@@ -88,7 +88,7 @@
         mName=another.mName;
         set(another);
     }
-    
+
     public void set(KeyMapping another)
     {
         mPrimaryInput   = another.mPrimaryInput;
@@ -109,7 +109,7 @@
         }
 
         cur=mSecondaryInput.getInput();
-        
+
         if (cur>res)
         {
             res=cur;
@@ -129,28 +129,28 @@
     {
         float res=0;
         float cur;
-        
+
         cur=mPrimaryInput.getInputDown();
-        
+
         if (cur>res)
         {
             res=cur;
         }
-        
+
         cur=mSecondaryInput.getInputDown();
-        
+
         if (cur>res)
         {
             res=cur;
         }
-        
+
         cur=mThirdInput.getInputDown();
-        
+
         if (cur>res)
         {
             res=cur;
         }
-        
+
         return res;
     }
 
@@ -158,41 +158,41 @@
     {
         float res=0;
         float cur;
-        
+
         cur=mPrimaryInput.getInputUp();
-        
+
         if (cur>res)
         {
             res=cur;
         }
-        
+
         cur=mSecondaryInput.getInputUp();
-        
+
         if (cur>res)
         {
             res=cur;
         }
-        
+
         cur=mThirdInput.getInputUp();
-        
+
         if (cur>res)
         {
             res=cur;
         }
-        
+
         return res;
     }
-    
+
     public bool isPressed()
-    {        
+    {
         return getValue()     != 0;
     }
-    
+
     public bool isPressedDown()
     {
         return getValueDown() != 0;
     }
-    
+
     public bool isPressedUp()
     {
         return getValueUp()   != 0;

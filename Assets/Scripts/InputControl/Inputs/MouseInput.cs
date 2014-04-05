@@ -1,12 +1,12 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System;
 
 public class MouseInput : CustomInput
 {
     private MouseAxis   mAxis;
     private MouseButton mButton;
-    
-    #region Properties    
+
+    #region Properties
     public MouseAxis axis
     {
         get
@@ -14,7 +14,7 @@ public class MouseInput : CustomInput
             return mAxis;
         }
     }
-    
+
     public MouseButton button
     {
         get
@@ -34,7 +34,7 @@ public class MouseInput : CustomInput
         mAxis   = aAxis;
         mButton = MouseButton.None;
     }
-    
+
     public MouseInput(MouseButton aButton)
     {
         if (aButton==MouseButton.None)
@@ -69,7 +69,7 @@ public class MouseInput : CustomInput
         {
             return new MouseInput(MouseAxis.MouseDown);
         }
-        
+
         if (value.Equals("Y (+)"))
         {
             return new MouseInput(MouseAxis.MouseUp);
@@ -79,7 +79,7 @@ public class MouseInput : CustomInput
         {
             return new MouseInput(MouseAxis.WheelDown);
         }
-        
+
         if (value.Equals("Wheel (+)"))
         {
             return new MouseInput(MouseAxis.WheelUp);
@@ -112,7 +112,7 @@ public class MouseInput : CustomInput
     public override string ToString()
     {
         string res="Mouse ";
-        
+
         if (mAxis!=MouseAxis.None)
         {
             switch (mAxis)
@@ -140,7 +140,7 @@ public class MouseInput : CustomInput
                 break;
             }
         }
-        
+
         if (mButton!=MouseButton.None)
         {
             res=res+"Button "+((int)mButton+1).ToString();
@@ -166,22 +166,22 @@ public class MouseInput : CustomInput
         if (mButton!=MouseButton.None)
         {
             KeyCode mouseButton=(KeyCode) ((int)KeyCode.Mouse0 + (int)mButton);
-            
+
             return Input.GetKeyDown(mouseButton) ? 1 : 0;
         }
-        
+
         return getInputByAxis();
     }
-    
+
     public override float getInputUp()
     {
         if (mButton!=MouseButton.None)
         {
             KeyCode mouseButton=(KeyCode) ((int)KeyCode.Mouse0 + (int)mButton);
-            
+
             return Input.GetKeyUp(mouseButton) ? 1 : 0;
         }
-        
+
         return getInputByAxis();
     }
 

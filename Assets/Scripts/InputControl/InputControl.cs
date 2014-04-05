@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -24,7 +24,7 @@ public static class InputControl
     private static float                          mMouseSensitivity  = 1f;
 
     #region Properties
-    
+
     #region Axis smooth
     public static float smoothCoefficient
     {
@@ -32,7 +32,7 @@ public static class InputControl
         {
             return mSmoothCoefficient;
         }
-        
+
         set
         {
             if (value<0.0001f)
@@ -51,7 +51,7 @@ public static class InputControl
         }
     }
     #endregion
-    
+
     #region Joystick threshold
     public static float joystickThreshold
     {
@@ -59,7 +59,7 @@ public static class InputControl
         {
             return mJoystickThreshold;
         }
-        
+
         set
         {
             if (value<0f)
@@ -86,7 +86,7 @@ public static class InputControl
         {
             return mMouseSensitivity;
         }
-        
+
         set
         {
             if (value<0f)
@@ -100,7 +100,7 @@ public static class InputControl
         }
     }
     #endregion
-    
+
     #endregion
 
     #region Setup keys
@@ -157,18 +157,18 @@ public static class InputControl
     {
         return setKey(aName, argToInput(primary), argToInput(secondary));
     }
-    
+
     public static KeyMapping setKey(string aName, KeyCode primary, MouseAxis secondary)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary));
     }
-    
+
     public static KeyMapping setKey(string aName, KeyCode primary, MouseButton secondary)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary));
     }
     #endregion
-    
+
     // ------------------------------------------------------------------------------------------------------------
 
     #region Level 2-2
@@ -181,12 +181,12 @@ public static class InputControl
     {
         return setKey(aName, argToInput(primary), argToInput(secondary));
     }
-    
+
     public static KeyMapping setKey(string aName, MouseAxis primary, MouseAxis secondary)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary));
     }
-    
+
     public static KeyMapping setKey(string aName, MouseAxis primary, MouseButton secondary)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary));
@@ -194,7 +194,7 @@ public static class InputControl
     #endregion
 
     // ------------------------------------------------------------------------------------------------------------
-    
+
     #region Level 2-3
     public static KeyMapping setKey(string aName, MouseButton primary, CustomInput secondary)
     {
@@ -205,12 +205,12 @@ public static class InputControl
     {
         return setKey(aName, argToInput(primary), argToInput(secondary));
     }
-    
+
     public static KeyMapping setKey(string aName, MouseButton primary, MouseAxis secondary)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary));
     }
-    
+
     public static KeyMapping setKey(string aName, MouseButton primary, MouseButton secondary)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary));
@@ -230,12 +230,12 @@ public static class InputControl
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
-    
+
     public static KeyMapping setKey(string aName, CustomInput primary, CustomInput secondary, MouseAxis third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
-    
+
     public static KeyMapping setKey(string aName, CustomInput primary, CustomInput secondary, MouseButton third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -254,12 +254,12 @@ public static class InputControl
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
-    
+
     public static KeyMapping setKey(string aName, CustomInput primary, KeyCode secondary, MouseAxis third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
-    
+
     public static KeyMapping setKey(string aName, CustomInput primary, KeyCode secondary, MouseButton third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -267,7 +267,7 @@ public static class InputControl
     #endregion
 
     // ------------------------------------------------------------------------------------------------------------
-    
+
     #region Level 3-0-2
     public static KeyMapping setKey(string aName, CustomInput primary, MouseAxis secondary, CustomInput third)
     {
@@ -278,12 +278,12 @@ public static class InputControl
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
-    
+
     public static KeyMapping setKey(string aName, CustomInput primary, MouseAxis secondary, MouseAxis third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
-    
+
     public static KeyMapping setKey(string aName, CustomInput primary, MouseAxis secondary, MouseButton third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -291,7 +291,7 @@ public static class InputControl
     #endregion
 
     // ------------------------------------------------------------------------------------------------------------
-    
+
     #region Level 3-0-3
     public static KeyMapping setKey(string aName, CustomInput primary, MouseButton secondary, CustomInput third)
     {
@@ -302,24 +302,24 @@ public static class InputControl
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
-    
+
     public static KeyMapping setKey(string aName, CustomInput primary, MouseButton secondary, MouseAxis third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
-    
+
     public static KeyMapping setKey(string aName, CustomInput primary, MouseButton secondary, MouseButton third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
     #endregion
-    
+
     #endregion
 
     // ************************************************************************************************************
 
     #region Level 3-1
-    
+
     #region Level 3-1-0
     public static KeyMapping setKey(string aName, KeyCode primary, CustomInput secondary, CustomInput third)
     {
@@ -330,290 +330,290 @@ public static class InputControl
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
-    
+
     public static KeyMapping setKey(string aName, KeyCode primary, CustomInput secondary, MouseAxis third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
-    
+
     public static KeyMapping setKey(string aName, KeyCode primary, CustomInput secondary, MouseButton third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
     #endregion
-    
+
     // ------------------------------------------------------------------------------------------------------------
-    
+
     #region Level 3-1-1
     public static KeyMapping setKey(string aName, KeyCode primary, KeyCode secondary, CustomInput third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
-    
+
     public static KeyMapping setKey(string aName, KeyCode primary, KeyCode secondary, KeyCode third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
-    
+
     public static KeyMapping setKey(string aName, KeyCode primary, KeyCode secondary, MouseAxis third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
-    
+
     public static KeyMapping setKey(string aName, KeyCode primary, KeyCode secondary, MouseButton third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
     #endregion
-    
+
     // ------------------------------------------------------------------------------------------------------------
-    
+
     #region Level 3-1-2
     public static KeyMapping setKey(string aName, KeyCode primary, MouseAxis secondary, CustomInput third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
-    
+
     public static KeyMapping setKey(string aName, KeyCode primary, MouseAxis secondary, KeyCode third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
-    
+
     public static KeyMapping setKey(string aName, KeyCode primary, MouseAxis secondary, MouseAxis third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
-    
+
     public static KeyMapping setKey(string aName, KeyCode primary, MouseAxis secondary, MouseButton third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
     #endregion
-    
+
     // ------------------------------------------------------------------------------------------------------------
-    
+
     #region Level 3-1-3
     public static KeyMapping setKey(string aName, KeyCode primary, MouseButton secondary, CustomInput third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
-    
+
     public static KeyMapping setKey(string aName, KeyCode primary, MouseButton secondary, KeyCode third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
-    
+
     public static KeyMapping setKey(string aName, KeyCode primary, MouseButton secondary, MouseAxis third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
-    
+
     public static KeyMapping setKey(string aName, KeyCode primary, MouseButton secondary, MouseButton third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
     #endregion
-    
+
     #endregion
 
     // ************************************************************************************************************
-    
+
     #region Level 3-2
-    
+
     #region Level 3-2-0
     public static KeyMapping setKey(string aName, MouseAxis primary, CustomInput secondary, CustomInput third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
-    
+
     public static KeyMapping setKey(string aName, MouseAxis primary, CustomInput secondary, KeyCode third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
-    
+
     public static KeyMapping setKey(string aName, MouseAxis primary, CustomInput secondary, MouseAxis third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
-    
+
     public static KeyMapping setKey(string aName, MouseAxis primary, CustomInput secondary, MouseButton third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
     #endregion
-    
+
     // ------------------------------------------------------------------------------------------------------------
-    
+
     #region Level 3-2-1
     public static KeyMapping setKey(string aName, MouseAxis primary, KeyCode secondary, CustomInput third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
-    
+
     public static KeyMapping setKey(string aName, MouseAxis primary, KeyCode secondary, KeyCode third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
-    
+
     public static KeyMapping setKey(string aName, MouseAxis primary, KeyCode secondary, MouseAxis third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
-    
+
     public static KeyMapping setKey(string aName, MouseAxis primary, KeyCode secondary, MouseButton third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
     #endregion
-    
+
     // ------------------------------------------------------------------------------------------------------------
-    
+
     #region Level 3-2-2
     public static KeyMapping setKey(string aName, MouseAxis primary, MouseAxis secondary, CustomInput third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
-    
+
     public static KeyMapping setKey(string aName, MouseAxis primary, MouseAxis secondary, KeyCode third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
-    
+
     public static KeyMapping setKey(string aName, MouseAxis primary, MouseAxis secondary, MouseAxis third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
-    
+
     public static KeyMapping setKey(string aName, MouseAxis primary, MouseAxis secondary, MouseButton third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
     #endregion
-    
+
     // ------------------------------------------------------------------------------------------------------------
-    
+
     #region Level 3-2-3
     public static KeyMapping setKey(string aName, MouseAxis primary, MouseButton secondary, CustomInput third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
-    
+
     public static KeyMapping setKey(string aName, MouseAxis primary, MouseButton secondary, KeyCode third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
-    
+
     public static KeyMapping setKey(string aName, MouseAxis primary, MouseButton secondary, MouseAxis third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
-    
+
     public static KeyMapping setKey(string aName, MouseAxis primary, MouseButton secondary, MouseButton third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
     #endregion
-    
+
     #endregion
 
     // ************************************************************************************************************
-    
+
     #region Level 3-3
-    
+
     #region Level 3-3-0
     public static KeyMapping setKey(string aName, MouseButton primary, CustomInput secondary, CustomInput third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
-    
+
     public static KeyMapping setKey(string aName, MouseButton primary, CustomInput secondary, KeyCode third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
-    
+
     public static KeyMapping setKey(string aName, MouseButton primary, CustomInput secondary, MouseAxis third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
-    
+
     public static KeyMapping setKey(string aName, MouseButton primary, CustomInput secondary, MouseButton third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
     #endregion
-    
+
     // ------------------------------------------------------------------------------------------------------------
-    
+
     #region Level 3-3-1
     public static KeyMapping setKey(string aName, MouseButton primary, KeyCode secondary, CustomInput third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
-    
+
     public static KeyMapping setKey(string aName, MouseButton primary, KeyCode secondary, KeyCode third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
-    
+
     public static KeyMapping setKey(string aName, MouseButton primary, KeyCode secondary, MouseAxis third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
-    
+
     public static KeyMapping setKey(string aName, MouseButton primary, KeyCode secondary, MouseButton third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
     #endregion
-    
+
     // ------------------------------------------------------------------------------------------------------------
-    
+
     #region Level 3-3-2
     public static KeyMapping setKey(string aName, MouseButton primary, MouseAxis secondary, CustomInput third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
-    
+
     public static KeyMapping setKey(string aName, MouseButton primary, MouseAxis secondary, KeyCode third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
-    
+
     public static KeyMapping setKey(string aName, MouseButton primary, MouseAxis secondary, MouseAxis third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
-    
+
     public static KeyMapping setKey(string aName, MouseButton primary, MouseAxis secondary, MouseButton third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
     #endregion
-    
+
     // ------------------------------------------------------------------------------------------------------------
-    
+
     #region Level 3-3-3
     public static KeyMapping setKey(string aName, MouseButton primary, MouseButton secondary, CustomInput third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
-    
+
     public static KeyMapping setKey(string aName, MouseButton primary, MouseButton secondary, KeyCode third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
-    
+
     public static KeyMapping setKey(string aName, MouseButton primary, MouseButton secondary, MouseAxis third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
-    
+
     public static KeyMapping setKey(string aName, MouseButton primary, MouseButton secondary, MouseButton third)
     {
         return setKey(aName, argToInput(primary), argToInput(secondary), argToInput(third));
     }
     #endregion
-    
+
     #endregion
 
     #endregion
@@ -679,9 +679,9 @@ public static class InputControl
     public static KeyMapping key(string aName)
     {
         KeyMapping outKey=null;
-        
+
         if (mKeysMap.TryGetValue(aName, out outKey))
-        {   
+        {
             return outKey;
         }
 
@@ -718,7 +718,7 @@ public static class InputControl
     public static Axis setAxis(string aName, KeyMapping negative, KeyMapping positive)
     {
         Axis outAxis=null;
-        
+
         if (mAxesMap.TryGetValue(aName, out outAxis))
         {
             outAxis.set(negative, positive);
@@ -726,14 +726,14 @@ public static class InputControl
         else
         {
             outAxis=new Axis(aName, negative, positive);
-            
+
             mAxesList.Add(outAxis);
             mAxesMap.Add (aName, outAxis);
         }
 
         return outAxis;
     }
-    
+
     public static void removeAxis(string aName)
     {
         Axis outAxis=null;
@@ -748,15 +748,15 @@ public static class InputControl
     public static Axis axis(string aName)
     {
         Axis outAxis=null;
-        
+
         if (mAxesMap.TryGetValue(aName, out outAxis))
         {
             return outAxis;
         }
-        
+
         return null;
     }
-    
+
     public static List<Axis> getAxes()
     {
         return mAxesList;
@@ -850,19 +850,19 @@ public static class InputControl
             for (int j=1; j<=((int)JoystickAxis.None-1)/2; ++j)
             {
                 float joyAxis=Input.GetAxis(target+"Axis "+j.ToString());
-                
+
                 if (joyAxis<-mJoystickThreshold)
                 {
                     return new JoystickInput((JoystickAxis)((j-1)*2+1), (Joystick)i);
                 }
-                
+
                 if (joyAxis>mJoystickThreshold)
                 {
                     return new JoystickInput((JoystickAxis)((j-1)*2),   (Joystick)i);
                 }
             }
             #endregion
-            
+
             #region Buttons
             for (int j=0; j<(int)JoystickButton.None; ++j)
             {
@@ -870,23 +870,23 @@ public static class InputControl
                 {
                     return new JoystickInput((JoystickButton)j, (Joystick)i);
                 }
-            }            
+            }
             #endregion
         }
         #endregion
-        
+
         #region Mouse
 
         #region Axes
 
         #region ScrollWheel
         float mouseAxis=Input.GetAxis("Mouse ScrollWheel");
-        
+
         if (mouseAxis<0)
         {
             return new MouseInput(MouseAxis.WheelDown);
         }
-        
+
         if (mouseAxis>0)
         {
             return new MouseInput(MouseAxis.WheelUp);
@@ -897,30 +897,30 @@ public static class InputControl
         {
             #region X
             mouseAxis=Input.GetAxis("Mouse X");
-            
+
             if (mouseAxis<0)
             {
                 return new MouseInput(MouseAxis.MouseLeft);
             }
-            
+
             if (mouseAxis>0)
             {
                 return new MouseInput(MouseAxis.MouseRight);
             }
             #endregion
-            
+
             #region Y
             mouseAxis=Input.GetAxis("Mouse Y");
-            
+
             if (mouseAxis<0)
             {
                 return new MouseInput(MouseAxis.MouseDown);
             }
-            
+
             if (mouseAxis>0)
             {
                 return new MouseInput(MouseAxis.MouseUp);
-            }        
+            }
             #endregion
         }
         #endregion
@@ -929,7 +929,7 @@ public static class InputControl
         for (int i=0; i<(int)MouseButton.None; ++i)
         {
             KeyCode key=(KeyCode)((int)KeyCode.Mouse0+i);
-            
+
             if (Input.GetKey(key))
             {
                 return new MouseInput((MouseButton)i);
@@ -938,18 +938,18 @@ public static class InputControl
         #endregion
 
         #endregion
-        
+
         #region Keyboard
         foreach (var value in Enum.GetValues(typeof(KeyCode)))
         {
             KeyCode key=(KeyCode)value;
-            
+
             if (Input.GetKey(key))
             {
                 return new KeyboardInput(key);
             }
         }
-        #endregion        
+        #endregion
 
         return null;
     }
@@ -998,7 +998,7 @@ public static class InputControl
         #endregion
 
         Axis outAxis=null;
-        
+
         if (!mAxesMap.TryGetValue(axisName, out outAxis))
         {
             Debug.LogError("Axis "+axisName+" not found");
@@ -1011,7 +1011,7 @@ public static class InputControl
     public static bool GetButton(string buttonName)
     {
         KeyMapping outKey=null;
-        
+
         if (!mKeysMap.TryGetValue(buttonName, out outKey))
         {
             Debug.LogError("Key "+buttonName+" not found");
@@ -1024,7 +1024,7 @@ public static class InputControl
     public static bool GetButtonDown(string buttonName)
     {
         KeyMapping outKey=null;
-        
+
         if (!mKeysMap.TryGetValue(buttonName, out outKey))
         {
             Debug.LogError("Key "+buttonName+" not found");
@@ -1037,14 +1037,19 @@ public static class InputControl
     public static bool GetButtonUp(string buttonName)
     {
         KeyMapping outKey=null;
-        
+
         if (!mKeysMap.TryGetValue(buttonName, out outKey))
         {
             Debug.LogError("Key "+buttonName+" not found");
             return false;
         }
-        
+
         return outKey.isPressedUp();
+    }
+
+    public static int GetJoystickCount()
+    {
+        return Input.GetJoystickNames().Length;
     }
 
     public static string[] GetJoystickNames()
@@ -1066,7 +1071,7 @@ public static class InputControl
     {
         return Input.GetKeyDown(name);
     }
-    
+
     public static bool GetKeyDown(KeyCode key)
     {
         return Input.GetKeyDown(key);
@@ -1076,7 +1081,7 @@ public static class InputControl
     {
         return Input.GetKeyUp(name);
     }
-    
+
     public static bool GetKeyUp(KeyCode key)
     {
         return Input.GetKeyUp(key);
@@ -1108,17 +1113,17 @@ public static class InputControl
         {
             return GetMouseButtonDown((MouseButton)button);
         }
-        
+
         return false;
     }
-    
+
     public static bool GetMouseButtonDown(MouseButton button)
     {
         if (button!=MouseButton.None)
         {
             return Input.GetKeyDown((KeyCode)((int)KeyCode.Mouse0 + (int)button));
         }
-        
+
         return false;
     }
 
@@ -1128,17 +1133,17 @@ public static class InputControl
         {
             return GetMouseButtonUp((MouseButton)button);
         }
-        
+
         return false;
     }
-    
+
     public static bool GetMouseButtonUp(MouseButton button)
     {
         if (button!=MouseButton.None)
         {
             return Input.GetKeyUp((KeyCode)((int)KeyCode.Mouse0 + (int)button));
         }
-        
+
         return false;
     }
 
@@ -1232,7 +1237,7 @@ public static class InputControl
         {
             return Input.simulateMouseWithTouches;
         }
-        
+
         set
         {
             Input.simulateMouseWithTouches=value;

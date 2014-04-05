@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public class Axis
 {
@@ -15,14 +15,14 @@ public class Axis
             return mName;
         }
     }
-    
+
     public KeyMapping negative
     {
         get
         {
             return mNegative;
         }
-        
+
         set
         {
             if (value==null)
@@ -33,7 +33,7 @@ public class Axis
             mNegative=value;
         }
     }
-    
+
     public KeyMapping positive
     {
         get
@@ -58,14 +58,14 @@ public class Axis
         {
             return mInverted;
         }
-        
+
         set
         {
             mInverted=value;
         }
     }
     #endregion
-    
+
     public Axis(string aName, KeyMapping aNegative, KeyMapping aPositive)
     {
         mName     = aName;
@@ -85,13 +85,13 @@ public class Axis
         mNegative = another.mNegative;
         mPositive = another.mPositive;
     }
-    
+
     public void set(KeyMapping aNegative, KeyMapping aPositive)
     {
         mNegative = aNegative;
         mPositive = aPositive;
     }
-    
+
     public float getValue()
     {
         if (mInverted)

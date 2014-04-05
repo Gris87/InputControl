@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System;
 
 public class JoystickInput : CustomInput
@@ -63,7 +63,7 @@ public class JoystickInput : CustomInput
         {
             return null;
         }
-        
+
         value=value.Substring(9);
 
         if (value.Length==0)
@@ -85,12 +85,12 @@ public class JoystickInput : CustomInput
             try
             {
                 int targetNumber=Convert.ToInt32(value.Substring(0, index));
-                
+
                 if (targetNumber<1 || targetNumber>Enum.GetValues(typeof(Joystick)).Length-1)
                 {
                     return null;
                 }
-                
+
                 target=(Joystick)targetNumber;
             }
             catch (Exception)
@@ -135,7 +135,7 @@ public class JoystickInput : CustomInput
                 {
                     ++axisNumber;
                 }
-                
+
                 if (axisNumber<0 || axisNumber>=(int)JoystickAxis.None)
                 {
                     return null;
@@ -153,18 +153,18 @@ public class JoystickInput : CustomInput
         {
             return null;
         }
-        
+
         value=value.Substring(7);
-        
+
         try
         {
             int button=Convert.ToInt32(value)-1;
-            
+
             if (button<0 || button>=(int)JoystickButton.None)
             {
                 return null;
             }
-            
+
             return new JoystickInput((JoystickButton)button, target);
         }
         catch (Exception)
@@ -229,24 +229,24 @@ public class JoystickInput : CustomInput
         {
             return Input.GetButtonDown(getInputName()) ? 1 : 0;
         }
-        
+
         return getInputByAxis();
     }
-    
+
     public override float getInputUp()
     {
         if (mButton!=JoystickButton.None)
         {
             return Input.GetButtonUp(getInputName())   ? 1 : 0;
         }
-        
+
         return getInputByAxis();
     }
 
     private float getInputByAxis()
     {
         float joyAxis=Input.GetAxis(getInputName());
-        
+
         if (
             ((int)mAxis) % 2 == 1
             &&
@@ -271,7 +271,7 @@ public class JoystickInput : CustomInput
     private string getInputName()
     {
         string res;
-        
+
         if (mTarget==Joystick.AllJoysticks)
         {
             res="Joystick ";
@@ -280,11 +280,11 @@ public class JoystickInput : CustomInput
         {
             res="Joystick "+((int)mTarget).ToString()+" ";
         }
-        
+
         if (mAxis!=JoystickAxis.None)
         {
             int axisId=(int)mAxis;
-            
+
             if (axisId % 2 == 0)
             {
                 axisId=(axisId/2) + 1;
@@ -293,15 +293,15 @@ public class JoystickInput : CustomInput
             {
                 axisId=((axisId-1)/2) + 1;
             }
-            
+
             res=res+"Axis "+axisId.ToString();
         }
-        
+
         if (mButton!=JoystickButton.None)
         {
             res=res+"Button "+((int)mButton+1).ToString();
         }
-        
+
         return res;
     }
 }
