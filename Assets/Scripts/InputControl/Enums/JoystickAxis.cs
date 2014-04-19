@@ -1,4 +1,7 @@
-﻿public enum JoystickAxis
+/// <summary>
+/// Joystick axis. Enumeration for joystick axes.
+/// </summary>
+public enum JoystickAxis
 {
     Axis1Positive,
     Axis1Negative,

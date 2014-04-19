@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// <see cref="Axis"/> is a named handler for negative <see cref="KeyMapping"/> and positive <see cref="KeyMapping"/>.
+/// </summary>
 public class Axis
 {
     private string     mName;
@@ -8,6 +11,10 @@ public class Axis
     private bool       mInverted;
 
     #region Properties
+    /// <summary>
+    /// Gets the axis name.
+    /// </summary>
+    /// <value>Axis name.</value>
     public string name
     {
         get
@@ -16,6 +23,10 @@ public class Axis
         }
     }
 
+    /// <summary>
+    /// Gets or sets the negative KeyMapping. Please note that null value is prohibited.
+    /// </summary>
+    /// <value>Negative KeyMapping.</value>
     public KeyMapping negative
     {
         get
@@ -34,6 +45,10 @@ public class Axis
         }
     }
 
+    /// <summary>
+    /// Gets or sets the positive KeyMapping. Please note that null value is prohibited.
+    /// </summary>
+    /// <value>Positive KeyMapping.</value>
     public KeyMapping positive
     {
         get
@@ -52,6 +67,10 @@ public class Axis
         }
     }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether this <see cref="Axis"/> is inverted.
+    /// </summary>
+    /// <value><c>true</c> if inverted; otherwise, <c>false</c>.</value>
     public bool inverted
     {
         get
@@ -66,41 +85,67 @@ public class Axis
     }
     #endregion
 
-    public Axis(string aName, KeyMapping aNegative, KeyMapping aPositive)
+    /// <summary>
+    /// Create a new instance of <see cref="Axis"/> with specified negative <see cref="KeyMapping"/> and positive <see cref="KeyMapping"/>.
+    /// </summary>
+    /// <param name="name">Axis name.</param>
+    /// <param name="negative">Negative KeyMapping.</param>
+    /// <param name="positive">Positive KeyMapping.</param>
+    public Axis(string name, KeyMapping negative, KeyMapping positive)
     {
-        mName     = aName;
+        mName     = name;
         mInverted = false;
-        set(aNegative, aPositive);
+        set(negative, positive);
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Axis"/> class based on another instance.
+    /// </summary>
+    /// <param name="another">Another Axis instance.</param>
     public Axis(Axis another)
     {
-        mName     = another.mName;
-        mInverted = another.mInverted;
+        mName=another.mName;
+
         set(another);
     }
 
+    /// <summary>
+    /// Set the same negative <see cref="KeyMapping"/> and positive <see cref="KeyMapping"/> as in another instance.
+    /// </summary>
+    /// <param name="another">Another Axis instance.</param>
     public void set(Axis another)
     {
+        mInverted = another.mInverted;
         mNegative = another.mNegative;
         mPositive = another.mPositive;
     }
 
-    public void set(KeyMapping aNegative, KeyMapping aPositive)
+    /// <summary>
+    /// Set negative <see cref="KeyMapping"/> and positive <see cref="KeyMapping"/>.
+    /// </summary>
+    /// <param name="negative">Negative KeyMapping.</param>
+    /// <param name="positive">Positive KeyMapping.</param>
+    public void set(KeyMapping negative, KeyMapping positive)
     {
-        mNegative = aNegative;
-        mPositive = aPositive;
+        mNegative = negative;
+        mPositive = positive;
     }
 
-    public float getValue()
+
+    /// <summary>
+    /// Returns axis value by using negative <see cref="KeyMapping"/> and positive <see cref="KeyMapping"/>.
+    /// </summary>
+    /// <returns>Axis value.</returns>
+    /// <param name="device">Preferred input device.</param>
+    public float getValue(InputDevice device=InputDevice.Any)
     {
         if (mInverted)
         {
-            return mNegative.getValue()-mPositive.getValue();
+            return mNegative.getValue(mName, device)-mPositive.getValue(mName, device);
         }
         else
         {
-            return mPositive.getValue()-mNegative.getValue();
+            return mPositive.getValue(mName, device)-mNegative.getValue(mName, device);
         }
     }
 }

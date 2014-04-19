@@ -1,12 +1,19 @@
 using UnityEngine;
 using System;
 
+/// <summary>
+/// <see cref="MouseInput"/> handles mouse input device.
+/// </summary>
 public class MouseInput : CustomInput
 {
     private MouseAxis   mAxis;
     private MouseButton mButton;
 
     #region Properties
+    /// <summary>
+    /// Gets the mouse axis.
+    /// </summary>
+    /// <value>Mouse axis.</value>
     public MouseAxis axis
     {
         get
@@ -15,6 +22,10 @@ public class MouseInput : CustomInput
         }
     }
 
+    /// <summary>
+    /// Gets the mouse button.
+    /// </summary>
+    /// <value>Mouse button.</value>
     public MouseButton button
     {
         get
@@ -24,28 +35,41 @@ public class MouseInput : CustomInput
     }
     #endregion
 
-    public MouseInput(MouseAxis aAxis)
+    /// <summary>
+    /// Create a new instance of <see cref="MouseInput"/> that handles specified mouse axis.
+    /// </summary>
+    /// <param name="axis">Mouse axis.</param>
+    public MouseInput(MouseAxis axis)
     {
-        if (aAxis==MouseAxis.None)
+        if (axis==MouseAxis.None)
         {
-            Debug.LogError("aAxis can't be MouseAxis.None");
+            Debug.LogError("axis can't be MouseAxis.None");
         }
 
-        mAxis   = aAxis;
+        mAxis   = axis;
         mButton = MouseButton.None;
     }
 
-    public MouseInput(MouseButton aButton)
+    /// <summary>
+    /// Create a new instance of <see cref="MouseInput"/> that handles specified mouse button.
+    /// </summary>
+    /// <param name="button">Mouse button.</param>
+    public MouseInput(MouseButton button)
     {
-        if (aButton==MouseButton.None)
+        if (button==MouseButton.None)
         {
-            Debug.LogError("aButton can't be MouseButton.None");
+            Debug.LogError("button can't be MouseButton.None");
         }
 
         mAxis   = MouseAxis.None;
-        mButton = aButton;
+        mButton = button;
     }
 
+    /// <summary>
+    /// Parse string argument and try to create <see cref="MouseInput"/> instance.
+    /// </summary>
+    /// <returns>Parsed MouseInput.</returns>
+    /// <param name="value">String representation of MouseInput.</param>
     public static MouseInput FromString(string value)
     {
         if (!value.StartsWith("Mouse "))
@@ -109,6 +133,10 @@ public class MouseInput : CustomInput
         }
     }
 
+    /// <summary>
+    /// Returns a <see cref="System.String"/> that represents the current <see cref="MouseInput"/>.
+    /// </summary>
+    /// <returns>A <see cref="System.String"/> that represents the current <see cref="MouseInput"/>.</returns>
     public override string ToString()
     {
         string res="Mouse ";
@@ -149,8 +177,19 @@ public class MouseInput : CustomInput
         return res;
     }
 
-    public override float getInput()
+    /// <summary>
+    /// Returns input value while the user holds down the key.
+    /// </summary>
+    /// <returns>Input value if button or axis is still active.</returns>
+    /// <param name="axis">Specific actions for axis (Empty by default).</param>
+    /// <param name="device">Preferred input device.</param>
+    public override float getInput(string axis="", InputDevice device=InputDevice.Any)
     {
+        if (device!=InputDevice.Any && device!=InputDevice.KeyboardAndMouse)
+        {
+            return 0;
+        }
+
         if (mButton!=MouseButton.None)
         {
             KeyCode mouseButton=(KeyCode) ((int)KeyCode.Mouse0 + (int)mButton);
@@ -161,8 +200,19 @@ public class MouseInput : CustomInput
         return getInputByAxis();
     }
 
-    public override float getInputDown()
+    /// <summary>
+    /// Returns input value during the frame the user starts pressing down the key.
+    /// </summary>
+    /// <returns>Input value if button or axis become active during this frame.</returns>
+    /// <param name="axis">Specific actions for axis (Empty by default).</param>
+    /// <param name="device">Preferred input device.</param>
+    public override float getInputDown(string axis="", InputDevice device=InputDevice.Any)
     {
+        if (device!=InputDevice.Any && device!=InputDevice.KeyboardAndMouse)
+        {
+            return 0;
+        }
+
         if (mButton!=MouseButton.None)
         {
             KeyCode mouseButton=(KeyCode) ((int)KeyCode.Mouse0 + (int)mButton);
@@ -173,8 +223,19 @@ public class MouseInput : CustomInput
         return getInputByAxis();
     }
 
-    public override float getInputUp()
+    /// <summary>
+    /// Returns input value during the frame the user releases the key.
+    /// </summary>
+    /// <returns>Input value if button or axis stopped being active during this frame.</returns>
+    /// <param name="axis">Specific actions for axis (Empty by default).</param>
+    /// <param name="device">Preferred input device.</param>
+    public override float getInputUp(string axis="", InputDevice device=InputDevice.Any)
     {
+        if (device!=InputDevice.Any && device!=InputDevice.KeyboardAndMouse)
+        {
+            return 0;
+        }
+
         if (mButton!=MouseButton.None)
         {
             KeyCode mouseButton=(KeyCode) ((int)KeyCode.Mouse0 + (int)mButton);
@@ -185,6 +246,10 @@ public class MouseInput : CustomInput
         return getInputByAxis();
     }
 
+    /// <summary>
+    /// Calls Input.GetAxis for a specified mouse axis.
+    /// </summary>
+    /// <returns>Value of mouse axis.</returns>
     private float getInputByAxis()
     {
         switch (mAxis)
@@ -203,6 +268,10 @@ public class MouseInput : CustomInput
         return 0;
     }
 
+    /// <summary>
+    /// Calls Input.GetAxis for a specified mouse axis and check direction.
+    /// </summary>
+    /// <returns>Value of mouse axis.</returns>
     private float InputGetAxis(string axisName, bool positive)
     {
         float value=Input.GetAxis(axisName);

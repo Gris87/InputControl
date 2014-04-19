@@ -1,3 +1,6 @@
+/// <summary>
+/// Mouse button. Enumeration for mouse buttons.
+/// </summary>
 public enum MouseButton
 {
     Left,

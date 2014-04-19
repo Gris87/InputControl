@@ -1,4 +1,7 @@
-﻿public enum JoystickButton
+/// <summary>
+/// Joystick button. Enumeration for joystick buttons.
+/// </summary>
+public enum JoystickButton
 {
     Button1,
     Button2,

@@ -1,6 +1,9 @@
 using UnityEngine;
 using System;
 
+/// <summary>
+/// <see cref="JoystickInput"/> handles joystick input device.
+/// </summary>
 public class JoystickInput : CustomInput
 {
     private JoystickAxis   mAxis;
@@ -8,6 +11,10 @@ public class JoystickInput : CustomInput
     private Joystick       mTarget;
 
     #region Properties
+    /// <summary>
+    /// Gets the joystick axis.
+    /// </summary>
+    /// <value>Joystick axis.</value>
     public JoystickAxis axis
     {
         get
@@ -16,6 +23,10 @@ public class JoystickInput : CustomInput
         }
     }
 
+    /// <summary>
+    /// Gets the joystick button.
+    /// </summary>
+    /// <value>Joystick button.</value>
     public JoystickButton button
     {
         get
@@ -24,6 +35,10 @@ public class JoystickInput : CustomInput
         }
     }
 
+    /// <summary>
+    /// Gets the target joystick.
+    /// </summary>
+    /// <value>Target joystick.</value>
     public Joystick target
     {
         get
@@ -33,30 +48,45 @@ public class JoystickInput : CustomInput
     }
     #endregion
 
-    public JoystickInput(JoystickAxis aAxis, Joystick aTarget=Joystick.AllJoysticks)
+    /// <summary>
+    /// Create a new instance of <see cref="JoystickInput"/> that handles specified joystick axis for a target joystick.
+    /// </summary>
+    /// <param name="axis">Joystick axis.</param>
+    /// <param name="target">Target joystick.</param>
+    public JoystickInput(JoystickAxis axis, Joystick target=Joystick.AllJoysticks)
     {
-        if (aAxis==JoystickAxis.None)
+        if (axis==JoystickAxis.None)
         {
-            Debug.LogError("aAxis can't be JoystickAxis.None");
+            Debug.LogError("axis can't be JoystickAxis.None");
         }
 
-        mAxis   = aAxis;
+        mAxis   = axis;
         mButton = JoystickButton.None;
-        mTarget = aTarget;
+        mTarget = target;
     }
 
-    public JoystickInput(JoystickButton aButton, Joystick aTarget=Joystick.AllJoysticks)
+    /// <summary>
+    /// Create a new instance of <see cref="JoystickInput"/> that handles specified joystick button for a target joystick.
+    /// </summary>
+    /// <param name="button">Joystick button.</param>
+    /// <param name="target">Target joystick.</param>
+    public JoystickInput(JoystickButton button, Joystick target=Joystick.AllJoysticks)
     {
-        if (aButton==JoystickButton.None)
+        if (button==JoystickButton.None)
         {
-            Debug.LogError("aButton can't be JoystickButton.None");
+            Debug.LogError("button can't be JoystickButton.None");
         }
 
         mAxis   = JoystickAxis.None;
-        mButton = aButton;
-        mTarget = aTarget;
+        mButton = button;
+        mTarget = target;
     }
 
+    /// <summary>
+    /// Parse string argument and try to create <see cref="JoystickInput"/> instance.
+    /// </summary>
+    /// <returns>Parsed JoystickInput.</returns>
+    /// <param name="value">String representation of JoystickInput.</param>
     public static JoystickInput FromString(string value)
     {
         if (!value.StartsWith("Joystick "))
@@ -173,6 +203,10 @@ public class JoystickInput : CustomInput
         }
     }
 
+    /// <summary>
+    /// Returns a <see cref="System.String"/> that represents the current <see cref="JoystickInput"/>.
+    /// </summary>
+    /// <returns>A <see cref="System.String"/> that represents the current <see cref="JoystickInput"/>.</returns>
     public override string ToString()
     {
         string res;
@@ -213,36 +247,118 @@ public class JoystickInput : CustomInput
         return res;
     }
 
-    public override float getInput()
+    /// <summary>
+    /// Returns input value while the user holds down the key.
+    /// </summary>
+    /// <returns>Input value if button or axis is still active.</returns>
+    /// <param name="axis">Specific actions for axis (Empty by default).</param>
+    /// <param name="device">Preferred input device.</param>
+    public override float getInput(string axis="", InputDevice device=InputDevice.Any)
     {
-        if (mButton!=JoystickButton.None)
+        if (device!=InputDevice.Any && device!=InputDevice.Joystick)
         {
-            return Input.GetButton(getInputName())     ? 1 : 0;
+            return 0;
         }
 
-        return getInputByAxis();
-    }
+        float sensitivity=1;
 
-    public override float getInputDown()
-    {
-        if (mButton!=JoystickButton.None)
+        if (
+            axis!=null
+            &&
+            (
+             axis.Equals("Mouse X")
+             ||
+             axis.Equals("Mouse Y")
+            )
+           )
         {
-            return Input.GetButtonDown(getInputName()) ? 1 : 0;
+            sensitivity=0.1f;
         }
 
-        return getInputByAxis();
-    }
-
-    public override float getInputUp()
-    {
         if (mButton!=JoystickButton.None)
         {
-            return Input.GetButtonUp(getInputName())   ? 1 : 0;
+            return Input.GetButton(getInputName())     ? sensitivity : 0;
         }
 
-        return getInputByAxis();
+        return getInputByAxis()*sensitivity;
     }
 
+    /// <summary>
+    /// Returns input value during the frame the user starts pressing down the key.
+    /// </summary>
+    /// <returns>Input value if button or axis become active during this frame.</returns>
+    /// <param name="axis">Specific actions for axis (Empty by default).</param>
+    /// <param name="device">Preferred input device.</param>
+    public override float getInputDown(string axis="", InputDevice device=InputDevice.Any)
+    {
+        if (device!=InputDevice.Any && device!=InputDevice.Joystick)
+        {
+            return 0;
+        }
+
+        float sensitivity=1;
+
+        if (
+            axis!=null
+            &&
+            (
+             axis.Equals("Mouse X")
+             ||
+             axis.Equals("Mouse Y")
+            )
+           )
+        {
+            sensitivity=0.1f;
+        }
+
+        if (mButton!=JoystickButton.None)
+        {
+            return Input.GetButtonDown(getInputName()) ? sensitivity : 0;
+        }
+
+        return getInputByAxis()*sensitivity;
+    }
+
+    /// <summary>
+    /// Returns input value during the frame the user releases the key.
+    /// </summary>
+    /// <returns>Input value if button or axis stopped being active during this frame.</returns>
+    /// <param name="axis">Specific actions for axis (Empty by default).</param>
+    /// <param name="device">Preferred input device.</param>
+    public override float getInputUp(string axis="", InputDevice device=InputDevice.Any)
+    {
+        if (device!=InputDevice.Any && device!=InputDevice.Joystick)
+        {
+            return 0;
+        }
+
+        float sensitivity=1;
+
+        if (
+            axis!=null
+            &&
+            (
+             axis.Equals("Mouse X")
+             ||
+             axis.Equals("Mouse Y")
+            )
+           )
+        {
+            sensitivity=0.1f;
+        }
+
+        if (mButton!=JoystickButton.None)
+        {
+            return Input.GetButtonUp(getInputName())   ? sensitivity : 0;
+        }
+
+        return getInputByAxis()*sensitivity;
+    }
+
+    /// <summary>
+    /// Calls Input.GetAxis for a specified joystick axis.
+    /// </summary>
+    /// <returns>Value of joystick axis.</returns>
     private float getInputByAxis()
     {
         float joyAxis=Input.GetAxis(getInputName());
@@ -268,6 +384,10 @@ public class JoystickInput : CustomInput
         return 0;
     }
 
+    /// <summary>
+    /// Returns the name of input in InputManager according to the attributes.
+    /// </summary>
+    /// <returns>Input name in InputManager.</returns>
     private string getInputName()
     {
         string res;
