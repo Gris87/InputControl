@@ -8,6 +8,7 @@ First of all, you have to initialize InputControl.
 So, you need to call commands below somewhere in your code. The best way to call it in the very first script:
 
 Example:
+
 void Start()
 {
     InputControl.setKey("Up",        KeyCode.W,            KeyCode.UpArrow,    new JoystickInput(JoystickAxis.Axis2Negative));
