@@ -1,8 +1,7 @@
 InputControl
 ============
 
-InputControl works similarly to the Unity built in input manager.
-InputControl allows user to customize control in Runtime.
+InputControl works similarly to the Unity built-in input manager and allows user to customize control in Runtime.
 
 First of all, you have to initialize InputControl.
 So, you need to call commands below somewhere in your code. The best way to call it in the very first script:
