@@ -3,6 +3,10 @@ InputControl
 
 InputControl works similarly to the Unity built-in input manager and allows user to customize control in Runtime.
 
+Demo: http://gris.ucoz.ru/UnityModules/InputControl/Web/InputControl.html
+
+Description:
+
 First of all, you have to initialize InputControl.
 So, you need to call commands below somewhere in your code. The best way to call it in the very first script:
 
@@ -41,3 +45,8 @@ InputControl.invertMouseY=true;
 
 You can setup mouse sensitivity by:
 InputControl.mouseSensitivity=0.5f;
+
+Links:
+
+Site:   http://gris.ucoz.ru/index/inputcontrol/0-11
+Github: https://github.com/Gris87/InputControl
