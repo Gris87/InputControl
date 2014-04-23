@@ -49,4 +49,4 @@ InputControl.mouseSensitivity=0.5f;
 Links:
 
 Site:   http://gris.ucoz.ru/index/inputcontrol/0-11
-Github: https://github.com/Gris87/InputControl
+GitHub: https://github.com/Gris87/InputControl
