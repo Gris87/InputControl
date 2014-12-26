@@ -1,13 +1,13 @@
 InputControl
 ============
 
-InputControl works similarly to the Unity built-in input manager and allows user to customize control in Runtime.
+InputControl works similarly to the Unity built-in input manager and allow user to customize controls in Runtime.
 
 Demo: http://gris.ucoz.ru/UnityModules/InputControl/Web/InputControl.html
 
 Description:
 
-First of all, you have to copy attached "ProjectSettings\InputManager.asset" file to your ProjectSettings folder.
+First of all, you have to extract ProjectSettings.zip file your project.
 You also need to call commands below somewhere in your code. The best way to call it in the very first script:
 
 Example:
@@ -45,6 +45,11 @@ InputControl.invertMouseY=true;
 
 You can setup mouse sensitivity by:
 InputControl.mouseSensitivity=0.5f;
+
+TODO: joystickThreshold
+TODO: modifiers
+TODO: smoothCoefficient
+TODO: save/load
 
 Links:
 

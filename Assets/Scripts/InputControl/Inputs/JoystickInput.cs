@@ -1,6 +1,8 @@
 using UnityEngine;
 using System;
 
+
+
 /// <summary>
 /// <see cref="JoystickInput"/> handles joystick input device.
 /// </summary>
@@ -10,7 +12,14 @@ public class JoystickInput : CustomInput
     private JoystickButton mButton;
     private Joystick       mTarget;
 
+	private string         mCachedToString;
+	private string         mCachedInputName;
+
+
+
     #region Properties
+
+	#region axis
     /// <summary>
     /// Gets the joystick axis.
     /// </summary>
@@ -22,7 +31,9 @@ public class JoystickInput : CustomInput
             return mAxis;
         }
     }
+	#endregion
 
+	#region button
     /// <summary>
     /// Gets the joystick button.
     /// </summary>
@@ -34,7 +45,9 @@ public class JoystickInput : CustomInput
             return mButton;
         }
     }
+	#endregion
 
+	#region target
     /// <summary>
     /// Gets the target joystick.
     /// </summary>
@@ -47,6 +60,10 @@ public class JoystickInput : CustomInput
         }
     }
     #endregion
+
+	#endregion
+
+
 
     /// <summary>
     /// Create a new instance of <see cref="JoystickInput"/> that handles specified joystick axis for a target joystick.
@@ -63,6 +80,9 @@ public class JoystickInput : CustomInput
         mAxis   = axis;
         mButton = JoystickButton.None;
         mTarget = target;
+
+		mCachedToString  = null;
+		mCachedInputName = null;
     }
 
     /// <summary>
@@ -80,6 +100,9 @@ public class JoystickInput : CustomInput
         mAxis   = JoystickAxis.None;
         mButton = button;
         mTarget = target;
+		
+		mCachedToString  = null;
+		mCachedInputName = null;
     }
 
     /// <summary>
@@ -116,7 +139,11 @@ public class JoystickInput : CustomInput
             {
                 int targetNumber=Convert.ToInt32(value.Substring(0, index));
 
-                if (targetNumber<1 || targetNumber>Enum.GetValues(typeof(Joystick)).Length-1)
+                if (
+					targetNumber < 1
+					|| 
+					targetNumber > Enum.GetValues(typeof(Joystick)).Length - 1
+				   )
                 {
                     return null;
                 }
@@ -166,7 +193,11 @@ public class JoystickInput : CustomInput
                     ++axisNumber;
                 }
 
-                if (axisNumber<0 || axisNumber>=(int)JoystickAxis.None)
+                if (
+					axisNumber < 0
+					||
+					axisNumber >= (int)JoystickAxis.None
+				   )
                 {
                     return null;
                 }
@@ -190,7 +221,11 @@ public class JoystickInput : CustomInput
         {
             int button=Convert.ToInt32(value)-1;
 
-            if (button<0 || button>=(int)JoystickButton.None)
+            if (
+			    button < 0
+				||
+				button >= (int)JoystickButton.None
+			   )
             {
                 return null;
             }
@@ -209,6 +244,11 @@ public class JoystickInput : CustomInput
     /// <returns>A <see cref="System.String"/> that represents the current <see cref="JoystickInput"/>.</returns>
     public override string ToString()
     {
+		if (mCachedToString != null)
+		{
+			return mCachedToString;
+		}
+
         string res;
 
         if (mTarget==Joystick.AllJoysticks)
@@ -236,13 +276,15 @@ public class JoystickInput : CustomInput
                 positive=false;
             }
 
-            res=res+"Axis "+axisId.ToString()+" "+(positive ? "(+)" : "(-)");
+            res += "Axis " + axisId.ToString() + " " + (positive ? "(+)" : "(-)");
         }
-
+		else
         if (mButton!=JoystickButton.None)
         {
-            res=res+"Button "+((int)mButton+1).ToString();
+            res += "Button " + ((int)mButton + 1).ToString();
         }
+
+		mCachedToString = res;
 
         return res;
     }
@@ -255,7 +297,11 @@ public class JoystickInput : CustomInput
     /// <param name="device">Preferred input device.</param>
     public override float getInput(string axis="", InputDevice device=InputDevice.Any)
     {
-        if (device!=InputDevice.Any && device!=InputDevice.Joystick)
+        if (
+			device != InputDevice.Any
+			&&
+			device != InputDevice.Joystick
+		   )
         {
             return 0;
         }
@@ -291,7 +337,11 @@ public class JoystickInput : CustomInput
     /// <param name="device">Preferred input device.</param>
     public override float getInputDown(string axis="", InputDevice device=InputDevice.Any)
     {
-        if (device!=InputDevice.Any && device!=InputDevice.Joystick)
+		if (
+			device != InputDevice.Any
+			&&
+			device != InputDevice.Joystick
+			)
         {
             return 0;
         }
@@ -327,7 +377,11 @@ public class JoystickInput : CustomInput
     /// <param name="device">Preferred input device.</param>
     public override float getInputUp(string axis="", InputDevice device=InputDevice.Any)
     {
-        if (device!=InputDevice.Any && device!=InputDevice.Joystick)
+		if (
+			device != InputDevice.Any
+			&&
+			device != InputDevice.Joystick
+			)
         {
             return 0;
         }
@@ -390,6 +444,11 @@ public class JoystickInput : CustomInput
     /// <returns>Input name in InputManager.</returns>
     private string getInputName()
     {
+		if (mCachedInputName != null)
+		{
+			return mCachedInputName;
+		}
+
         string res;
 
         if (mTarget==Joystick.AllJoysticks)
@@ -414,13 +473,15 @@ public class JoystickInput : CustomInput
                 axisId=((axisId-1)/2) + 1;
             }
 
-            res=res+"Axis "+axisId.ToString();
+            res += "Axis " + axisId.ToString();
         }
-
+		else
         if (mButton!=JoystickButton.None)
         {
-            res=res+"Button "+((int)mButton+1).ToString();
+            res += "Button " + ((int)mButton + 1).ToString();
         }
+
+		mCachedInputName = res;
 
         return res;
     }

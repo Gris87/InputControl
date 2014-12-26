@@ -1,5 +1,7 @@
 using UnityEngine;
 
+
+
 /// <summary>
 /// <see cref="Axis"/> is a named handler for negative <see cref="KeyMapping"/> and positive <see cref="KeyMapping"/>.
 /// </summary>
@@ -10,7 +12,11 @@ public class Axis
     private KeyMapping mPositive;
     private bool       mInverted;
 
+
+
     #region Properties
+
+	#region name
     /// <summary>
     /// Gets the axis name.
     /// </summary>
@@ -22,7 +28,9 @@ public class Axis
             return mName;
         }
     }
+	#endregion
 
+	#region negative
     /// <summary>
     /// Gets or sets the negative KeyMapping. Please note that null value is prohibited.
     /// </summary>
@@ -44,7 +52,9 @@ public class Axis
             mNegative=value;
         }
     }
+	#endregion
 
+	#region positive
     /// <summary>
     /// Gets or sets the positive KeyMapping. Please note that null value is prohibited.
     /// </summary>
@@ -66,7 +76,9 @@ public class Axis
             mPositive=value;
         }
     }
+	#endregion
 
+	#region inverted
     /// <summary>
     /// Gets or sets a value indicating whether this <see cref="Axis"/> is inverted.
     /// </summary>
@@ -85,6 +97,10 @@ public class Axis
     }
     #endregion
 
+	#endregion
+
+
+
     /// <summary>
     /// Create a new instance of <see cref="Axis"/> with specified negative <see cref="KeyMapping"/> and positive <see cref="KeyMapping"/>.
     /// </summary>
@@ -95,6 +111,7 @@ public class Axis
     {
         mName     = name;
         mInverted = false;
+
         set(negative, positive);
     }
 
@@ -115,9 +132,9 @@ public class Axis
     /// <param name="another">Another Axis instance.</param>
     public void set(Axis another)
     {
-        mInverted = another.mInverted;
         mNegative = another.mNegative;
         mPositive = another.mPositive;
+		mInverted = another.mInverted;
     }
 
     /// <summary>
@@ -130,7 +147,6 @@ public class Axis
         mNegative = negative;
         mPositive = positive;
     }
-
 
     /// <summary>
     /// Returns axis value by using negative <see cref="KeyMapping"/> and positive <see cref="KeyMapping"/>.

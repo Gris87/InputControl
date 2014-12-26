@@ -1,6 +1,8 @@
 using UnityEngine;
 using System;
 
+
+
 /// <summary>
 /// <see cref="MouseInput"/> handles mouse input device.
 /// </summary>
@@ -9,7 +11,13 @@ public class MouseInput : CustomInput
     private MouseAxis   mAxis;
     private MouseButton mButton;
 
+	private string      mCachedToString;
+
+
+
     #region Properties
+
+	#region axis
     /// <summary>
     /// Gets the mouse axis.
     /// </summary>
@@ -21,7 +29,9 @@ public class MouseInput : CustomInput
             return mAxis;
         }
     }
+	#endregion
 
+	#region button
     /// <summary>
     /// Gets the mouse button.
     /// </summary>
@@ -34,6 +44,10 @@ public class MouseInput : CustomInput
         }
     }
     #endregion
+
+	#endregion
+
+
 
     /// <summary>
     /// Create a new instance of <see cref="MouseInput"/> that handles specified mouse axis.
@@ -48,6 +62,8 @@ public class MouseInput : CustomInput
 
         mAxis   = axis;
         mButton = MouseButton.None;
+
+		mCachedToString = null;
     }
 
     /// <summary>
@@ -63,6 +79,8 @@ public class MouseInput : CustomInput
 
         mAxis   = MouseAxis.None;
         mButton = button;
+		
+		mCachedToString = null;
     }
 
     /// <summary>
@@ -120,7 +138,11 @@ public class MouseInput : CustomInput
         {
             int button=Convert.ToInt32(value)-1;
 
-            if (button<0 || button>=(int)MouseButton.None)
+            if (
+			    button < 0
+				||
+				button >= (int)MouseButton.None
+               )
             {
                 return null;
             }
@@ -139,6 +161,11 @@ public class MouseInput : CustomInput
     /// <returns>A <see cref="System.String"/> that represents the current <see cref="MouseInput"/>.</returns>
     public override string ToString()
     {
+		if (mCachedToString != null)
+		{
+			return mCachedToString;
+		}
+
         string res="Mouse ";
 
         if (mAxis!=MouseAxis.None)
@@ -146,33 +173,35 @@ public class MouseInput : CustomInput
             switch (mAxis)
             {
                 case MouseAxis.MouseLeft:
-                    res=res+"X (-)";
+                    res += "X (-)";
                 break;
                 case MouseAxis.MouseRight:
-                    res=res+"X (+)";
+                    res += "X (+)";
                 break;
                 case MouseAxis.MouseUp:
-                    res=res+"Y (+)";
+                    res += "Y (+)";
                 break;
                 case MouseAxis.MouseDown:
-                    res=res+"Y (-)";
+                    res += "Y (-)";
                 break;
                 case MouseAxis.WheelUp:
-                    res=res+"Wheel (+)";
+                    res += "Wheel (+)";
                 break;
                 case MouseAxis.WheelDown:
-                    res=res+"Wheel (-)";
+                    res += "Wheel (-)";
                 break;
                 default:
                     Debug.LogError("Unknown axis");
                 break;
             }
         }
-
+		else
         if (mButton!=MouseButton.None)
         {
-            res=res+"Button "+((int)mButton+1).ToString();
+            res += "Button " + ((int)mButton + 1).ToString();
         }
+
+		mCachedToString = res;
 
         return res;
     }
@@ -185,7 +214,11 @@ public class MouseInput : CustomInput
     /// <param name="device">Preferred input device.</param>
     public override float getInput(string axis="", InputDevice device=InputDevice.Any)
     {
-        if (device!=InputDevice.Any && device!=InputDevice.KeyboardAndMouse)
+        if (
+			device != InputDevice.Any
+			&&
+			device != InputDevice.KeyboardAndMouse
+		   )
         {
             return 0;
         }
@@ -208,7 +241,11 @@ public class MouseInput : CustomInput
     /// <param name="device">Preferred input device.</param>
     public override float getInputDown(string axis="", InputDevice device=InputDevice.Any)
     {
-        if (device!=InputDevice.Any && device!=InputDevice.KeyboardAndMouse)
+		if (
+			device != InputDevice.Any
+			&&
+			device != InputDevice.KeyboardAndMouse
+		   )
         {
             return 0;
         }
@@ -231,7 +268,11 @@ public class MouseInput : CustomInput
     /// <param name="device">Preferred input device.</param>
     public override float getInputUp(string axis="", InputDevice device=InputDevice.Any)
     {
-        if (device!=InputDevice.Any && device!=InputDevice.KeyboardAndMouse)
+		if (
+			device != InputDevice.Any
+			&&
+			device != InputDevice.KeyboardAndMouse
+	       )
         {
             return 0;
         }

@@ -8,7 +8,11 @@ public class KeyMapping
     private CustomInput mSecondaryInput;
     private CustomInput mThirdInput;
 
+
+
     #region Properties
+
+	#region name
     /// <summary>
     /// Gets the <see cref="KeyMapping"/> name.
     /// </summary>
@@ -20,7 +24,9 @@ public class KeyMapping
             return mName;
         }
     }
+	#endregion
 
+	#region primaryInput
     /// <summary>
     /// Gets or sets the primary input. Please note that if you set null value it will create KeyboardInput with KeyCode.None
     /// </summary>
@@ -44,7 +50,9 @@ public class KeyMapping
             }
         }
     }
+	#endregion
 
+	#region secondaryInput
     /// <summary>
     /// Gets or sets the secondary input. Please note that if you set null value it will create KeyboardInput with KeyCode.None
     /// </summary>
@@ -68,7 +76,9 @@ public class KeyMapping
             }
         }
     }
+	#endregion
 
+	#region thirdInput
     /// <summary>
     /// Gets or sets the third input. Please note that if you set null value it will create KeyboardInput with KeyCode.None
     /// </summary>
@@ -94,6 +104,10 @@ public class KeyMapping
     }
     #endregion
 
+	#endregion
+
+
+
     /// <summary>
     /// Create a new instance of <see cref="KeyMapping"/> with 3 specified <see cref="CustomInput"/>.
     /// </summary>
@@ -116,6 +130,7 @@ public class KeyMapping
     public KeyMapping(KeyMapping another)
     {
         mName=another.mName;
+
         set(another);
     }
 

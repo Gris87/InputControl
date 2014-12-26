@@ -3,6 +3,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+
+
 /// <summary>
 /// <see cref="InputControl"/> provide interface to the Input system. It's based on <see cref="Input"/> class and allow to change key mappings in runtime.
 /// </summary>
@@ -18,7 +20,7 @@ public static class InputControl
 
     // Smooth for GetAxis
     private static Dictionary<string, float>      mSmoothAxesValues  = new Dictionary<string, float>();
-    private static float                          mSmoothCoefficient = 5f;
+    private static float                          mSmoothCoefficient = 1000f;
 
     // Joystick options
     private static float                          mJoystickThreshold = 0.2f;
@@ -30,9 +32,11 @@ public static class InputControl
     // Common options
     private static InputDevice                    mInputDevice       = InputDevice.Any;
 
+
+
     #region Properties
 
-    #region Axis smooth
+	#region smoothCoefficient
     /// <summary>
     /// Gets or sets the axis smooth coefficient. Smooth coefficient is used in GetAxis method to make the movement a little smoothed as well as in Input.GetAxis
     /// </summary>
@@ -51,9 +55,9 @@ public static class InputControl
                 mSmoothCoefficient=0.0001f;
             }
             else
-            if (value>1f)
+            if (value > 1000f)
             {
-                mSmoothCoefficient=1f;
+                mSmoothCoefficient = 1000f;
             }
             else
             {
@@ -63,7 +67,7 @@ public static class InputControl
     }
     #endregion
 
-    #region Joystick threshold
+	#region joystickThreshold
     /// <summary>
     /// Gets or sets the joystick threshold.
     /// </summary>
@@ -94,7 +98,7 @@ public static class InputControl
     }
     #endregion
 
-    #region Mouse sensitivity
+	#region mouseSensitivity
     /// <summary>
     /// Gets or sets the mouse sensitivity.
     /// </summary>
@@ -120,7 +124,7 @@ public static class InputControl
     }
     #endregion
 
-    #region Invert mouse Y
+	#region invertMouseY
     /// <summary>
     /// Gets or sets a value indicating that mouse Y is inverted.
     /// </summary>
@@ -141,6 +145,8 @@ public static class InputControl
 
     #endregion
 
+
+
     #region Setup keys
 
     #region setKey with different arguments
@@ -151,7 +157,7 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
+    /// <param name="primary">Primary input.</param>
     public static KeyMapping setKey(string name, KeyCode primary)
     {
         return setKey(name, argToInput(primary));
@@ -162,7 +168,7 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
+    /// <param name="primary">Primary input.</param>
     public static KeyMapping setKey(string name, MouseAxis primary)
     {
         return setKey(name, argToInput(primary));
@@ -173,7 +179,7 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
+    /// <param name="primary">Primary input.</param>
     public static KeyMapping setKey(string name, MouseButton primary)
     {
         return setKey(name, argToInput(primary));
@@ -190,8 +196,8 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
     public static KeyMapping setKey(string name, CustomInput primary, KeyCode secondary)
     {
         return setKey(name, argToInput(primary), argToInput(secondary));
@@ -202,8 +208,8 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
     public static KeyMapping setKey(string name, CustomInput primary, MouseAxis secondary)
     {
         return setKey(name, argToInput(primary), argToInput(secondary));
@@ -214,8 +220,8 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
     public static KeyMapping setKey(string name, CustomInput primary, MouseButton secondary)
     {
         return setKey(name, argToInput(primary), argToInput(secondary));
@@ -230,8 +236,8 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
     public static KeyMapping setKey(string name, KeyCode primary, CustomInput secondary)
     {
         return setKey(name, argToInput(primary), argToInput(secondary));
@@ -242,8 +248,8 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
     public static KeyMapping setKey(string name, KeyCode primary, KeyCode secondary)
     {
         return setKey(name, argToInput(primary), argToInput(secondary));
@@ -254,8 +260,8 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
     public static KeyMapping setKey(string name, KeyCode primary, MouseAxis secondary)
     {
         return setKey(name, argToInput(primary), argToInput(secondary));
@@ -266,8 +272,8 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
     public static KeyMapping setKey(string name, KeyCode primary, MouseButton secondary)
     {
         return setKey(name, argToInput(primary), argToInput(secondary));
@@ -282,8 +288,8 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
     public static KeyMapping setKey(string name, MouseAxis primary, CustomInput secondary)
     {
         return setKey(name, argToInput(primary), argToInput(secondary));
@@ -294,8 +300,8 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
     public static KeyMapping setKey(string name, MouseAxis primary, KeyCode secondary)
     {
         return setKey(name, argToInput(primary), argToInput(secondary));
@@ -306,8 +312,8 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
     public static KeyMapping setKey(string name, MouseAxis primary, MouseAxis secondary)
     {
         return setKey(name, argToInput(primary), argToInput(secondary));
@@ -318,8 +324,8 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
     public static KeyMapping setKey(string name, MouseAxis primary, MouseButton secondary)
     {
         return setKey(name, argToInput(primary), argToInput(secondary));
@@ -334,8 +340,8 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
     public static KeyMapping setKey(string name, MouseButton primary, CustomInput secondary)
     {
         return setKey(name, argToInput(primary), argToInput(secondary));
@@ -346,8 +352,8 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
     public static KeyMapping setKey(string name, MouseButton primary, KeyCode secondary)
     {
         return setKey(name, argToInput(primary), argToInput(secondary));
@@ -358,8 +364,8 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
     public static KeyMapping setKey(string name, MouseButton primary, MouseAxis secondary)
     {
         return setKey(name, argToInput(primary), argToInput(secondary));
@@ -370,8 +376,8 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
     public static KeyMapping setKey(string name, MouseButton primary, MouseButton secondary)
     {
         return setKey(name, argToInput(primary), argToInput(secondary));
@@ -392,9 +398,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, CustomInput primary, CustomInput secondary, KeyCode third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -405,9 +411,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, CustomInput primary, CustomInput secondary, MouseAxis third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -418,9 +424,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, CustomInput primary, CustomInput secondary, MouseButton third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -435,9 +441,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, CustomInput primary, KeyCode secondary, CustomInput third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -448,9 +454,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, CustomInput primary, KeyCode secondary, KeyCode third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -461,9 +467,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, CustomInput primary, KeyCode secondary, MouseAxis third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -474,9 +480,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, CustomInput primary, KeyCode secondary, MouseButton third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -491,9 +497,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, CustomInput primary, MouseAxis secondary, CustomInput third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -504,9 +510,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, CustomInput primary, MouseAxis secondary, KeyCode third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -517,9 +523,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, CustomInput primary, MouseAxis secondary, MouseAxis third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -530,9 +536,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, CustomInput primary, MouseAxis secondary, MouseButton third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -547,9 +553,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, CustomInput primary, MouseButton secondary, CustomInput third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -560,9 +566,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, CustomInput primary, MouseButton secondary, KeyCode third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -573,9 +579,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, CustomInput primary, MouseButton secondary, MouseAxis third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -586,9 +592,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, CustomInput primary, MouseButton secondary, MouseButton third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -607,9 +613,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, KeyCode primary, CustomInput secondary, CustomInput third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -620,9 +626,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, KeyCode primary, CustomInput secondary, KeyCode third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -633,9 +639,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, KeyCode primary, CustomInput secondary, MouseAxis third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -646,9 +652,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, KeyCode primary, CustomInput secondary, MouseButton third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -663,9 +669,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, KeyCode primary, KeyCode secondary, CustomInput third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -676,9 +682,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, KeyCode primary, KeyCode secondary, KeyCode third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -689,9 +695,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, KeyCode primary, KeyCode secondary, MouseAxis third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -702,9 +708,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, KeyCode primary, KeyCode secondary, MouseButton third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -719,9 +725,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, KeyCode primary, MouseAxis secondary, CustomInput third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -732,9 +738,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, KeyCode primary, MouseAxis secondary, KeyCode third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -745,9 +751,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, KeyCode primary, MouseAxis secondary, MouseAxis third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -758,9 +764,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, KeyCode primary, MouseAxis secondary, MouseButton third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -775,9 +781,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, KeyCode primary, MouseButton secondary, CustomInput third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -788,9 +794,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, KeyCode primary, MouseButton secondary, KeyCode third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -801,9 +807,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, KeyCode primary, MouseButton secondary, MouseAxis third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -814,9 +820,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, KeyCode primary, MouseButton secondary, MouseButton third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -835,9 +841,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, MouseAxis primary, CustomInput secondary, CustomInput third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -848,9 +854,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, MouseAxis primary, CustomInput secondary, KeyCode third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -861,9 +867,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, MouseAxis primary, CustomInput secondary, MouseAxis third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -874,9 +880,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, MouseAxis primary, CustomInput secondary, MouseButton third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -891,9 +897,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, MouseAxis primary, KeyCode secondary, CustomInput third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -904,9 +910,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, MouseAxis primary, KeyCode secondary, KeyCode third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -917,9 +923,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, MouseAxis primary, KeyCode secondary, MouseAxis third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -930,9 +936,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, MouseAxis primary, KeyCode secondary, MouseButton third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -947,9 +953,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, MouseAxis primary, MouseAxis secondary, CustomInput third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -960,9 +966,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, MouseAxis primary, MouseAxis secondary, KeyCode third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -973,9 +979,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, MouseAxis primary, MouseAxis secondary, MouseAxis third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -986,9 +992,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, MouseAxis primary, MouseAxis secondary, MouseButton third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -1003,9 +1009,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, MouseAxis primary, MouseButton secondary, CustomInput third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -1016,9 +1022,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, MouseAxis primary, MouseButton secondary, KeyCode third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -1029,9 +1035,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, MouseAxis primary, MouseButton secondary, MouseAxis third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -1042,9 +1048,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, MouseAxis primary, MouseButton secondary, MouseButton third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -1063,9 +1069,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, MouseButton primary, CustomInput secondary, CustomInput third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -1076,9 +1082,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, MouseButton primary, CustomInput secondary, KeyCode third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -1089,9 +1095,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, MouseButton primary, CustomInput secondary, MouseAxis third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -1102,9 +1108,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, MouseButton primary, CustomInput secondary, MouseButton third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -1119,9 +1125,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, MouseButton primary, KeyCode secondary, CustomInput third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -1132,9 +1138,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, MouseButton primary, KeyCode secondary, KeyCode third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -1145,9 +1151,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, MouseButton primary, KeyCode secondary, MouseAxis third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -1158,9 +1164,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, MouseButton primary, KeyCode secondary, MouseButton third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -1175,9 +1181,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, MouseButton primary, MouseAxis secondary, CustomInput third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -1188,9 +1194,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, MouseButton primary, MouseAxis secondary, KeyCode third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -1201,9 +1207,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, MouseButton primary, MouseAxis secondary, MouseAxis third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -1214,9 +1220,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, MouseButton primary, MouseAxis secondary, MouseButton third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -1231,9 +1237,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, MouseButton primary, MouseButton secondary, CustomInput third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -1244,9 +1250,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, MouseButton primary, MouseButton secondary, KeyCode third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -1257,9 +1263,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, MouseButton primary, MouseButton secondary, MouseAxis third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -1270,9 +1276,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, MouseButton primary, MouseButton secondary, MouseButton third)
     {
         return setKey(name, argToInput(primary), argToInput(secondary), argToInput(third));
@@ -1334,9 +1340,9 @@ public static class InputControl
     /// </summary>
     /// <returns>Created KeyMapping.</returns>
     /// <param name="name">KeyMapping name.</param>
-    /// <param name="primary">Primary imput.</param>
-    /// <param name="secondary">Secondary imput.</param>
-    /// <param name="third">Third imput.</param>
+    /// <param name="primary">Primary input.</param>
+    /// <param name="secondary">Secondary input.</param>
+    /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, CustomInput primary=null, CustomInput secondary=null, CustomInput third=null)
     {
         KeyMapping outKey=null;
@@ -1368,10 +1374,19 @@ public static class InputControl
 
         if (mKeysMap.TryGetValue(name, out outKey))
         {
-            mKeysList.Remove(outKey);
-            mKeysMap.Remove (name);
+			removeKey(outKey);
         }
     }
+
+    /// <summary>
+	/// Removes specified <see cref="KeyMapping"/>.
+	/// </summary>
+	/// <param name="key">KeyMapping instance.</param>
+	public static void removeKey(KeyMapping key)
+	{
+		mKeysList.Remove(key);
+		mKeysMap.Remove (key.name);
+	}
 
     /// <summary>
     /// Gets <see cref="KeyMapping"/> by name.
@@ -1414,13 +1429,15 @@ public static class InputControl
 
         if (!mKeysMap.TryGetValue(negative, out negativeKey))
         {
-            Debug.LogError("Negative key "+negative+" not found for axis "+name);
+            Debug.LogError("Negative key \"" + negative + "\" not found for axis " + name);
+
             return null;
         }
 
         if (!mKeysMap.TryGetValue(positive, out positiveKey))
         {
-            Debug.LogError("Positive key "+positive+" not found for axis "+name);
+            Debug.LogError("Positive key \"" + positive + "\" not found for axis " + name);
+
             return null;
         }
 
@@ -1463,9 +1480,18 @@ public static class InputControl
 
         if (mAxesMap.TryGetValue(name, out outAxis))
         {
-            mAxesList.Remove(outAxis);
-            mAxesMap.Remove (name);
+			removeAxis(outAxis);
         }
+        }
+
+	/// <summary>
+	/// Removes specified <see cref="Axis"/>.
+	/// </summary>
+	/// <param name="axis">Axis instance.</param>
+	public static void removeAxis(Axis axis)
+	{
+		mAxesList.Remove(axis);
+		mAxesMap.Remove (axis.name);
     }
 
     /// <summary>
@@ -1619,7 +1645,7 @@ public static class InputControl
             String target="Joystick "+i.ToString()+" ";
 
             #region Axes
-            for (int j=1; j<=((int)JoystickAxis.None-1)/2; ++j)
+            for (int j = 1; j <= (int)JoystickAxis.None / 2; ++j) // TODO: Check it
             {
                 float joyAxis=Input.GetAxis(target+"Axis "+j.ToString());
 
@@ -1784,7 +1810,7 @@ public static class InputControl
     /// <param name="axisName">Axis name.</param>
     public static float GetAxisRaw(string axisName)
     {
-        float sensitivity=1;
+        float sensitivity = 1f;
 
         #region Standard axes
         if (axisName.Equals("Mouse X"))
@@ -1809,7 +1835,13 @@ public static class InputControl
 
         if (!mAxesMap.TryGetValue(axisName, out outAxis))
         {
-            if (!axisName.Equals("Mouse X") && !axisName.Equals("Mouse Y") && !axisName.Equals("Mouse ScrollWheel"))
+            if (
+				!axisName.Equals("Mouse X")
+				&&
+				!axisName.Equals("Mouse Y")
+				&&
+				!axisName.Equals("Mouse ScrollWheel")
+			   )
             {
                 Debug.LogError("Axis "+axisName+" not found. Using InputManager axis");
             }
@@ -1839,6 +1871,16 @@ public static class InputControl
     }
 
     /// <summary>
+	/// Returns true while the virtual button is held down.
+	/// </summary>
+	/// <returns><c>true</c>, if button is held down, <c>false</c> otherwise.</returns>
+	/// <param name="button">KeyMapping instance.</param>
+	public static bool GetButton(KeyMapping button)
+	{		
+		return button.isPressed(mInputDevice);
+	}
+
+    /// <summary>
     /// Returns true during the frame the user pressed down the virtual button identified by buttonName.
     /// </summary>
     /// <returns><c>true</c>, if user pressed down the button during the frame, <c>false</c> otherwise.</returns>
@@ -1857,6 +1899,16 @@ public static class InputControl
     }
 
     /// <summary>
+	/// Returns true during the frame the user pressed down the virtual button.
+	/// </summary>
+	/// <returns><c>true</c>, if user pressed down the button during the frame, <c>false</c> otherwise.</returns>
+	/// <param name="button">KeyMapping instance.</param>
+	public static bool GetButtonDown(KeyMapping button)
+	{		
+		return button.isPressedDown(mInputDevice);
+	}
+
+    /// <summary>
     /// Returns true the first frame the user releases the virtual button identified by buttonName.
     /// </summary>
     /// <returns><c>true</c>, if user releases the button during the frame, <c>false</c> otherwise.</returns>
@@ -1873,6 +1925,16 @@ public static class InputControl
 
         return outKey.isPressedUp(mInputDevice);
     }
+
+    /// <summary>
+	/// Returns true the first frame the user releases the virtual button.
+	/// </summary>
+	/// <returns><c>true</c>, if user releases the button during the frame, <c>false</c> otherwise.</returns>
+	//// <param name="button">KeyMapping instance.</param>
+	public static bool GetButtonUp(KeyMapping button)
+	{		
+		return button.isPressedUp(mInputDevice);
+	}
 
     /// <summary>
     /// Gets the count of connected joysticks.
@@ -2223,4 +2285,16 @@ public static class InputControl
             return Input.touches;
         }
     }
+
+	/// <summary>
+	/// Returns whether the device on which application is currently running supports touch input.
+	/// </summary>
+	/// <value><c>true</c> if touch supported; otherwise, <c>false</c>.</value>
+	public static bool touchSupported
+	{
+		get
+		{
+			return Input.touchSupported;
+		}
+	}
 }

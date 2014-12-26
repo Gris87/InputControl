@@ -21,8 +21,11 @@ echo.
 
 mkdir out
 
-echo Windows
-%UNITY% -batchmode -projectPath %CD% -buildWindowsPlayer out\Windows\%APP_NAME%.exe -quit
+echo Windows x86
+%UNITY% -batchmode -projectPath %CD% -buildWindowsPlayer out\Windows32\%APP_NAME%.exe -quit
+
+echo Windows x64
+%UNITY% -batchmode -projectPath %CD% -buildWindows64Player out\Windows64\%APP_NAME%.exe -quit
 
 echo Linux x86
 %UNITY% -batchmode -projectPath %CD% -buildLinux32Player out\Linux32\%APP_NAME%.run -quit
@@ -30,9 +33,13 @@ echo Linux x86
 echo Linux x64
 %UNITY% -batchmode -projectPath %CD% -buildLinux64Player out\Linux64\%APP_NAME%.run -quit
 
-echo Mac
-mkdir out\Mac
-%UNITY% -batchmode -projectPath %CD% -buildOSXPlayer out\Mac\%APP_NAME%.app -quit
+echo Mac OSX x86
+mkdir out\MacOSX32
+%UNITY% -batchmode -projectPath %CD% -buildOSXPlayer out\MacOSX32\%APP_NAME%.app -quit
+
+echo Mac OSX x64
+mkdir out\MacOSX64
+%UNITY% -batchmode -projectPath %CD% -buildOSX64Player out\MacOSX64\%APP_NAME%.app -quit
 
 echo Web
 %UNITY% -batchmode -projectPath %CD% -buildWebPlayer out\Web\%APP_NAME% -quit

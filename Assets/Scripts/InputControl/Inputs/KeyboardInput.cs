@@ -1,6 +1,8 @@
 using UnityEngine;
 using System;
 
+
+
 /// <summary>
 /// <see cref="KeyboardInput"/> handles keyboard input device.
 /// </summary>
@@ -8,7 +10,11 @@ public class KeyboardInput : CustomInput
 {
     private KeyCode mKey;
 
+
+
     #region Properties
+
+	#region key
     /// <summary>
     /// Gets the keyboard key.
     /// </summary>
@@ -21,6 +27,10 @@ public class KeyboardInput : CustomInput
         }
     }
     #endregion
+
+	#endregion
+
+
 
     /// <summary>
     /// Create a new instance of <see cref="KeyboardInput"/> that handles specified keyboard key.
@@ -66,7 +76,11 @@ public class KeyboardInput : CustomInput
     /// <param name="device">Preferred input device.</param>
     public override float getInput(string axis="", InputDevice device=InputDevice.Any)
     {
-        if (device!=InputDevice.Any && device!=InputDevice.KeyboardAndMouse)
+        if (
+			device != InputDevice.Any
+			&&
+			device != InputDevice.KeyboardAndMouse
+		   )
         {
             return 0;
         }
@@ -97,7 +111,11 @@ public class KeyboardInput : CustomInput
     /// <param name="device">Preferred input device.</param>
     public override float getInputDown(string axis="", InputDevice device=InputDevice.Any)
     {
-        if (device!=InputDevice.Any && device!=InputDevice.KeyboardAndMouse)
+		if (
+			device != InputDevice.Any
+			&&
+			device != InputDevice.KeyboardAndMouse
+		   )
         {
             return 0;
         }
@@ -128,7 +146,11 @@ public class KeyboardInput : CustomInput
     /// <param name="device">Preferred input device.</param>
     public override float getInputUp(string axis="", InputDevice device=InputDevice.Any)
     {
-        if (device!=InputDevice.Any && device!=InputDevice.KeyboardAndMouse)
+		if (
+			device != InputDevice.Any
+			&&
+			device != InputDevice.KeyboardAndMouse
+		   )
         {
             return 0;
         }
