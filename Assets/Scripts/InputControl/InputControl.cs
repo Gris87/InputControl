@@ -36,7 +36,7 @@ public static class InputControl
 
     #region Properties
 
-	#region smoothCoefficient
+    #region smoothCoefficient
     /// <summary>
     /// Gets or sets the axis smooth coefficient. Smooth coefficient is used in GetAxis method to make the movement a little smoothed as well as in Input.GetAxis
     /// </summary>
@@ -50,9 +50,9 @@ public static class InputControl
 
         set
         {
-            if (value<0.0001f)
+            if (value < 0.0001f)
             {
-                mSmoothCoefficient=0.0001f;
+                mSmoothCoefficient = 0.0001f;
             }
             else
             if (value > 1000f)
@@ -61,13 +61,13 @@ public static class InputControl
             }
             else
             {
-                mSmoothCoefficient=value;
+                mSmoothCoefficient = value;
             }
         }
     }
     #endregion
 
-	#region joystickThreshold
+    #region joystickThreshold
     /// <summary>
     /// Gets or sets the joystick threshold.
     /// </summary>
@@ -81,24 +81,24 @@ public static class InputControl
 
         set
         {
-            if (value<0f)
+            if (value < 0f)
             {
-                mJoystickThreshold=0f;
+                mJoystickThreshold = 0f;
             }
             else
-            if (value>1f)
+            if (value > 1f)
             {
-                mJoystickThreshold=1f;
+                mJoystickThreshold = 1f;
             }
             else
             {
-                mJoystickThreshold=value;
+                mJoystickThreshold = value;
             }
         }
     }
     #endregion
 
-	#region mouseSensitivity
+    #region mouseSensitivity
     /// <summary>
     /// Gets or sets the mouse sensitivity.
     /// </summary>
@@ -114,17 +114,17 @@ public static class InputControl
         {
             if (value<0f)
             {
-                mMouseSensitivity=0f;
+                mMouseSensitivity = 0f;
             }
             else
             {
-                mMouseSensitivity=value;
+                mMouseSensitivity = value;
             }
         }
     }
     #endregion
 
-	#region invertMouseY
+    #region invertMouseY
     /// <summary>
     /// Gets or sets a value indicating that mouse Y is inverted.
     /// </summary>
@@ -138,7 +138,7 @@ public static class InputControl
 
         set
         {
-            mInvertMouseY=value;
+            mInvertMouseY = value;
         }
     }
     #endregion
@@ -1345,7 +1345,7 @@ public static class InputControl
     /// <param name="third">Third input.</param>
     public static KeyMapping setKey(string name, CustomInput primary=null, CustomInput secondary=null, CustomInput third=null)
     {
-        KeyMapping outKey=null;
+        KeyMapping outKey = null;
 
         if (mKeysMap.TryGetValue(name, out outKey))
         {
@@ -1355,7 +1355,7 @@ public static class InputControl
         }
         else
         {
-            outKey=new KeyMapping(name, primary, secondary, third);
+            outKey = new KeyMapping(name, primary, secondary, third);
 
             mKeysList.Add(outKey);
             mKeysMap.Add (name, outKey);
@@ -1370,23 +1370,23 @@ public static class InputControl
     /// <param name="name">KeyMapping name.</param>
     public static void removeKey(string name)
     {
-        KeyMapping outKey=null;
+        KeyMapping outKey = null;
 
         if (mKeysMap.TryGetValue(name, out outKey))
         {
-			removeKey(outKey);
+            removeKey(outKey);
         }
     }
 
     /// <summary>
-	/// Removes specified <see cref="KeyMapping"/>.
-	/// </summary>
-	/// <param name="key">KeyMapping instance.</param>
-	public static void removeKey(KeyMapping key)
-	{
-		mKeysList.Remove(key);
-		mKeysMap.Remove (key.name);
-	}
+    /// Removes specified <see cref="KeyMapping"/>.
+    /// </summary>
+    /// <param name="key">KeyMapping instance.</param>
+    public static void removeKey(KeyMapping key)
+    {
+        mKeysList.Remove(key);
+        mKeysMap.Remove (key.name);
+    }
 
     /// <summary>
     /// Gets <see cref="KeyMapping"/> by name.
@@ -1394,7 +1394,7 @@ public static class InputControl
     /// <param name="name">KeyMapping name.</param>
     public static KeyMapping key(string name)
     {
-        KeyMapping outKey=null;
+        KeyMapping outKey = null;
 
         if (mKeysMap.TryGetValue(name, out outKey))
         {
@@ -1424,8 +1424,8 @@ public static class InputControl
     /// <param name="positive">Name of positive KeyMapping.</param>
     public static Axis setAxis(string name, string negative, string positive)
     {
-        KeyMapping negativeKey=null;
-        KeyMapping positiveKey=null;
+        KeyMapping negativeKey = null;
+        KeyMapping positiveKey = null;
 
         if (!mKeysMap.TryGetValue(negative, out negativeKey))
         {
@@ -1453,7 +1453,7 @@ public static class InputControl
     /// <param name="positive">Positive KeyMapping.</param>
     public static Axis setAxis(string name, KeyMapping negative, KeyMapping positive)
     {
-        Axis outAxis=null;
+        Axis outAxis = null;
 
         if (mAxesMap.TryGetValue(name, out outAxis))
         {
@@ -1461,7 +1461,7 @@ public static class InputControl
         }
         else
         {
-            outAxis=new Axis(name, negative, positive);
+            outAxis = new Axis(name, negative, positive);
 
             mAxesList.Add(outAxis);
             mAxesMap.Add (name, outAxis);
@@ -1480,18 +1480,18 @@ public static class InputControl
 
         if (mAxesMap.TryGetValue(name, out outAxis))
         {
-			removeAxis(outAxis);
+            removeAxis(outAxis);
         }
-        }
+    }
 
-	/// <summary>
-	/// Removes specified <see cref="Axis"/>.
-	/// </summary>
-	/// <param name="axis">Axis instance.</param>
-	public static void removeAxis(Axis axis)
-	{
-		mAxesList.Remove(axis);
-		mAxesMap.Remove (axis.name);
+    /// <summary>
+    /// Removes specified <see cref="Axis"/>.
+    /// </summary>
+    /// <param name="axis">Axis instance.</param>
+    public static void removeAxis(Axis axis)
+    {
+        mAxesList.Remove(axis);
+        mAxesMap.Remove (axis.name);
     }
 
     /// <summary>
@@ -1638,33 +1638,31 @@ public static class InputControl
     public static CustomInput currentInput(bool ignoreMouseMovement=true)
     {
         #region Joystick
-        int joystickMax=Enum.GetValues(typeof(Joystick)).Length-1;
-
-        for (int i=(int)Joystick.Joystick1; i<=joystickMax; ++i)
+        for (int i = (int)Joystick.Joystick1; i < (int)Joystick.None; ++i)
         {
-            String target="Joystick "+i.ToString()+" ";
+            String target = "Joystick "+i.ToString()+" ";
 
             #region Axes
             for (int j = 1; j <= (int)JoystickAxis.None / 2; ++j) // TODO: Check it
             {
-                float joyAxis=Input.GetAxis(target+"Axis "+j.ToString());
+                float joyAxis = Input.GetAxis(target + "Axis " + j.ToString());
 
-                if (joyAxis<-mJoystickThreshold)
+                if (joyAxis < -mJoystickThreshold)
                 {
-                    return new JoystickInput((JoystickAxis)((j-1)*2+1), (Joystick)i);
+                    return new JoystickInput((JoystickAxis)((j - 1) * 2 + 1), (Joystick)i);
                 }
 
-                if (joyAxis>mJoystickThreshold)
+                if (joyAxis > mJoystickThreshold)
                 {
-                    return new JoystickInput((JoystickAxis)((j-1)*2),   (Joystick)i);
+                    return new JoystickInput((JoystickAxis)((j - 1) * 2),     (Joystick)i);
                 }
             }
             #endregion
 
             #region Buttons
-            for (int j=0; j<(int)JoystickButton.None; ++j)
+            for (int j = 0; j < (int)JoystickButton.None; ++j)
             {
-                if (Input.GetButton(target+"Button "+(j+1).ToString()))
+                if (Input.GetButton(target + "Button " + (j + 1).ToString()))
                 {
                     return new JoystickInput((JoystickButton)j, (Joystick)i);
                 }
@@ -1678,14 +1676,14 @@ public static class InputControl
         #region Axes
 
         #region ScrollWheel
-        float mouseAxis=Input.GetAxis("Mouse ScrollWheel");
+        float mouseAxis = Input.GetAxis("Mouse ScrollWheel");
 
-        if (mouseAxis<0)
+        if (mouseAxis < 0)
         {
             return new MouseInput(MouseAxis.WheelDown);
         }
 
-        if (mouseAxis>0)
+        if (mouseAxis > 0)
         {
             return new MouseInput(MouseAxis.WheelUp);
         }
@@ -1694,28 +1692,28 @@ public static class InputControl
         if (!ignoreMouseMovement)
         {
             #region X
-            mouseAxis=Input.GetAxis("Mouse X");
+            mouseAxis = Input.GetAxis("Mouse X");
 
-            if (mouseAxis<0)
+            if (mouseAxis < 0)
             {
                 return new MouseInput(MouseAxis.MouseLeft);
             }
 
-            if (mouseAxis>0)
+            if (mouseAxis > 0)
             {
                 return new MouseInput(MouseAxis.MouseRight);
             }
             #endregion
 
             #region Y
-            mouseAxis=Input.GetAxis("Mouse Y");
+            mouseAxis = Input.GetAxis("Mouse Y");
 
-            if (mouseAxis<0)
+            if (mouseAxis < 0)
             {
                 return new MouseInput(MouseAxis.MouseDown);
             }
 
-            if (mouseAxis>0)
+            if (mouseAxis > 0)
             {
                 return new MouseInput(MouseAxis.MouseUp);
             }
@@ -1724,9 +1722,9 @@ public static class InputControl
         #endregion
 
         #region Buttons
-        for (int i=0; i<(int)MouseButton.None; ++i)
+        for (int i = 0; i < (int)MouseButton.None; ++i)
         {
-            KeyCode key=(KeyCode)((int)KeyCode.Mouse0+i);
+            KeyCode key = (KeyCode)((int)KeyCode.Mouse0 + i);
 
             if (Input.GetKey(key))
             {
@@ -1740,7 +1738,7 @@ public static class InputControl
         #region Keyboard
         foreach (var value in Enum.GetValues(typeof(KeyCode)))
         {
-            KeyCode key=(KeyCode)value;
+            KeyCode key = (KeyCode)value;
 
             if (Input.GetKey(key))
             {
@@ -1785,20 +1783,20 @@ public static class InputControl
 
         if (!mSmoothAxesValues.TryGetValue(axisName, out previousValue))
         {
-            previousValue=0f;
+            previousValue = 0f;
         }
 
-        float totalCoefficient=mSmoothCoefficient*Time.deltaTime;
+        float totalCoefficient = mSmoothCoefficient * Time.deltaTime;
 
-        if (totalCoefficient>1)
+        if (totalCoefficient > 1)
         {
-            totalCoefficient=1;
+            totalCoefficient = 1;
         }
 
         float newValue = GetAxisRaw(axisName);
-        float res      = previousValue+(newValue-previousValue)*totalCoefficient;
+        float res      = previousValue + (newValue - previousValue) * totalCoefficient;
 
-        mSmoothAxesValues[axisName]=res;
+        mSmoothAxesValues[axisName] = res;
 
         return res;
     }
@@ -1815,42 +1813,44 @@ public static class InputControl
         #region Standard axes
         if (axisName.Equals("Mouse X"))
         {
-            sensitivity=mMouseSensitivity;
+            sensitivity = mMouseSensitivity;
         }
         else
         if (axisName.Equals("Mouse Y"))
         {
             if (mInvertMouseY)
             {
-                sensitivity=-mMouseSensitivity;
+                sensitivity = -mMouseSensitivity;
             }
             else
             {
-                sensitivity=mMouseSensitivity;
+                sensitivity = mMouseSensitivity;
             }
         }
         #endregion
 
-        Axis outAxis=null;
+        Axis outAxis = null;
 
         if (!mAxesMap.TryGetValue(axisName, out outAxis))
         {
             if (
-				!axisName.Equals("Mouse X")
-				&&
-				!axisName.Equals("Mouse Y")
-				&&
-				!axisName.Equals("Mouse ScrollWheel")
-			   )
+                !axisName.Equals("Mouse X")
+                &&
+                !axisName.Equals("Mouse Y")
+                &&
+                !axisName.Equals("Mouse ScrollWheel")
+               )
             {
-                Debug.LogError("Axis "+axisName+" not found. Using InputManager axis");
+                Debug.LogError("Axis " + axisName + " not found. Using InputManager axis");
             }
 
-            return Input.GetAxisRaw(axisName)*sensitivity;
+            return Input.GetAxisRaw(axisName) * sensitivity;
         }
 
-        return outAxis.getValue(mInputDevice)*sensitivity;
+        return outAxis.getValue(mInputDevice) * sensitivity;
     }
+
+    // TODO: GetAxis for Axis
 
     /// <summary>
     /// Returns true while the virtual button identified by buttonName is held down.
@@ -1859,11 +1859,11 @@ public static class InputControl
     /// <param name="buttonName">Button name.</param>
     public static bool GetButton(string buttonName)
     {
-        KeyMapping outKey=null;
+        KeyMapping outKey = null;
 
         if (!mKeysMap.TryGetValue(buttonName, out outKey))
         {
-            Debug.LogError("Key "+buttonName+" not found");
+            Debug.LogError("Key " + buttonName + " not found");
             return false;
         }
 
@@ -1871,14 +1871,14 @@ public static class InputControl
     }
 
     /// <summary>
-	/// Returns true while the virtual button is held down.
-	/// </summary>
-	/// <returns><c>true</c>, if button is held down, <c>false</c> otherwise.</returns>
-	/// <param name="button">KeyMapping instance.</param>
-	public static bool GetButton(KeyMapping button)
-	{		
-		return button.isPressed(mInputDevice);
-	}
+    /// Returns true while the virtual button is held down.
+    /// </summary>
+    /// <returns><c>true</c>, if button is held down, <c>false</c> otherwise.</returns>
+    /// <param name="button">KeyMapping instance.</param>
+    public static bool GetButton(KeyMapping button)
+    {
+        return button.isPressed(mInputDevice);
+    }
 
     /// <summary>
     /// Returns true during the frame the user pressed down the virtual button identified by buttonName.
@@ -1887,11 +1887,11 @@ public static class InputControl
     /// <param name="buttonName">Button name.</param>
     public static bool GetButtonDown(string buttonName)
     {
-        KeyMapping outKey=null;
+        KeyMapping outKey = null;
 
         if (!mKeysMap.TryGetValue(buttonName, out outKey))
         {
-            Debug.LogError("Key "+buttonName+" not found");
+            Debug.LogError("Key " + buttonName + " not found");
             return false;
         }
 
@@ -1899,14 +1899,14 @@ public static class InputControl
     }
 
     /// <summary>
-	/// Returns true during the frame the user pressed down the virtual button.
-	/// </summary>
-	/// <returns><c>true</c>, if user pressed down the button during the frame, <c>false</c> otherwise.</returns>
-	/// <param name="button">KeyMapping instance.</param>
-	public static bool GetButtonDown(KeyMapping button)
-	{		
-		return button.isPressedDown(mInputDevice);
-	}
+    /// Returns true during the frame the user pressed down the virtual button.
+    /// </summary>
+    /// <returns><c>true</c>, if user pressed down the button during the frame, <c>false</c> otherwise.</returns>
+    /// <param name="button">KeyMapping instance.</param>
+    public static bool GetButtonDown(KeyMapping button)
+    {
+        return button.isPressedDown(mInputDevice);
+    }
 
     /// <summary>
     /// Returns true the first frame the user releases the virtual button identified by buttonName.
@@ -1915,11 +1915,11 @@ public static class InputControl
     /// <param name="buttonName">Button name.</param>
     public static bool GetButtonUp(string buttonName)
     {
-        KeyMapping outKey=null;
+        KeyMapping outKey = null;
 
         if (!mKeysMap.TryGetValue(buttonName, out outKey))
         {
-            Debug.LogError("Key "+buttonName+" not found");
+            Debug.LogError("Key " + buttonName + " not found");
             return false;
         }
 
@@ -1927,14 +1927,14 @@ public static class InputControl
     }
 
     /// <summary>
-	/// Returns true the first frame the user releases the virtual button.
-	/// </summary>
-	/// <returns><c>true</c>, if user releases the button during the frame, <c>false</c> otherwise.</returns>
-	//// <param name="button">KeyMapping instance.</param>
-	public static bool GetButtonUp(KeyMapping button)
-	{		
-		return button.isPressedUp(mInputDevice);
-	}
+    /// Returns true the first frame the user releases the virtual button.
+    /// </summary>
+    /// <returns><c>true</c>, if user releases the button during the frame, <c>false</c> otherwise.</returns>
+    //// <param name="button">KeyMapping instance.</param>
+    public static bool GetButtonUp(KeyMapping button)
+    {
+        return button.isPressedUp(mInputDevice);
+    }
 
     /// <summary>
     /// Gets the count of connected joysticks.
@@ -2021,7 +2021,7 @@ public static class InputControl
     /// <param name="button">Mouse button.</param>
     public static bool GetMouseButton(int button)
     {
-        if (button>=0 && button<(int)MouseButton.None)
+        if (button >= 0 && button < (int)MouseButton.None)
         {
             return GetMouseButton((MouseButton)button);
         }
@@ -2036,7 +2036,7 @@ public static class InputControl
     /// <param name="button">Mouse button.</param>
     public static bool GetMouseButton(MouseButton button)
     {
-        if (button!=MouseButton.None)
+        if (button != MouseButton.None)
         {
             return Input.GetKey((KeyCode)((int)KeyCode.Mouse0 + (int)button));
         }
@@ -2051,7 +2051,7 @@ public static class InputControl
     /// <param name="button">Mouse button.</param>
     public static bool GetMouseButtonDown(int button)
     {
-        if (button>=0 && button<(int)MouseButton.None)
+        if (button >= 0 && button < (int)MouseButton.None)
         {
             return GetMouseButtonDown((MouseButton)button);
         }
@@ -2066,7 +2066,7 @@ public static class InputControl
     /// <param name="button">Mouse button.</param>
     public static bool GetMouseButtonDown(MouseButton button)
     {
-        if (button!=MouseButton.None)
+        if (button != MouseButton.None)
         {
             return Input.GetKeyDown((KeyCode)((int)KeyCode.Mouse0 + (int)button));
         }
@@ -2081,7 +2081,7 @@ public static class InputControl
     /// <param name="button">Mouse button.</param>
     public static bool GetMouseButtonUp(int button)
     {
-        if (button>=0 && button<(int)MouseButton.None)
+        if (button >= 0 && button < (int)MouseButton.None)
         {
             return GetMouseButtonUp((MouseButton)button);
         }
@@ -2096,7 +2096,7 @@ public static class InputControl
     /// <param name="button">Mouse button.</param>
     public static bool GetMouseButtonUp(MouseButton button)
     {
-        if (button!=MouseButton.None)
+        if (button != MouseButton.None)
         {
             return Input.GetKeyUp((KeyCode)((int)KeyCode.Mouse0 + (int)button));
         }
@@ -2216,7 +2216,7 @@ public static class InputControl
 
         set
         {
-            Input.multiTouchEnabled=value;
+            Input.multiTouchEnabled = value;
         }
     }
 
@@ -2233,7 +2233,7 @@ public static class InputControl
 
         set
         {
-            mInputDevice=value;
+            mInputDevice = value;
         }
     }
 
@@ -2258,7 +2258,7 @@ public static class InputControl
 
         set
         {
-            Input.simulateMouseWithTouches=value;
+            Input.simulateMouseWithTouches = value;
         }
     }
 
@@ -2286,15 +2286,15 @@ public static class InputControl
         }
     }
 
-	/// <summary>
-	/// Returns whether the device on which application is currently running supports touch input.
-	/// </summary>
-	/// <value><c>true</c> if touch supported; otherwise, <c>false</c>.</value>
-	public static bool touchSupported
-	{
-		get
-		{
-			return Input.touchSupported;
-		}
-	}
+    /// <summary>
+    /// Returns whether the device on which application is currently running supports touch input.
+    /// </summary>
+    /// <value><c>true</c> if touch supported; otherwise, <c>false</c>.</value>
+    public static bool touchSupported
+    {
+        get
+        {
+            return Input.touchSupported;
+        }
+    }
 }

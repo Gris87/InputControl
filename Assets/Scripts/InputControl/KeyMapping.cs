@@ -12,7 +12,7 @@ public class KeyMapping
 
     #region Properties
 
-	#region name
+    #region name
     /// <summary>
     /// Gets the <see cref="KeyMapping"/> name.
     /// </summary>
@@ -24,9 +24,9 @@ public class KeyMapping
             return mName;
         }
     }
-	#endregion
+    #endregion
 
-	#region primaryInput
+    #region primaryInput
     /// <summary>
     /// Gets or sets the primary input. Please note that if you set null value it will create KeyboardInput with KeyCode.None
     /// </summary>
@@ -40,19 +40,19 @@ public class KeyMapping
 
         set
         {
-            if (value==null)
+            if (value == null)
             {
-                mPrimaryInput=new KeyboardInput();
+                mPrimaryInput = new KeyboardInput();
             }
             else
             {
-                mPrimaryInput=value;
+                mPrimaryInput = value;
             }
         }
     }
-	#endregion
+    #endregion
 
-	#region secondaryInput
+    #region secondaryInput
     /// <summary>
     /// Gets or sets the secondary input. Please note that if you set null value it will create KeyboardInput with KeyCode.None
     /// </summary>
@@ -66,19 +66,19 @@ public class KeyMapping
 
         set
         {
-            if (value==null)
+            if (value == null)
             {
-                mSecondaryInput=new KeyboardInput();
+                mSecondaryInput = new KeyboardInput();
             }
             else
             {
-                mSecondaryInput=value;
+                mSecondaryInput = value;
             }
         }
     }
-	#endregion
+    #endregion
 
-	#region thirdInput
+    #region thirdInput
     /// <summary>
     /// Gets or sets the third input. Please note that if you set null value it will create KeyboardInput with KeyCode.None
     /// </summary>
@@ -92,19 +92,19 @@ public class KeyMapping
 
         set
         {
-            if (value==null)
+            if (value == null)
             {
-                mThirdInput=new KeyboardInput();
+                mThirdInput = new KeyboardInput();
             }
             else
             {
-                mThirdInput=value;
+                mThirdInput = value;
             }
         }
     }
     #endregion
 
-	#endregion
+    #endregion
 
 
 
@@ -115,7 +115,7 @@ public class KeyMapping
     /// <param name="primaryCustomInput">Primary input.</param>
     /// <param name="secondaryCustomInput">Secondary input.</param>
     /// <param name="thirdCustomInput">Third input.</param>
-    public KeyMapping(string name="", CustomInput primaryCustomInput=null, CustomInput secondaryCustomInput=null, CustomInput thirdCustomInput=null)
+    public KeyMapping(string name = "", CustomInput primaryCustomInput = null, CustomInput secondaryCustomInput = null, CustomInput thirdCustomInput = null)
     {
         mName          = name;
         primaryInput   = primaryCustomInput;
@@ -129,7 +129,7 @@ public class KeyMapping
     /// <param name="another">Another KeyMapping instance.</param>
     public KeyMapping(KeyMapping another)
     {
-        mName=another.mName;
+        mName = another.mName;
 
         set(another);
     }
@@ -151,30 +151,30 @@ public class KeyMapping
     /// <returns>Input value if button or axis is still active.</returns>
     /// <param name="axis">Specific actions for axis (Empty by default).</param>
     /// <param name="device">Preferred input device.</param>
-    public float getValue(string axis="", InputDevice device=InputDevice.Any)
+    public float getValue(string axis = "", InputDevice device = InputDevice.Any)
     {
-        float res=0;
+        float res = 0;
         float cur;
 
-        cur=mPrimaryInput.getInput(axis, device);
+        cur = mPrimaryInput.getInput(axis, device);
 
-        if (cur>res)
+        if (cur > res)
         {
-            res=cur;
+            res = cur;
         }
 
-        cur=mSecondaryInput.getInput(axis, device);
+        cur = mSecondaryInput.getInput(axis, device);
 
-        if (cur>res)
+        if (cur > res)
         {
-            res=cur;
+            res = cur;
         }
 
-        cur=mThirdInput.getInput(axis, device);
+        cur = mThirdInput.getInput(axis, device);
 
-        if (cur>res)
+        if (cur > res)
         {
-            res=cur;
+            res = cur;
         }
 
         return res;
@@ -186,30 +186,30 @@ public class KeyMapping
     /// <returns>Input value if button or axis become active during this frame.</returns>
     /// <param name="axis">Specific actions for axis (Empty by default).</param>
     /// <param name="device">Preferred input device.</param>
-    public float getValueDown(string axis="", InputDevice device=InputDevice.Any)
+    public float getValueDown(string axis = "", InputDevice device = InputDevice.Any)
     {
-        float res=0;
+        float res = 0;
         float cur;
 
-        cur=mPrimaryInput.getInputDown(axis, device);
+        cur = mPrimaryInput.getInputDown(axis, device);
 
-        if (cur>res)
+        if (cur > res)
         {
-            res=cur;
+            res = cur;
         }
 
-        cur=mSecondaryInput.getInputDown(axis, device);
+        cur = mSecondaryInput.getInputDown(axis, device);
 
-        if (cur>res)
+        if (cur > res)
         {
-            res=cur;
+            res = cur;
         }
 
-        cur=mThirdInput.getInputDown(axis, device);
+        cur = mThirdInput.getInputDown(axis, device);
 
-        if (cur>res)
+        if (cur > res)
         {
-            res=cur;
+            res = cur;
         }
 
         return res;
@@ -221,30 +221,30 @@ public class KeyMapping
     /// <returns>Input value if button or axis stopped being active during this frame.</returns>
     /// <param name="axis">Specific actions for axis (Empty by default).</param>
     /// <param name="device">Preferred input device.</param>
-    public float getValueUp(string axis="", InputDevice device=InputDevice.Any)
+    public float getValueUp(string axis = "", InputDevice device = InputDevice.Any)
     {
-        float res=0;
+        float res = 0;
         float cur;
 
-        cur=mPrimaryInput.getInputUp(axis, device);
+        cur = mPrimaryInput.getInputUp(axis, device);
 
-        if (cur>res)
+        if (cur > res)
         {
-            res=cur;
+            res = cur;
         }
 
-        cur=mSecondaryInput.getInputUp(axis, device);
+        cur = mSecondaryInput.getInputUp(axis, device);
 
-        if (cur>res)
+        if (cur > res)
         {
-            res=cur;
+            res = cur;
         }
 
-        cur=mThirdInput.getInputUp(axis, device);
+        cur = mThirdInput.getInputUp(axis, device);
 
-        if (cur>res)
+        if (cur > res)
         {
-            res=cur;
+            res = cur;
         }
 
         return res;
@@ -255,9 +255,9 @@ public class KeyMapping
     /// </summary>
     /// <returns>True if button or axis is still active.</returns>
     /// <param name="device">Preferred input device.</param>
-    public bool isPressed(InputDevice device=InputDevice.Any)
+    public bool isPressed(InputDevice device = InputDevice.Any)
     {
-        return getValue("", device)     != 0;
+        return getValue("", device) != 0;
     }
 
     /// <summary>
@@ -265,7 +265,7 @@ public class KeyMapping
     /// </summary>
     /// <returns>True if button or axis become active during this frame.</returns>
     /// <param name="device">Preferred input device.</param>
-    public bool isPressedDown(InputDevice device=InputDevice.Any)
+    public bool isPressedDown(InputDevice device = InputDevice.Any)
     {
         return getValueDown("", device) != 0;
     }
@@ -275,8 +275,8 @@ public class KeyMapping
     /// </summary>
     /// <returns>True if button or axis stopped being active during this frame.</returns>
     /// <param name="device">Preferred input device.</param>
-    public bool isPressedUp(InputDevice device=InputDevice.Any)
+    public bool isPressedUp(InputDevice device = InputDevice.Any)
     {
-        return getValueUp("", device)   != 0;
+        return getValueUp("", device) != 0;
     }
 }

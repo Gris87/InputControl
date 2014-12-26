@@ -17,7 +17,7 @@ public abstract class CustomInput
     /// <returns>Input value if button or axis become active during this frame.</returns>
     /// <param name="axis">Specific actions for axis (Empty by default).</param>
     /// <param name="device">Preferred input device.</param>
-	public abstract float getInputDown(string axis = "", InputDevice device = InputDevice.Any);
+    public abstract float getInputDown(string axis = "", InputDevice device = InputDevice.Any);
 
     /// <summary>
     /// Returns input value during the frame the user releases the key.
@@ -25,7 +25,7 @@ public abstract class CustomInput
     /// <returns>Input value if button or axis stopped being active during this frame.</returns>
     /// <param name="axis">Specific actions for axis (Empty by default).</param>
     /// <param name="device">Preferred input device.</param>
-	public abstract float getInputUp(string axis = "", InputDevice device = InputDevice.Any);
+    public abstract float getInputUp(string axis = "", InputDevice device = InputDevice.Any);
 
-	// TODO: Modifiers
+    // TODO: Modifiers
 }

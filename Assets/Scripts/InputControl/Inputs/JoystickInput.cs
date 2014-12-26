@@ -12,14 +12,14 @@ public class JoystickInput : CustomInput
     private JoystickButton mButton;
     private Joystick       mTarget;
 
-	private string         mCachedToString;
-	private string         mCachedInputName;
+    private string         mCachedToString;
+    private string         mCachedInputName;
 
 
 
     #region Properties
 
-	#region axis
+    #region axis
     /// <summary>
     /// Gets the joystick axis.
     /// </summary>
@@ -31,9 +31,9 @@ public class JoystickInput : CustomInput
             return mAxis;
         }
     }
-	#endregion
+    #endregion
 
-	#region button
+    #region button
     /// <summary>
     /// Gets the joystick button.
     /// </summary>
@@ -45,9 +45,9 @@ public class JoystickInput : CustomInput
             return mButton;
         }
     }
-	#endregion
+    #endregion
 
-	#region target
+    #region target
     /// <summary>
     /// Gets the target joystick.
     /// </summary>
@@ -61,7 +61,7 @@ public class JoystickInput : CustomInput
     }
     #endregion
 
-	#endregion
+    #endregion
 
 
 
@@ -70,9 +70,9 @@ public class JoystickInput : CustomInput
     /// </summary>
     /// <param name="axis">Joystick axis.</param>
     /// <param name="target">Target joystick.</param>
-    public JoystickInput(JoystickAxis axis, Joystick target=Joystick.AllJoysticks)
+    public JoystickInput(JoystickAxis axis, Joystick target = Joystick.AllJoysticks)
     {
-        if (axis==JoystickAxis.None)
+        if (axis == JoystickAxis.None)
         {
             Debug.LogError("axis can't be JoystickAxis.None");
         }
@@ -81,8 +81,8 @@ public class JoystickInput : CustomInput
         mButton = JoystickButton.None;
         mTarget = target;
 
-		mCachedToString  = null;
-		mCachedInputName = null;
+        mCachedToString  = null;
+        mCachedInputName = null;
     }
 
     /// <summary>
@@ -90,9 +90,9 @@ public class JoystickInput : CustomInput
     /// </summary>
     /// <param name="button">Joystick button.</param>
     /// <param name="target">Target joystick.</param>
-    public JoystickInput(JoystickButton button, Joystick target=Joystick.AllJoysticks)
+    public JoystickInput(JoystickButton button, Joystick target = Joystick.AllJoysticks)
     {
-        if (button==JoystickButton.None)
+        if (button == JoystickButton.None)
         {
             Debug.LogError("button can't be JoystickButton.None");
         }
@@ -100,9 +100,9 @@ public class JoystickInput : CustomInput
         mAxis   = JoystickAxis.None;
         mButton = button;
         mTarget = target;
-		
-		mCachedToString  = null;
-		mCachedInputName = null;
+
+        mCachedToString  = null;
+        mCachedInputName = null;
     }
 
     /// <summary>
@@ -117,76 +117,76 @@ public class JoystickInput : CustomInput
             return null;
         }
 
-        value=value.Substring(9);
+        value = value.Substring(9);
 
-        if (value.Length==0)
+        if (value.Length == 0)
         {
             return null;
         }
 
         Joystick target;
 
-        if (value[0]>='0' && value[0]<='9')
+        if (value[0] >= '0' && value[0] <= '9')
         {
-            int index=value.IndexOf(" ");
+            int index = value.IndexOf(" ");
 
-            if (index<0)
+            if (index < 0)
             {
                 return null;
             }
 
             try
             {
-                int targetNumber=Convert.ToInt32(value.Substring(0, index));
+                int targetNumber = Convert.ToInt32(value.Substring(0, index));
 
                 if (
-					targetNumber < 1
-					|| 
-					targetNumber > Enum.GetValues(typeof(Joystick)).Length - 1
-				   )
+                    targetNumber < 1
+                    ||
+                    targetNumber >= (int)Joystick.None
+                   )
                 {
                     return null;
                 }
 
-                target=(Joystick)targetNumber;
+                target = (Joystick)targetNumber;
             }
             catch (Exception)
             {
                 return null;
             }
 
-            value=value.Substring(index+1);
+            value = value.Substring(index + 1);
         }
         else
         {
-            target=Joystick.AllJoysticks;
+            target = Joystick.AllJoysticks;
         }
 
         if (value.StartsWith("Axis "))
         {
-            value=value.Substring(5);
+            value = value.Substring(5);
 
             bool positive;
 
             if (value.EndsWith(" (-)"))
             {
-                positive=false;
+                positive = false;
             }
             else
             if (value.EndsWith(" (+)"))
             {
-                positive=true;
+                positive = true;
             }
             else
             {
                 return null;
             }
 
-            value=value.Remove(value.Length-4);
+            value = value.Remove(value.Length - 4);
 
             try
             {
-                int axisNumber=(Convert.ToInt32(value)-1)*2;
+                int axisNumber = (Convert.ToInt32(value) - 1) * 2;
 
                 if (!positive)
                 {
@@ -194,10 +194,10 @@ public class JoystickInput : CustomInput
                 }
 
                 if (
-					axisNumber < 0
-					||
-					axisNumber >= (int)JoystickAxis.None
-				   )
+                    axisNumber < 0
+                    ||
+                    axisNumber >= (int)JoystickAxis.None
+                   )
                 {
                     return null;
                 }
@@ -215,17 +215,17 @@ public class JoystickInput : CustomInput
             return null;
         }
 
-        value=value.Substring(7);
+        value = value.Substring(7);
 
         try
         {
-            int button=Convert.ToInt32(value)-1;
+            int button = Convert.ToInt32(value) - 1;
 
             if (
-			    button < 0
-				||
-				button >= (int)JoystickButton.None
-			   )
+                button < 0
+                ||
+                button >= (int)JoystickButton.None
+               )
             {
                 return null;
             }
@@ -244,47 +244,47 @@ public class JoystickInput : CustomInput
     /// <returns>A <see cref="System.String"/> that represents the current <see cref="JoystickInput"/>.</returns>
     public override string ToString()
     {
-		if (mCachedToString != null)
-		{
-			return mCachedToString;
-		}
+        if (mCachedToString != null)
+        {
+            return mCachedToString;
+        }
 
         string res;
 
-        if (mTarget==Joystick.AllJoysticks)
+        if (mTarget == Joystick.AllJoysticks)
         {
-            res="Joystick ";
+            res = "Joystick ";
         }
         else
         {
-            res="Joystick "+((int)mTarget).ToString()+" ";
+            res = "Joystick " + ((int)mTarget).ToString() + " ";
         }
 
-        if (mAxis!=JoystickAxis.None)
+        if (mAxis != JoystickAxis.None)
         {
-            int axisId=(int)mAxis;
+            int  axisId = (int)mAxis;
             bool positive;
 
             if (axisId % 2 == 0)
             {
-                axisId=(axisId/2) + 1;
-                positive=true;
+                axisId   = (axisId / 2) + 1;
+                positive = true;
             }
             else
             {
-                axisId=((axisId-1)/2) + 1;
-                positive=false;
+                axisId   = ((axisId - 1) / 2) + 1;
+                positive = false;
             }
 
             res += "Axis " + axisId.ToString() + " " + (positive ? "(+)" : "(-)");
         }
-		else
-        if (mButton!=JoystickButton.None)
+        else
+        if (mButton != JoystickButton.None)
         {
             res += "Button " + ((int)mButton + 1).ToString();
         }
 
-		mCachedToString = res;
+        mCachedToString = res;
 
         return res;
     }
@@ -295,21 +295,21 @@ public class JoystickInput : CustomInput
     /// <returns>Input value if button or axis is still active.</returns>
     /// <param name="axis">Specific actions for axis (Empty by default).</param>
     /// <param name="device">Preferred input device.</param>
-    public override float getInput(string axis="", InputDevice device=InputDevice.Any)
+    public override float getInput(string axis = "", InputDevice device = InputDevice.Any)
     {
         if (
-			device != InputDevice.Any
-			&&
-			device != InputDevice.Joystick
-		   )
+            device != InputDevice.Any
+            &&
+            device != InputDevice.Joystick
+           )
         {
             return 0;
         }
 
-        float sensitivity=1;
+        float sensitivity = 1;
 
         if (
-            axis!=null
+            axis != null
             &&
             (
              axis.Equals("Mouse X")
@@ -318,15 +318,15 @@ public class JoystickInput : CustomInput
             )
            )
         {
-            sensitivity=0.1f;
+            sensitivity = 0.1f;
         }
 
-        if (mButton!=JoystickButton.None)
+        if (mButton != JoystickButton.None)
         {
-            return Input.GetButton(getInputName())     ? sensitivity : 0;
+            return Input.GetButton(getInputName()) ? sensitivity : 0;
         }
 
-        return getInputByAxis()*sensitivity;
+        return getInputByAxis() * sensitivity;
     }
 
     /// <summary>
@@ -335,38 +335,38 @@ public class JoystickInput : CustomInput
     /// <returns>Input value if button or axis become active during this frame.</returns>
     /// <param name="axis">Specific actions for axis (Empty by default).</param>
     /// <param name="device">Preferred input device.</param>
-    public override float getInputDown(string axis="", InputDevice device=InputDevice.Any)
+    public override float getInputDown(string axis = "", InputDevice device = InputDevice.Any)
     {
-		if (
-			device != InputDevice.Any
-			&&
-			device != InputDevice.Joystick
-			)
+        if (
+            device != InputDevice.Any
+            &&
+            device != InputDevice.Joystick
+            )
         {
             return 0;
         }
 
-        float sensitivity=1;
+        float sensitivity = 1;
 
         if (
-            axis!=null
+            axis != null
             &&
             (
-             axis.Equals("Mouse X")
-             ||
-             axis.Equals("Mouse Y")
+            axis.Equals("Mouse X")
+            ||
+            axis.Equals("Mouse Y")
             )
-           )
+            )
         {
-            sensitivity=0.1f;
+            sensitivity = 0.1f;
         }
 
-        if (mButton!=JoystickButton.None)
+        if (mButton != JoystickButton.None)
         {
             return Input.GetButtonDown(getInputName()) ? sensitivity : 0;
         }
 
-        return getInputByAxis()*sensitivity;
+        return getInputByAxis() * sensitivity;
     }
 
     /// <summary>
@@ -375,38 +375,38 @@ public class JoystickInput : CustomInput
     /// <returns>Input value if button or axis stopped being active during this frame.</returns>
     /// <param name="axis">Specific actions for axis (Empty by default).</param>
     /// <param name="device">Preferred input device.</param>
-    public override float getInputUp(string axis="", InputDevice device=InputDevice.Any)
+    public override float getInputUp(string axis = "", InputDevice device = InputDevice.Any)
     {
-		if (
-			device != InputDevice.Any
-			&&
-			device != InputDevice.Joystick
-			)
+        if (
+            device != InputDevice.Any
+            &&
+            device != InputDevice.Joystick
+            )
         {
             return 0;
         }
 
-        float sensitivity=1;
+        float sensitivity = 1;
 
         if (
-            axis!=null
+            axis != null
             &&
             (
-             axis.Equals("Mouse X")
-             ||
-             axis.Equals("Mouse Y")
+            axis.Equals("Mouse X")
+            ||
+            axis.Equals("Mouse Y")
             )
-           )
+            )
         {
-            sensitivity=0.1f;
+            sensitivity = 0.1f;
         }
 
-        if (mButton!=JoystickButton.None)
+        if (mButton != JoystickButton.None)
         {
-            return Input.GetButtonUp(getInputName())   ? sensitivity : 0;
+            return Input.GetButtonUp(getInputName()) ? sensitivity : 0;
         }
 
-        return getInputByAxis()*sensitivity;
+        return getInputByAxis() * sensitivity;
     }
 
     /// <summary>
@@ -415,12 +415,12 @@ public class JoystickInput : CustomInput
     /// <returns>Value of joystick axis.</returns>
     private float getInputByAxis()
     {
-        float joyAxis=Input.GetAxis(getInputName());
+        float joyAxis = Input.GetAxis(getInputName());
 
         if (
             ((int)mAxis) % 2 == 1
             &&
-            joyAxis<-InputControl.joystickThreshold
+            joyAxis < -InputControl.joystickThreshold
            )
         {
             return -joyAxis;
@@ -429,7 +429,7 @@ public class JoystickInput : CustomInput
         if (
             ((int)mAxis) % 2 == 0
             &&
-            joyAxis>InputControl.joystickThreshold
+            joyAxis > InputControl.joystickThreshold
            )
         {
             return joyAxis;
@@ -444,44 +444,44 @@ public class JoystickInput : CustomInput
     /// <returns>Input name in InputManager.</returns>
     private string getInputName()
     {
-		if (mCachedInputName != null)
-		{
-			return mCachedInputName;
-		}
+        if (mCachedInputName != null)
+        {
+            return mCachedInputName;
+        }
 
         string res;
 
-        if (mTarget==Joystick.AllJoysticks)
+        if (mTarget == Joystick.AllJoysticks)
         {
-            res="Joystick ";
+            res = "Joystick ";
         }
         else
         {
-            res="Joystick "+((int)mTarget).ToString()+" ";
+            res = "Joystick " + ((int)mTarget).ToString() + " ";
         }
 
-        if (mAxis!=JoystickAxis.None)
+        if (mAxis != JoystickAxis.None)
         {
-            int axisId=(int)mAxis;
+            int axisId = (int)mAxis;
 
             if (axisId % 2 == 0)
             {
-                axisId=(axisId/2) + 1;
+                axisId = (axisId / 2) + 1;
             }
             else
             {
-                axisId=((axisId-1)/2) + 1;
+                axisId = ((axisId - 1) / 2) + 1;
             }
 
             res += "Axis " + axisId.ToString();
         }
-		else
-        if (mButton!=JoystickButton.None)
+        else
+        if (mButton != JoystickButton.None)
         {
             res += "Button " + ((int)mButton + 1).ToString();
         }
 
-		mCachedInputName = res;
+        mCachedInputName = res;
 
         return res;
     }

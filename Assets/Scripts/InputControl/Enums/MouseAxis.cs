@@ -3,11 +3,11 @@
 /// </summary>
 public enum MouseAxis
 {
-    MouseLeft,
-    MouseRight,
-    MouseUp,
-    MouseDown,
-    WheelUp,
-    WheelDown,
-    None
+      MouseLeft
+    , MouseRight
+    , MouseUp
+    , MouseDown
+    , WheelUp
+    , WheelDown
+    , None
 }

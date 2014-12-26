@@ -3,7 +3,7 @@
 /// </summary>
 public enum InputDevice
 {
-    Any,
-    KeyboardAndMouse,
-    Joystick
+      Any
+    , KeyboardAndMouse
+    , Joystick
 }

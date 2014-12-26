@@ -37,14 +37,14 @@ You can easy change this configuration in Runtime by calling InputControl.setKey
 
 It is possible to get current active input with InputControl.currentInput():
 
-CustomInput curInput=InputControl.currentInput();
-Debug.Log(curInput==null ? "null" : curInput.ToString());
+CustomInput curInput = InputControl.currentInput();
+Debug.Log(curInput == null ? "null" : curInput.ToString());
 
 To invert mouse Y axis:
-InputControl.invertMouseY=true;
+InputControl.invertMouseY = true;
 
 You can setup mouse sensitivity by:
-InputControl.mouseSensitivity=0.5f;
+InputControl.mouseSensitivity = 0.5f;
 
 TODO: joystickThreshold
 TODO: modifiers

@@ -14,7 +14,7 @@ public class KeyboardInput : CustomInput
 
     #region Properties
 
-	#region key
+    #region key
     /// <summary>
     /// Gets the keyboard key.
     /// </summary>
@@ -28,7 +28,7 @@ public class KeyboardInput : CustomInput
     }
     #endregion
 
-	#endregion
+    #endregion
 
 
 
@@ -36,9 +36,9 @@ public class KeyboardInput : CustomInput
     /// Create a new instance of <see cref="KeyboardInput"/> that handles specified keyboard key.
     /// </summary>
     /// <param name="key">Keyboard key.</param>
-    public KeyboardInput(KeyCode key=KeyCode.None)
+    public KeyboardInput(KeyCode key = KeyCode.None)
     {
-        mKey=key;
+        mKey = key;
     }
 
     /// <summary>
@@ -50,7 +50,7 @@ public class KeyboardInput : CustomInput
     {
         try
         {
-            KeyCode key=(KeyCode)Enum.Parse(typeof(KeyCode), value);
+            KeyCode key = (KeyCode)Enum.Parse(typeof(KeyCode), value);
             return new KeyboardInput(key);
         }
         catch (Exception)
@@ -74,18 +74,18 @@ public class KeyboardInput : CustomInput
     /// <returns>Input value if button or axis is still active.</returns>
     /// <param name="axis">Specific actions for axis (Empty by default).</param>
     /// <param name="device">Preferred input device.</param>
-    public override float getInput(string axis="", InputDevice device=InputDevice.Any)
+    public override float getInput(string axis = "", InputDevice device = InputDevice.Any)
     {
         if (
-			device != InputDevice.Any
-			&&
-			device != InputDevice.KeyboardAndMouse
-		   )
+            device != InputDevice.Any
+            &&
+            device != InputDevice.KeyboardAndMouse
+           )
         {
             return 0;
         }
 
-        float sensitivity=1;
+        float sensitivity = 1;
 
         if (
             axis!=null
@@ -97,10 +97,10 @@ public class KeyboardInput : CustomInput
             )
            )
         {
-            sensitivity=0.1f;
+            sensitivity = 0.1f;
         }
 
-        return Input.GetKey(mKey)     ? sensitivity : 0;
+        return Input.GetKey(mKey) ? sensitivity : 0;
     }
 
     /// <summary>
@@ -109,18 +109,18 @@ public class KeyboardInput : CustomInput
     /// <returns>Input value if button or axis become active during this frame.</returns>
     /// <param name="axis">Specific actions for axis (Empty by default).</param>
     /// <param name="device">Preferred input device.</param>
-    public override float getInputDown(string axis="", InputDevice device=InputDevice.Any)
+    public override float getInputDown(string axis = "", InputDevice device = InputDevice.Any)
     {
-		if (
-			device != InputDevice.Any
-			&&
-			device != InputDevice.KeyboardAndMouse
-		   )
+        if (
+            device != InputDevice.Any
+            &&
+            device != InputDevice.KeyboardAndMouse
+           )
         {
             return 0;
         }
 
-        float sensitivity=1;
+        float sensitivity = 1;
 
         if (
             axis!=null
@@ -132,7 +132,7 @@ public class KeyboardInput : CustomInput
             )
            )
         {
-            sensitivity=0.1f;
+            sensitivity = 0.1f;
         }
 
         return Input.GetKeyDown(mKey) ? sensitivity : 0;
@@ -144,21 +144,21 @@ public class KeyboardInput : CustomInput
     /// <returns>Input value if button or axis stopped being active during this frame.</returns>
     /// <param name="axis">Specific actions for axis (Empty by default).</param>
     /// <param name="device">Preferred input device.</param>
-    public override float getInputUp(string axis="", InputDevice device=InputDevice.Any)
+    public override float getInputUp(string axis = "", InputDevice device = InputDevice.Any)
     {
-		if (
-			device != InputDevice.Any
-			&&
-			device != InputDevice.KeyboardAndMouse
-		   )
+        if (
+            device != InputDevice.Any
+            &&
+            device != InputDevice.KeyboardAndMouse
+           )
         {
             return 0;
         }
 
-        float sensitivity=1;
+        float sensitivity = 1;
 
         if (
-            axis!=null
+            axis != null
             &&
             (
              axis.Equals("Mouse X")
@@ -167,9 +167,9 @@ public class KeyboardInput : CustomInput
             )
            )
         {
-            sensitivity=0.1f;
+            sensitivity = 0.1f;
         }
 
-        return Input.GetKeyUp(mKey)   ? sensitivity : 0;
+        return Input.GetKeyUp(mKey) ? sensitivity : 0;
     }
 }

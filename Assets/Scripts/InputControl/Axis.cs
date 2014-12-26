@@ -16,7 +16,7 @@ public class Axis
 
     #region Properties
 
-	#region name
+    #region name
     /// <summary>
     /// Gets the axis name.
     /// </summary>
@@ -28,9 +28,9 @@ public class Axis
             return mName;
         }
     }
-	#endregion
+    #endregion
 
-	#region negative
+    #region negative
     /// <summary>
     /// Gets or sets the negative KeyMapping. Please note that null value is prohibited.
     /// </summary>
@@ -44,17 +44,17 @@ public class Axis
 
         set
         {
-            if (value==null)
+            if (value == null)
             {
                 Debug.LogError("value can't be null");
             }
 
-            mNegative=value;
+            mNegative = value;
         }
     }
-	#endregion
+    #endregion
 
-	#region positive
+    #region positive
     /// <summary>
     /// Gets or sets the positive KeyMapping. Please note that null value is prohibited.
     /// </summary>
@@ -68,17 +68,17 @@ public class Axis
 
         set
         {
-            if (value==null)
+            if (value == null)
             {
                 Debug.LogError("value can't be null");
             }
 
-            mPositive=value;
+            mPositive = value;
         }
     }
-	#endregion
+    #endregion
 
-	#region inverted
+    #region inverted
     /// <summary>
     /// Gets or sets a value indicating whether this <see cref="Axis"/> is inverted.
     /// </summary>
@@ -92,12 +92,12 @@ public class Axis
 
         set
         {
-            mInverted=value;
+            mInverted = value;
         }
     }
     #endregion
 
-	#endregion
+    #endregion
 
 
 
@@ -121,7 +121,7 @@ public class Axis
     /// <param name="another">Another Axis instance.</param>
     public Axis(Axis another)
     {
-        mName=another.mName;
+        mName = another.mName;
 
         set(another);
     }
@@ -134,7 +134,7 @@ public class Axis
     {
         mNegative = another.mNegative;
         mPositive = another.mPositive;
-		mInverted = another.mInverted;
+        mInverted = another.mInverted;
     }
 
     /// <summary>
@@ -153,15 +153,15 @@ public class Axis
     /// </summary>
     /// <returns>Axis value.</returns>
     /// <param name="device">Preferred input device.</param>
-    public float getValue(InputDevice device=InputDevice.Any)
+    public float getValue(InputDevice device = InputDevice.Any)
     {
         if (mInverted)
         {
-            return mNegative.getValue(mName, device)-mPositive.getValue(mName, device);
+            return mNegative.getValue(mName, device) - mPositive.getValue(mName, device);
         }
         else
         {
-            return mPositive.getValue(mName, device)-mNegative.getValue(mName, device);
+            return mPositive.getValue(mName, device) - mNegative.getValue(mName, device);
         }
     }
 }

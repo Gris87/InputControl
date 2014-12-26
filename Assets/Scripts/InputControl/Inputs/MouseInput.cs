@@ -11,13 +11,13 @@ public class MouseInput : CustomInput
     private MouseAxis   mAxis;
     private MouseButton mButton;
 
-	private string      mCachedToString;
+    private string      mCachedToString;
 
 
 
     #region Properties
 
-	#region axis
+    #region axis
     /// <summary>
     /// Gets the mouse axis.
     /// </summary>
@@ -29,9 +29,9 @@ public class MouseInput : CustomInput
             return mAxis;
         }
     }
-	#endregion
+    #endregion
 
-	#region button
+    #region button
     /// <summary>
     /// Gets the mouse button.
     /// </summary>
@@ -45,7 +45,7 @@ public class MouseInput : CustomInput
     }
     #endregion
 
-	#endregion
+    #endregion
 
 
 
@@ -55,7 +55,7 @@ public class MouseInput : CustomInput
     /// <param name="axis">Mouse axis.</param>
     public MouseInput(MouseAxis axis)
     {
-        if (axis==MouseAxis.None)
+        if (axis == MouseAxis.None)
         {
             Debug.LogError("axis can't be MouseAxis.None");
         }
@@ -63,7 +63,7 @@ public class MouseInput : CustomInput
         mAxis   = axis;
         mButton = MouseButton.None;
 
-		mCachedToString = null;
+        mCachedToString = null;
     }
 
     /// <summary>
@@ -72,15 +72,15 @@ public class MouseInput : CustomInput
     /// <param name="button">Mouse button.</param>
     public MouseInput(MouseButton button)
     {
-        if (button==MouseButton.None)
+        if (button == MouseButton.None)
         {
             Debug.LogError("button can't be MouseButton.None");
         }
 
         mAxis   = MouseAxis.None;
         mButton = button;
-		
-		mCachedToString = null;
+
+        mCachedToString = null;
     }
 
     /// <summary>
@@ -95,7 +95,7 @@ public class MouseInput : CustomInput
             return null;
         }
 
-        value=value.Substring(6);
+        value = value.Substring(6);
 
         if (value.Equals("X (-)"))
         {
@@ -132,16 +132,16 @@ public class MouseInput : CustomInput
             return null;
         }
 
-        value=value.Substring(7);
+        value = value.Substring(7);
 
         try
         {
-            int button=Convert.ToInt32(value)-1;
+            int button = Convert.ToInt32(value) - 1;
 
             if (
-			    button < 0
-				||
-				button >= (int)MouseButton.None
+                button < 0
+                ||
+                button >= (int)MouseButton.None
                )
             {
                 return null;
@@ -161,14 +161,14 @@ public class MouseInput : CustomInput
     /// <returns>A <see cref="System.String"/> that represents the current <see cref="MouseInput"/>.</returns>
     public override string ToString()
     {
-		if (mCachedToString != null)
-		{
-			return mCachedToString;
-		}
+        if (mCachedToString != null)
+        {
+            return mCachedToString;
+        }
 
-        string res="Mouse ";
+        string res = "Mouse ";
 
-        if (mAxis!=MouseAxis.None)
+        if (mAxis != MouseAxis.None)
         {
             switch (mAxis)
             {
@@ -195,13 +195,13 @@ public class MouseInput : CustomInput
                 break;
             }
         }
-		else
-        if (mButton!=MouseButton.None)
+        else
+        if (mButton != MouseButton.None)
         {
             res += "Button " + ((int)mButton + 1).ToString();
         }
 
-		mCachedToString = res;
+        mCachedToString = res;
 
         return res;
     }
@@ -215,17 +215,17 @@ public class MouseInput : CustomInput
     public override float getInput(string axis="", InputDevice device=InputDevice.Any)
     {
         if (
-			device != InputDevice.Any
-			&&
-			device != InputDevice.KeyboardAndMouse
-		   )
+            device != InputDevice.Any
+            &&
+            device != InputDevice.KeyboardAndMouse
+           )
         {
             return 0;
         }
 
-        if (mButton!=MouseButton.None)
+        if (mButton != MouseButton.None)
         {
-            KeyCode mouseButton=(KeyCode) ((int)KeyCode.Mouse0 + (int)mButton);
+            KeyCode mouseButton = (KeyCode)((int)KeyCode.Mouse0 + (int)mButton);
 
             return Input.GetKey(mouseButton) ? 1 : 0;
         }
@@ -241,18 +241,18 @@ public class MouseInput : CustomInput
     /// <param name="device">Preferred input device.</param>
     public override float getInputDown(string axis="", InputDevice device=InputDevice.Any)
     {
-		if (
-			device != InputDevice.Any
-			&&
-			device != InputDevice.KeyboardAndMouse
-		   )
+        if (
+            device != InputDevice.Any
+            &&
+            device != InputDevice.KeyboardAndMouse
+           )
         {
             return 0;
         }
 
-        if (mButton!=MouseButton.None)
+        if (mButton != MouseButton.None)
         {
-            KeyCode mouseButton=(KeyCode) ((int)KeyCode.Mouse0 + (int)mButton);
+            KeyCode mouseButton = (KeyCode)((int)KeyCode.Mouse0 + (int)mButton);
 
             return Input.GetKeyDown(mouseButton) ? 1 : 0;
         }
@@ -268,18 +268,18 @@ public class MouseInput : CustomInput
     /// <param name="device">Preferred input device.</param>
     public override float getInputUp(string axis="", InputDevice device=InputDevice.Any)
     {
-		if (
-			device != InputDevice.Any
-			&&
-			device != InputDevice.KeyboardAndMouse
-	       )
+        if (
+            device != InputDevice.Any
+            &&
+            device != InputDevice.KeyboardAndMouse
+           )
         {
             return 0;
         }
 
-        if (mButton!=MouseButton.None)
+        if (mButton != MouseButton.None)
         {
-            KeyCode mouseButton=(KeyCode) ((int)KeyCode.Mouse0 + (int)mButton);
+            KeyCode mouseButton = (KeyCode)((int)KeyCode.Mouse0 + (int)mButton);
 
             return Input.GetKeyUp(mouseButton) ? 1 : 0;
         }
@@ -315,15 +315,15 @@ public class MouseInput : CustomInput
     /// <returns>Value of mouse axis.</returns>
     private float InputGetAxis(string axisName, bool positive)
     {
-        float value=Input.GetAxis(axisName);
+        float value = Input.GetAxis(axisName);
 
         if (positive)
         {
-            return value>0 ?  value : 0;
+            return value > 0 ?  value : 0;
         }
         else
         {
-            return value<0 ? -value : 0;
+            return value < 0 ? -value : 0;
         }
     }
 }
