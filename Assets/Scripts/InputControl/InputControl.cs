@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 
 
@@ -1408,10 +1409,20 @@ public static class InputControl
     /// Gets the list of keys.
     /// </summary>
     /// <returns>List of keys.</returns>
-    public static List<KeyMapping> getKeys() // TODO: readonly?
+	[Obsolete("Please use getKeysList instead of this. Obsoletion date: 2014-12-28. It will be removed after 1 year")]
+    public static List<KeyMapping> getKeys()
     {
         return mKeysList;
     }
+
+	/// <summary>
+	/// Gets the list of keys.
+	/// </summary>
+	/// <returns>List of keys.</returns>
+	public static ReadOnlyCollection<KeyMapping> getKeysList()
+	{
+		return mKeysList.AsReadOnly();
+	}
     #endregion
 
     #region Setup axes
@@ -1514,10 +1525,20 @@ public static class InputControl
     /// Gets the list of axes.
     /// </summary>
     /// <returns>List of axes.</returns>
-    public static List<Axis> getAxes() // TODO: readonly?
+	[Obsolete("Please use getAxesList instead of this. Obsoletion date: 2014-12-28. It will be removed after 1 year")]
+    public static List<Axis> getAxes()
     {
         return mAxesList;
     }
+
+	/// <summary>
+	/// Gets the list of axes.
+	/// </summary>
+	/// <returns>List of axes.</returns>
+	public static ReadOnlyCollection<Axis> getAxesList()
+	{
+		return mAxesList.AsReadOnly();
+	}
     #endregion
 
     // ----------------------------------------------------------------
@@ -1643,7 +1664,7 @@ public static class InputControl
             String target = "Joystick "+i.ToString()+" ";
 
             #region Axes
-            for (int j = 1; j <= (int)JoystickAxis.None / 2; ++j) // TODO: Check it
+            for (int j = 1; j <= (int)JoystickAxis.None / 2; ++j)
             {
                 float joyAxis = Input.GetAxis(target + "Axis " + j.ToString());
 
@@ -1841,7 +1862,7 @@ public static class InputControl
                 !axisName.Equals("Mouse ScrollWheel")
                )
             {
-                Debug.LogError("Axis " + axisName + " not found. Using InputManager axis");
+                Debug.LogError("Axis \"" + axisName + "\" not found. Using InputManager axis");
             }
 
             return Input.GetAxisRaw(axisName) * sensitivity;
@@ -1863,7 +1884,7 @@ public static class InputControl
 
         if (!mKeysMap.TryGetValue(buttonName, out outKey))
         {
-            Debug.LogError("Key " + buttonName + " not found");
+            Debug.LogError("Key \"" + buttonName + "\" not found");
             return false;
         }
 
@@ -1891,7 +1912,7 @@ public static class InputControl
 
         if (!mKeysMap.TryGetValue(buttonName, out outKey))
         {
-            Debug.LogError("Key " + buttonName + " not found");
+			Debug.LogError("Key \"" + buttonName + "\" not found");
             return false;
         }
 
@@ -1919,7 +1940,7 @@ public static class InputControl
 
         if (!mKeysMap.TryGetValue(buttonName, out outKey))
         {
-            Debug.LogError("Key " + buttonName + " not found");
+			Debug.LogError("Key \"" + buttonName + "\" not found");
             return false;
         }
 
