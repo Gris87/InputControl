@@ -144,7 +144,7 @@ public class Axis
     /// <param name="positive">Positive KeyMapping.</param>
     public void set(KeyMapping negative, KeyMapping positive)
     {
-        mNegative = negative;
+        mNegative = negative; // TODO: null?
         mPositive = positive;
     }
 

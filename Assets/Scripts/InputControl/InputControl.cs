@@ -1408,7 +1408,7 @@ public static class InputControl
     /// Gets the list of keys.
     /// </summary>
     /// <returns>List of keys.</returns>
-    public static List<KeyMapping> getKeys()
+    public static List<KeyMapping> getKeys() // TODO: readonly?
     {
         return mKeysList;
     }
@@ -1514,7 +1514,7 @@ public static class InputControl
     /// Gets the list of axes.
     /// </summary>
     /// <returns>List of axes.</returns>
-    public static List<Axis> getAxes()
+    public static List<Axis> getAxes() // TODO: readonly?
     {
         return mAxesList;
     }
