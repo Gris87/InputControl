@@ -105,14 +105,14 @@ public class Axis
     /// Create a new instance of <see cref="Axis"/> with specified negative <see cref="KeyMapping"/> and positive <see cref="KeyMapping"/>.
     /// </summary>
     /// <param name="name">Axis name.</param>
-	/// <param name="negativeKeyMapping">Negative KeyMapping.</param>
-	/// <param name="positiveKeyMapping">Positive KeyMapping.</param>
-	public Axis(string name, KeyMapping negativeKeyMapping, KeyMapping positiveKeyMapping)
+    /// <param name="negativeKeyMapping">Negative KeyMapping.</param>
+    /// <param name="positiveKeyMapping">Positive KeyMapping.</param>
+    public Axis(string name, KeyMapping negativeKeyMapping, KeyMapping positiveKeyMapping)
     {
         mName     = name;
         mInverted = false;
 
-		set(negativeKeyMapping, positiveKeyMapping);
+        set(negativeKeyMapping, positiveKeyMapping);
     }
 
     /// <summary>
@@ -140,12 +140,12 @@ public class Axis
     /// <summary>
     /// Set negative <see cref="KeyMapping"/> and positive <see cref="KeyMapping"/>.
     /// </summary>
-	/// <param name="negativeKeyMapping">Negative KeyMapping.</param>
-	/// <param name="positiveKeyMapping">Positive KeyMapping.</param>
-	public void set(KeyMapping negativeKeyMapping, KeyMapping positiveKeyMapping)
+    /// <param name="negativeKeyMapping">Negative KeyMapping.</param>
+    /// <param name="positiveKeyMapping">Positive KeyMapping.</param>
+    public void set(KeyMapping negativeKeyMapping, KeyMapping positiveKeyMapping)
     {
-		negative = negativeKeyMapping;
-		positive = positiveKeyMapping;
+        negative = negativeKeyMapping;
+        positive = positiveKeyMapping;
     }
 
     /// <summary>

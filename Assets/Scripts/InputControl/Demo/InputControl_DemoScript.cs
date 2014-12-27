@@ -77,7 +77,7 @@ public class InputControl_DemoScript : MonoBehaviour
         }
     }
 
-	// TODO: Replace with new UI
+    // TODO: Replace with new UI
     void OnGUI()
     {
         if (pause)
@@ -89,7 +89,7 @@ public class InputControl_DemoScript : MonoBehaviour
 
             GUI.Label(new Rect(20, 20, 200, 20), "Press Esc to play");
 
-			ReadOnlyCollection<KeyMapping> keys = InputControl.getKeysList();
+            ReadOnlyCollection<KeyMapping> keys = InputControl.getKeysList();
 
             for (int i = 0; i < keys.Count; ++i)
             {
@@ -127,18 +127,18 @@ public class InputControl_DemoScript : MonoBehaviour
         int column = selectedKey          % 3;
         int row    = (selectedKey-column) / 3;
 
-		ReadOnlyCollection<KeyMapping> keys = InputControl.getKeysList();
+        ReadOnlyCollection<KeyMapping> keys = InputControl.getKeysList();
 
         switch (column)
         {
             case 0:
-				keys[row].primaryInput   = input;
+                keys[row].primaryInput   = input;
             break;
             case 1:
-				keys[row].secondaryInput = input;
+                keys[row].secondaryInput = input;
             break;
             case 2:
-				keys[row].thirdInput     = input;
+                keys[row].thirdInput     = input;
             break;
         }
 
