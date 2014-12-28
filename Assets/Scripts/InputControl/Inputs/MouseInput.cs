@@ -161,49 +161,47 @@ public class MouseInput : CustomInput
     /// <returns>A <see cref="System.String"/> that represents the current <see cref="MouseInput"/>.</returns>
     public override string ToString()
     {
-        if (mCachedToString != null)
+        if (mCachedToString == null)
         {
-            return mCachedToString;
+			string res = modifiersToString() + "Mouse ";
+			
+			if (mAxis != MouseAxis.None)
+			{
+				switch (mAxis)
+				{
+					case MouseAxis.MouseLeft:
+						res += "X (-)";
+					break;
+					case MouseAxis.MouseRight:
+						res += "X (+)";
+					break;
+					case MouseAxis.MouseUp:
+						res += "Y (+)";
+					break;
+					case MouseAxis.MouseDown:
+						res += "Y (-)";
+					break;
+					case MouseAxis.WheelUp:
+						res += "Wheel (+)";
+					break;
+					case MouseAxis.WheelDown:
+						res += "Wheel (-)";
+					break;
+					default:
+						Debug.LogError("Unknown axis");
+					break;
+				}
+			}
+			else
+			if (mButton != MouseButton.None)
+			{
+				res += "Button " + ((int)mButton + 1).ToString();
+			}
+			
+			mCachedToString = res;
         }
 
-        string res = "Mouse ";
-
-        if (mAxis != MouseAxis.None)
-        {
-            switch (mAxis)
-            {
-                case MouseAxis.MouseLeft:
-                    res += "X (-)";
-                break;
-                case MouseAxis.MouseRight:
-                    res += "X (+)";
-                break;
-                case MouseAxis.MouseUp:
-                    res += "Y (+)";
-                break;
-                case MouseAxis.MouseDown:
-                    res += "Y (-)";
-                break;
-                case MouseAxis.WheelUp:
-                    res += "Wheel (+)";
-                break;
-                case MouseAxis.WheelDown:
-                    res += "Wheel (-)";
-                break;
-                default:
-                    Debug.LogError("Unknown axis");
-                break;
-            }
-        }
-        else
-        if (mButton != MouseButton.None)
-        {
-            res += "Button " + ((int)mButton + 1).ToString();
-        }
-
-        mCachedToString = res;
-
-        return res;
+		return mCachedToString;
     }
 
     /// <summary>
@@ -218,6 +216,8 @@ public class MouseInput : CustomInput
             device != InputDevice.Any
             &&
             device != InputDevice.KeyboardAndMouse
+			&&
+			!checkModifiers()
            )
         {
             return 0;
@@ -245,6 +245,8 @@ public class MouseInput : CustomInput
             device != InputDevice.Any
             &&
             device != InputDevice.KeyboardAndMouse
+			&&
+			!checkModifiers()
            )
         {
             return 0;
@@ -272,6 +274,8 @@ public class MouseInput : CustomInput
             device != InputDevice.Any
             &&
             device != InputDevice.KeyboardAndMouse
+			&&
+			!checkModifiers()
            )
         {
             return 0;

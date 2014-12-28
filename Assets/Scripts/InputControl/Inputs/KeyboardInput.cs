@@ -10,6 +10,8 @@ public class KeyboardInput : CustomInput
 {
     private KeyCode mKey;
 
+	private string  mCachedToString;
+
 
 
     #region Properties
@@ -39,6 +41,8 @@ public class KeyboardInput : CustomInput
     public KeyboardInput(KeyCode key = KeyCode.None)
     {
         mKey = key;
+
+		mCachedToString = null;
     }
 
     /// <summary>
@@ -65,7 +69,12 @@ public class KeyboardInput : CustomInput
     /// <returns>A <see cref="System.String"/> that represents the current <see cref="KeyboardInput"/>.</returns>
     public override string ToString()
     {
-        return mKey.ToString();
+		if (mCachedToString == null)
+		{
+			mCachedToString = modifiersToString() + mKey.ToString();
+		}
+
+		return mCachedToString;
     }
 
     /// <summary>
@@ -80,6 +89,8 @@ public class KeyboardInput : CustomInput
             device != InputDevice.Any
             &&
             device != InputDevice.KeyboardAndMouse
+			&&
+			!checkModifiers()
            )
         {
             return 0;
@@ -115,6 +126,8 @@ public class KeyboardInput : CustomInput
             device != InputDevice.Any
             &&
             device != InputDevice.KeyboardAndMouse
+			&&
+			!checkModifiers()
            )
         {
             return 0;
@@ -150,6 +163,8 @@ public class KeyboardInput : CustomInput
             device != InputDevice.Any
             &&
             device != InputDevice.KeyboardAndMouse
+			&&
+			!checkModifiers() // TODO: new KeyboardInput(KeyCode.LeftControl, KeyModifier.Shift) : doesn't work for it
            )
         {
             return 0;
