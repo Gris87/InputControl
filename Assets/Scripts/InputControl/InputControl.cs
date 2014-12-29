@@ -155,7 +155,6 @@ public static class InputControl
 
     #region Setup keys
 
-	// TODO: Templates
     #region setKey with different arguments
 
     #region Level 1
