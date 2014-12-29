@@ -70,16 +70,18 @@ public class JoystickInput : CustomInput
     /// </summary>
     /// <param name="axis">Joystick axis.</param>
     /// <param name="target">Target joystick.</param>
-    public JoystickInput(JoystickAxis axis, Joystick target = Joystick.AllJoysticks)
+	/// <param name="modifiers">Key modifiers.</param>
+	public JoystickInput(JoystickAxis axis, Joystick target = Joystick.AllJoysticks, KeyModifier modifiers = KeyModifier.NoModifier)
     {
         if (axis == JoystickAxis.None)
         {
             Debug.LogError("axis can't be JoystickAxis.None");
         }
 
-        mAxis   = axis;
-        mButton = JoystickButton.None;
-        mTarget = target;
+        mAxis      = axis;
+        mButton    = JoystickButton.None;
+        mTarget    = target;
+		mModifiers = modifiers;
 
         mCachedToString  = null;
         mCachedInputName = null;
@@ -90,16 +92,18 @@ public class JoystickInput : CustomInput
     /// </summary>
     /// <param name="button">Joystick button.</param>
     /// <param name="target">Target joystick.</param>
-    public JoystickInput(JoystickButton button, Joystick target = Joystick.AllJoysticks)
+	/// <param name="modifiers">Key modifiers.</param>
+	public JoystickInput(JoystickButton button, Joystick target = Joystick.AllJoysticks, KeyModifier modifiers = KeyModifier.NoModifier)
     {
         if (button == JoystickButton.None)
         {
             Debug.LogError("button can't be JoystickButton.None");
         }
 
-        mAxis   = JoystickAxis.None;
-        mButton = button;
-        mTarget = target;
+        mAxis      = JoystickAxis.None;
+        mButton    = button;
+        mTarget    = target;
+		mModifiers = modifiers;
 
         mCachedToString  = null;
         mCachedInputName = null;
@@ -112,6 +116,8 @@ public class JoystickInput : CustomInput
     /// <param name="value">String representation of JoystickInput.</param>
     public static JoystickInput FromString(string value)
     {
+		KeyModifier modifiers = modifiersFromString(ref value);
+
         if (!value.StartsWith("Joystick "))
         {
             return null;
@@ -202,7 +208,7 @@ public class JoystickInput : CustomInput
                     return null;
                 }
 
-                return new JoystickInput((JoystickAxis)axisNumber, target);
+                return new JoystickInput((JoystickAxis)axisNumber, target, modifiers);
             }
             catch (Exception)
             {
@@ -230,7 +236,7 @@ public class JoystickInput : CustomInput
                 return null;
             }
 
-            return new JoystickInput((JoystickButton)button, target);
+            return new JoystickInput((JoystickButton)button, target, modifiers);
         }
         catch (Exception)
         {
@@ -287,16 +293,17 @@ public class JoystickInput : CustomInput
     /// Returns input value while the user holds down the key.
     /// </summary>
     /// <returns>Input value if button or axis is still active.</returns>
+	/// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
     /// <param name="axis">Specific actions for axis (Empty by default).</param>
     /// <param name="device">Preferred input device.</param>
-    public override float getInput(string axis = "", InputDevice device = InputDevice.Any)
+	public override float getInput(bool exactKeyModifiers = false, string axis = "", InputDevice device = InputDevice.Any)
     {
         if (
             device != InputDevice.Any
             &&
             device != InputDevice.Joystick
-			&&
-			!checkModifiers()
+			||
+			!checkModifiers(exactKeyModifiers)
            )
         {
             return 0;
@@ -329,16 +336,17 @@ public class JoystickInput : CustomInput
     /// Returns input value during the frame the user starts pressing down the key.
     /// </summary>
     /// <returns>Input value if button or axis become active during this frame.</returns>
+	/// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
     /// <param name="axis">Specific actions for axis (Empty by default).</param>
     /// <param name="device">Preferred input device.</param>
-    public override float getInputDown(string axis = "", InputDevice device = InputDevice.Any)
+	public override float getInputDown(bool exactKeyModifiers = false, string axis = "", InputDevice device = InputDevice.Any)
     {
         if (
             device != InputDevice.Any
             &&
             device != InputDevice.Joystick
-			&&
-			!checkModifiers()
+			||
+			!checkModifiers(exactKeyModifiers)
            )
         {
             return 0;
@@ -371,16 +379,17 @@ public class JoystickInput : CustomInput
     /// Returns input value during the frame the user releases the key.
     /// </summary>
     /// <returns>Input value if button or axis stopped being active during this frame.</returns>
+	/// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
     /// <param name="axis">Specific actions for axis (Empty by default).</param>
     /// <param name="device">Preferred input device.</param>
-    public override float getInputUp(string axis = "", InputDevice device = InputDevice.Any)
+	public override float getInputUp(bool exactKeyModifiers = false, string axis = "", InputDevice device = InputDevice.Any)
     {
         if (
             device != InputDevice.Any
             &&
             device != InputDevice.Joystick
-			&&
-			!checkModifiers()
+			||
+			!checkModifiers(exactKeyModifiers)
            )
         {
             return 0;

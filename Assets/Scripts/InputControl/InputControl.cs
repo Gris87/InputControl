@@ -148,8 +148,14 @@ public static class InputControl
 
 
 
+	static InputControl()
+	{
+		Controls.init();
+	}
+
     #region Setup keys
 
+	// TODO: Templates
     #region setKey with different arguments
 
     #region Level 1
@@ -1320,7 +1326,7 @@ public static class InputControl
     /// <param name="arg">Some kind of argument.</param>
     private static CustomInput argToInput(MouseAxis arg)
     {
-        return new MouseInput(arg);
+		return new MouseInput(arg);
     }
 
     /// <summary>
@@ -1330,7 +1336,7 @@ public static class InputControl
     /// <param name="arg">Some kind of argument.</param>
     private static CustomInput argToInput(MouseButton arg)
     {
-        return new MouseInput(arg);
+		return new MouseInput(arg);
     }
     #endregion
 
@@ -1656,12 +1662,33 @@ public static class InputControl
     /// </summary>
     /// <returns>Currently active input.</returns>
     /// <param name="ignoreMouseMovement">If set to <c>true</c> ignore mouse movement.</param>
-    public static CustomInput currentInput(bool ignoreMouseMovement=true)
+	/// <param name="useModifiers">If set to <c>true</c> handle key modifiers.</param>
+    public static CustomInput currentInput(bool ignoreMouseMovement=true, bool useModifiers = false)
     {
+		KeyModifier modifiers = KeyModifier.NoModifier;
+
+		if (useModifiers)
+		{
+			if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
+			{
+				modifiers |= KeyModifier.Ctrl;
+			}
+			
+			if (Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt))
+			{
+				modifiers |= KeyModifier.Alt;
+			}
+			
+			if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+			{
+				modifiers |= KeyModifier.Shift;
+			}
+		}
+
         #region Joystick
         for (int i = (int)Joystick.Joystick1; i < (int)Joystick.None; ++i)
         {
-            String target = "Joystick "+i.ToString()+" ";
+            String target = "Joystick " + i.ToString() + " ";
 
             #region Axes
             for (int j = 1; j <= (int)JoystickAxis.None / 2; ++j)
@@ -1670,12 +1697,12 @@ public static class InputControl
 
                 if (joyAxis < -mJoystickThreshold)
                 {
-                    return new JoystickInput((JoystickAxis)((j - 1) * 2 + 1), (Joystick)i);
+					return new JoystickInput((JoystickAxis)((j - 1) * 2 + 1), (Joystick)i, modifiers);
                 }
 
                 if (joyAxis > mJoystickThreshold)
                 {
-                    return new JoystickInput((JoystickAxis)((j - 1) * 2),     (Joystick)i);
+					return new JoystickInput((JoystickAxis)((j - 1) * 2),     (Joystick)i, modifiers);
                 }
             }
             #endregion
@@ -1685,7 +1712,7 @@ public static class InputControl
             {
                 if (Input.GetButton(target + "Button " + (j + 1).ToString()))
                 {
-                    return new JoystickInput((JoystickButton)j, (Joystick)i);
+					return new JoystickInput((JoystickButton)j, (Joystick)i, modifiers);
                 }
             }
             #endregion
@@ -1701,12 +1728,12 @@ public static class InputControl
 
         if (mouseAxis < 0)
         {
-            return new MouseInput(MouseAxis.WheelDown);
+			return new MouseInput(MouseAxis.WheelDown, modifiers);
         }
 
         if (mouseAxis > 0)
         {
-            return new MouseInput(MouseAxis.WheelUp);
+			return new MouseInput(MouseAxis.WheelUp, modifiers);
         }
         #endregion
 
@@ -1717,12 +1744,12 @@ public static class InputControl
 
             if (mouseAxis < 0)
             {
-                return new MouseInput(MouseAxis.MouseLeft);
+				return new MouseInput(MouseAxis.MouseLeft, modifiers);
             }
 
             if (mouseAxis > 0)
             {
-                return new MouseInput(MouseAxis.MouseRight);
+				return new MouseInput(MouseAxis.MouseRight, modifiers);
             }
             #endregion
 
@@ -1731,12 +1758,12 @@ public static class InputControl
 
             if (mouseAxis < 0)
             {
-                return new MouseInput(MouseAxis.MouseDown);
+				return new MouseInput(MouseAxis.MouseDown, modifiers);
             }
 
             if (mouseAxis > 0)
             {
-                return new MouseInput(MouseAxis.MouseUp);
+				return new MouseInput(MouseAxis.MouseUp, modifiers);
             }
             #endregion
         }
@@ -1747,10 +1774,10 @@ public static class InputControl
         {
             KeyCode key = (KeyCode)((int)KeyCode.Mouse0 + i);
 
-            if (Input.GetKey(key))
-            {
-                return new MouseInput((MouseButton)i);
-            }
+			if (Input.GetKey(key))
+			{
+				return new MouseInput((MouseButton)i, modifiers);
+			}
         }
         #endregion
 
@@ -1761,9 +1788,29 @@ public static class InputControl
         {
             KeyCode key = (KeyCode)value;
 
-            if (Input.GetKey(key))
-            {
-                return new KeyboardInput(key);
+			if (
+				(
+				 !useModifiers
+				 ||
+				 (
+				  key != KeyCode.LeftControl
+				  &&
+				  key != KeyCode.RightControl
+				  &&
+				  key != KeyCode.LeftAlt
+				  &&
+				  key != KeyCode.RightAlt
+				  &&
+				  key != KeyCode.LeftShift
+				  &&
+				  key != KeyCode.RightShift
+			 	 )
+				)
+				&&
+				Input.GetKey(key)
+			   )
+			{
+				return new KeyboardInput(key, modifiers);
             }
         }
         #endregion
@@ -1798,7 +1845,8 @@ public static class InputControl
     /// </summary>
     /// <returns>Value of the virtual axis.</returns>
     /// <param name="axisName">Axis name.</param>
-    public static float GetAxis(string axisName)
+	/// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
+	public static float GetAxis(string axisName, bool exactKeyModifiers = false)
     {
         float previousValue;
 
@@ -1814,7 +1862,7 @@ public static class InputControl
             totalCoefficient = 1;
         }
 
-        float newValue = GetAxisRaw(axisName);
+		float newValue = GetAxisRaw(axisName, exactKeyModifiers);
         float res      = previousValue + (newValue - previousValue) * totalCoefficient;
 
         mSmoothAxesValues[axisName] = res;
@@ -1827,7 +1875,8 @@ public static class InputControl
     /// </summary>
     /// <returns>Value of the virtual axis.</returns>
     /// <param name="axis">Axis instance.</param>
-    public static float GetAxis(Axis axis)
+	/// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
+	public static float GetAxis(Axis axis, bool exactKeyModifiers = false)
     {
         float previousValue;
 
@@ -1843,7 +1892,7 @@ public static class InputControl
             totalCoefficient = 1;
         }
 
-        float newValue = GetAxisRaw(axis);
+        float newValue = GetAxisRaw(axis, exactKeyModifiers);
         float res      = previousValue + (newValue - previousValue) * totalCoefficient;
 
         mSmoothAxesValues[axis.name] = res;
@@ -1856,7 +1905,8 @@ public static class InputControl
     /// </summary>
     /// <returns>Value of the virtual axis.</returns>
     /// <param name="axisName">Axis name.</param>
-    public static float GetAxisRaw(string axisName)
+	/// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
+	public static float GetAxisRaw(string axisName, bool exactKeyModifiers = false)
     {
         float sensitivity = 1f;
 
@@ -1897,7 +1947,7 @@ public static class InputControl
             return Input.GetAxisRaw(axisName) * sensitivity;
         }
 
-        return outAxis.getValue(mInputDevice) * sensitivity;
+		return outAxis.getValue(exactKeyModifiers, mInputDevice) * sensitivity;
     }
 
     /// <summary>
@@ -1905,7 +1955,8 @@ public static class InputControl
     /// </summary>
     /// <returns>Value of the virtual axis.</returns>
     /// <param name="axis">Axis instance.</param>
-    public static float GetAxisRaw(Axis axis)
+	/// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
+	public static float GetAxisRaw(Axis axis, bool exactKeyModifiers = false)
     {
         float sensitivity = 1f;
 
@@ -1928,7 +1979,7 @@ public static class InputControl
         }
         #endregion
 
-        return axis.getValue(mInputDevice) * sensitivity;
+		return axis.getValue(exactKeyModifiers, mInputDevice) * sensitivity;
     }
 
     /// <summary>
@@ -1936,7 +1987,8 @@ public static class InputControl
     /// </summary>
     /// <returns><c>true</c>, if button is held down, <c>false</c> otherwise.</returns>
     /// <param name="buttonName">Button name.</param>
-    public static bool GetButton(string buttonName)
+	/// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
+	public static bool GetButton(string buttonName, bool exactKeyModifiers = false)
     {
         KeyMapping outKey = null;
 
@@ -1946,7 +1998,7 @@ public static class InputControl
             return false;
         }
 
-        return outKey.isPressed(mInputDevice);
+		return outKey.isPressed(exactKeyModifiers, mInputDevice);
     }
 
     /// <summary>
@@ -1954,9 +2006,10 @@ public static class InputControl
     /// </summary>
     /// <returns><c>true</c>, if button is held down, <c>false</c> otherwise.</returns>
     /// <param name="button">KeyMapping instance.</param>
-    public static bool GetButton(KeyMapping button)
+	/// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
+	public static bool GetButton(KeyMapping button, bool exactKeyModifiers = false)
     {
-        return button.isPressed(mInputDevice);
+		return button.isPressed(exactKeyModifiers, mInputDevice);
     }
 
     /// <summary>
@@ -1964,7 +2017,8 @@ public static class InputControl
     /// </summary>
     /// <returns><c>true</c>, if user pressed down the button during the frame, <c>false</c> otherwise.</returns>
     /// <param name="buttonName">Button name.</param>
-    public static bool GetButtonDown(string buttonName)
+	/// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
+	public static bool GetButtonDown(string buttonName, bool exactKeyModifiers = false)
     {
         KeyMapping outKey = null;
 
@@ -1974,7 +2028,7 @@ public static class InputControl
             return false;
         }
 
-        return outKey.isPressedDown(mInputDevice);
+		return outKey.isPressedDown(exactKeyModifiers, mInputDevice);
     }
 
     /// <summary>
@@ -1982,9 +2036,10 @@ public static class InputControl
     /// </summary>
     /// <returns><c>true</c>, if user pressed down the button during the frame, <c>false</c> otherwise.</returns>
     /// <param name="button">KeyMapping instance.</param>
-    public static bool GetButtonDown(KeyMapping button)
+	/// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
+	public static bool GetButtonDown(KeyMapping button, bool exactKeyModifiers = false)
     {
-        return button.isPressedDown(mInputDevice);
+		return button.isPressedDown(exactKeyModifiers, mInputDevice);
     }
 
     /// <summary>
@@ -1992,7 +2047,8 @@ public static class InputControl
     /// </summary>
     /// <returns><c>true</c>, if user releases the button during the frame, <c>false</c> otherwise.</returns>
     /// <param name="buttonName">Button name.</param>
-    public static bool GetButtonUp(string buttonName)
+	/// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
+	public static bool GetButtonUp(string buttonName, bool exactKeyModifiers = false)
     {
         KeyMapping outKey = null;
 
@@ -2002,7 +2058,7 @@ public static class InputControl
             return false;
         }
 
-        return outKey.isPressedUp(mInputDevice);
+		return outKey.isPressedUp(exactKeyModifiers, mInputDevice);
     }
 
     /// <summary>
@@ -2010,9 +2066,10 @@ public static class InputControl
     /// </summary>
     /// <returns><c>true</c>, if user releases the button during the frame, <c>false</c> otherwise.</returns>
     //// <param name="button">KeyMapping instance.</param>
-    public static bool GetButtonUp(KeyMapping button)
+	/// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
+	public static bool GetButtonUp(KeyMapping button, bool exactKeyModifiers = false)
     {
-        return button.isPressedUp(mInputDevice);
+		return button.isPressedUp(exactKeyModifiers, mInputDevice);
     }
 
     /// <summary>

@@ -68,7 +68,7 @@ public class KeyMapping
         {
             if (value == null)
             {
-                mSecondaryInput = new KeyboardInput();
+				mSecondaryInput = new KeyboardInput();
             }
             else
             {
@@ -94,7 +94,7 @@ public class KeyMapping
         {
             if (value == null)
             {
-                mThirdInput = new KeyboardInput();
+				mThirdInput = new KeyboardInput();
             }
             else
             {
@@ -149,28 +149,29 @@ public class KeyMapping
     /// Returns input value while the user holds down the key.
     /// </summary>
     /// <returns>Input value if button or axis is still active.</returns>
+	/// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
     /// <param name="axis">Specific actions for axis (Empty by default).</param>
     /// <param name="device">Preferred input device.</param>
-    public float getValue(string axis = "", InputDevice device = InputDevice.Any)
+	public float getValue(bool exactKeyModifiers = false, string axis = "", InputDevice device = InputDevice.Any)
     {
         float res = 0;
         float cur;
 
-        cur = mPrimaryInput.getInput(axis, device);
+		cur = mPrimaryInput.getInput(exactKeyModifiers, axis, device);
 
         if (cur > res)
         {
             res = cur;
         }
 
-        cur = mSecondaryInput.getInput(axis, device);
+		cur = mSecondaryInput.getInput(exactKeyModifiers, axis, device);
 
         if (cur > res)
         {
             res = cur;
         }
 
-        cur = mThirdInput.getInput(axis, device);
+		cur = mThirdInput.getInput(exactKeyModifiers, axis, device);
 
         if (cur > res)
         {
@@ -184,28 +185,29 @@ public class KeyMapping
     /// Returns input value during the frame the user starts pressing down the key.
     /// </summary>
     /// <returns>Input value if button or axis become active during this frame.</returns>
+	/// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
     /// <param name="axis">Specific actions for axis (Empty by default).</param>
     /// <param name="device">Preferred input device.</param>
-    public float getValueDown(string axis = "", InputDevice device = InputDevice.Any)
+	public float getValueDown(bool exactKeyModifiers = false, string axis = "", InputDevice device = InputDevice.Any)
     {
         float res = 0;
         float cur;
 
-        cur = mPrimaryInput.getInputDown(axis, device);
+		cur = mPrimaryInput.getInputDown(exactKeyModifiers, axis, device);
 
         if (cur > res)
         {
             res = cur;
         }
 
-        cur = mSecondaryInput.getInputDown(axis, device);
+		cur = mSecondaryInput.getInputDown(exactKeyModifiers, axis, device);
 
         if (cur > res)
         {
             res = cur;
         }
 
-        cur = mThirdInput.getInputDown(axis, device);
+		cur = mThirdInput.getInputDown(exactKeyModifiers, axis, device);
 
         if (cur > res)
         {
@@ -219,28 +221,29 @@ public class KeyMapping
     /// Returns input value during the frame the user releases the key.
     /// </summary>
     /// <returns>Input value if button or axis stopped being active during this frame.</returns>
+	/// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
     /// <param name="axis">Specific actions for axis (Empty by default).</param>
     /// <param name="device">Preferred input device.</param>
-    public float getValueUp(string axis = "", InputDevice device = InputDevice.Any)
+	public float getValueUp(bool exactKeyModifiers = false, string axis = "", InputDevice device = InputDevice.Any)
     {
         float res = 0;
         float cur;
 
-        cur = mPrimaryInput.getInputUp(axis, device);
+		cur = mPrimaryInput.getInputUp(exactKeyModifiers, axis, device);
 
         if (cur > res)
         {
             res = cur;
         }
 
-        cur = mSecondaryInput.getInputUp(axis, device);
+		cur = mSecondaryInput.getInputUp(exactKeyModifiers, axis, device);
 
         if (cur > res)
         {
             res = cur;
         }
 
-        cur = mThirdInput.getInputUp(axis, device);
+		cur = mThirdInput.getInputUp(exactKeyModifiers, axis, device);
 
         if (cur > res)
         {
@@ -254,29 +257,32 @@ public class KeyMapping
     /// Returns true while the user holds down the key.
     /// </summary>
     /// <returns>True if button or axis is still active.</returns>
+	/// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
     /// <param name="device">Preferred input device.</param>
-    public bool isPressed(InputDevice device = InputDevice.Any)
+	public bool isPressed(bool exactKeyModifiers = false, InputDevice device = InputDevice.Any)
     {
-        return getValue("", device) != 0;
+		return getValue(exactKeyModifiers, "", device) != 0;
     }
 
     /// <summary>
     /// Returns true during the frame the user starts pressing down the key.
     /// </summary>
     /// <returns>True if button or axis become active during this frame.</returns>
+	/// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
     /// <param name="device">Preferred input device.</param>
-    public bool isPressedDown(InputDevice device = InputDevice.Any)
+	public bool isPressedDown(bool exactKeyModifiers = false, InputDevice device = InputDevice.Any)
     {
-        return getValueDown("", device) != 0;
+		return getValueDown(exactKeyModifiers, "", device) != 0;
     }
 
     /// <summary>
     /// Returns true during the frame the user releases the key.
     /// </summary>
     /// <returns>True if button or axis stopped being active during this frame.</returns>
+	/// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
     /// <param name="device">Preferred input device.</param>
-    public bool isPressedUp(InputDevice device = InputDevice.Any)
+	public bool isPressedUp(bool exactKeyModifiers = false, InputDevice device = InputDevice.Any)
     {
-        return getValueUp("", device) != 0;
+		return getValueUp(exactKeyModifiers, "", device) != 0;
     }
 }

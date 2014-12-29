@@ -53,15 +53,17 @@ public class MouseInput : CustomInput
     /// Create a new instance of <see cref="MouseInput"/> that handles specified mouse axis.
     /// </summary>
     /// <param name="axis">Mouse axis.</param>
-    public MouseInput(MouseAxis axis)
+	/// <param name="modifiers">Key modifiers.</param>
+	public MouseInput(MouseAxis axis, KeyModifier modifiers = KeyModifier.NoModifier)
     {
         if (axis == MouseAxis.None)
         {
             Debug.LogError("axis can't be MouseAxis.None");
         }
 
-        mAxis   = axis;
-        mButton = MouseButton.None;
+        mAxis      = axis;
+        mButton    = MouseButton.None;
+		mModifiers = modifiers;
 
         mCachedToString = null;
     }
@@ -70,15 +72,17 @@ public class MouseInput : CustomInput
     /// Create a new instance of <see cref="MouseInput"/> that handles specified mouse button.
     /// </summary>
     /// <param name="button">Mouse button.</param>
-    public MouseInput(MouseButton button)
+	/// <param name="modifiers">Key modifiers.</param>
+	public MouseInput(MouseButton button, KeyModifier modifiers =KeyModifier.NoModifier)
     {
         if (button == MouseButton.None)
         {
             Debug.LogError("button can't be MouseButton.None");
         }
 
-        mAxis   = MouseAxis.None;
-        mButton = button;
+        mAxis      = MouseAxis.None;
+        mButton    = button;
+		mModifiers = modifiers;
 
         mCachedToString = null;
     }
@@ -90,6 +94,8 @@ public class MouseInput : CustomInput
     /// <param name="value">String representation of MouseInput.</param>
     public static MouseInput FromString(string value)
     {
+		KeyModifier modifiers = modifiersFromString(ref value);
+
         if (!value.StartsWith("Mouse "))
         {
             return null;
@@ -99,32 +105,32 @@ public class MouseInput : CustomInput
 
         if (value.Equals("X (-)"))
         {
-            return new MouseInput(MouseAxis.MouseLeft);
+            return new MouseInput(MouseAxis.MouseLeft, modifiers);
         }
 
         if (value.Equals("X (+)"))
         {
-            return new MouseInput(MouseAxis.MouseRight);
+			return new MouseInput(MouseAxis.MouseRight, modifiers);
         }
 
         if (value.Equals("Y (-)"))
         {
-            return new MouseInput(MouseAxis.MouseDown);
+			return new MouseInput(MouseAxis.MouseDown, modifiers);
         }
 
         if (value.Equals("Y (+)"))
         {
-            return new MouseInput(MouseAxis.MouseUp);
+			return new MouseInput(MouseAxis.MouseUp, modifiers);
         }
 
         if (value.Equals("Wheel (-)"))
         {
-            return new MouseInput(MouseAxis.WheelDown);
+			return new MouseInput(MouseAxis.WheelDown, modifiers);
         }
 
         if (value.Equals("Wheel (+)"))
         {
-            return new MouseInput(MouseAxis.WheelUp);
+			return new MouseInput(MouseAxis.WheelUp, modifiers);
         }
 
         if (!value.StartsWith("Button "))
@@ -147,7 +153,7 @@ public class MouseInput : CustomInput
                 return null;
             }
 
-            return new MouseInput((MouseButton)button);
+			return new MouseInput((MouseButton)button, modifiers);
         }
         catch (Exception)
         {
@@ -208,16 +214,17 @@ public class MouseInput : CustomInput
     /// Returns input value while the user holds down the key.
     /// </summary>
     /// <returns>Input value if button or axis is still active.</returns>
+	/// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
     /// <param name="axis">Specific actions for axis (Empty by default).</param>
     /// <param name="device">Preferred input device.</param>
-    public override float getInput(string axis="", InputDevice device=InputDevice.Any)
+	public override float getInput(bool exactKeyModifiers = false, string axis="", InputDevice device=InputDevice.Any)
     {
         if (
             device != InputDevice.Any
             &&
             device != InputDevice.KeyboardAndMouse
-			&&
-			!checkModifiers()
+			||
+			!checkModifiers(exactKeyModifiers)
            )
         {
             return 0;
@@ -237,16 +244,17 @@ public class MouseInput : CustomInput
     /// Returns input value during the frame the user starts pressing down the key.
     /// </summary>
     /// <returns>Input value if button or axis become active during this frame.</returns>
+	/// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
     /// <param name="axis">Specific actions for axis (Empty by default).</param>
     /// <param name="device">Preferred input device.</param>
-    public override float getInputDown(string axis="", InputDevice device=InputDevice.Any)
+	public override float getInputDown(bool exactKeyModifiers = false, string axis="", InputDevice device=InputDevice.Any)
     {
         if (
             device != InputDevice.Any
             &&
             device != InputDevice.KeyboardAndMouse
-			&&
-			!checkModifiers()
+			||
+			!checkModifiers(exactKeyModifiers)
            )
         {
             return 0;
@@ -266,16 +274,17 @@ public class MouseInput : CustomInput
     /// Returns input value during the frame the user releases the key.
     /// </summary>
     /// <returns>Input value if button or axis stopped being active during this frame.</returns>
+	/// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
     /// <param name="axis">Specific actions for axis (Empty by default).</param>
     /// <param name="device">Preferred input device.</param>
-    public override float getInputUp(string axis="", InputDevice device=InputDevice.Any)
+	public override float getInputUp(bool exactKeyModifiers = false, string axis="", InputDevice device=InputDevice.Any)
     {
         if (
             device != InputDevice.Any
             &&
             device != InputDevice.KeyboardAndMouse
-			&&
-			!checkModifiers()
+			||
+			!checkModifiers(exactKeyModifiers)
            )
         {
             return 0;

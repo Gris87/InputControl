@@ -38,9 +38,11 @@ public class KeyboardInput : CustomInput
     /// Create a new instance of <see cref="KeyboardInput"/> that handles specified keyboard key.
     /// </summary>
     /// <param name="key">Keyboard key.</param>
-    public KeyboardInput(KeyCode key = KeyCode.None)
+	/// <param name="modifiers">Key modifiers.</param>
+    public KeyboardInput(KeyCode key = KeyCode.None, KeyModifier modifiers = KeyModifier.NoModifier)
     {
-        mKey = key;
+        mKey       = key;
+		mModifiers = modifiers;
 
 		mCachedToString = null;
     }
@@ -52,10 +54,12 @@ public class KeyboardInput : CustomInput
     /// <param name="value">String representation of KeyboardInput.</param>
     public static KeyboardInput FromString(string value)
     {
+		KeyModifier modifiers = modifiersFromString(ref value);
+
         try
         {
             KeyCode key = (KeyCode)Enum.Parse(typeof(KeyCode), value);
-            return new KeyboardInput(key);
+            return new KeyboardInput(key, modifiers);
         }
         catch (Exception)
         {
@@ -81,16 +85,17 @@ public class KeyboardInput : CustomInput
     /// Returns input value while the user holds down the key.
     /// </summary>
     /// <returns>Input value if button or axis is still active.</returns>
+	/// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
     /// <param name="axis">Specific actions for axis (Empty by default).</param>
     /// <param name="device">Preferred input device.</param>
-    public override float getInput(string axis = "", InputDevice device = InputDevice.Any)
+	public override float getInput(bool exactKeyModifiers = false, string axis = "", InputDevice device = InputDevice.Any)
     {
         if (
             device != InputDevice.Any
             &&
             device != InputDevice.KeyboardAndMouse
-			&&
-			!checkModifiers()
+			||
+			!checkModifiersForKeys(exactKeyModifiers)
            )
         {
             return 0;
@@ -118,16 +123,17 @@ public class KeyboardInput : CustomInput
     /// Returns input value during the frame the user starts pressing down the key.
     /// </summary>
     /// <returns>Input value if button or axis become active during this frame.</returns>
+	/// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
     /// <param name="axis">Specific actions for axis (Empty by default).</param>
     /// <param name="device">Preferred input device.</param>
-    public override float getInputDown(string axis = "", InputDevice device = InputDevice.Any)
+	public override float getInputDown(bool exactKeyModifiers = false, string axis = "", InputDevice device = InputDevice.Any)
     {
         if (
             device != InputDevice.Any
             &&
             device != InputDevice.KeyboardAndMouse
-			&&
-			!checkModifiers()
+			||
+			!checkModifiersForKeys(exactKeyModifiers)
            )
         {
             return 0;
@@ -155,16 +161,17 @@ public class KeyboardInput : CustomInput
     /// Returns input value during the frame the user releases the key.
     /// </summary>
     /// <returns>Input value if button or axis stopped being active during this frame.</returns>
+	/// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
     /// <param name="axis">Specific actions for axis (Empty by default).</param>
     /// <param name="device">Preferred input device.</param>
-    public override float getInputUp(string axis = "", InputDevice device = InputDevice.Any)
+	public override float getInputUp(bool exactKeyModifiers = false, string axis = "", InputDevice device = InputDevice.Any)
     {
         if (
             device != InputDevice.Any
             &&
             device != InputDevice.KeyboardAndMouse
-			&&
-			!checkModifiers() // TODO: new KeyboardInput(KeyCode.LeftControl, KeyModifier.Shift) : doesn't work for it
+			||
+			!checkModifiersForKeys(exactKeyModifiers)
            )
         {
             return 0;
@@ -187,4 +194,76 @@ public class KeyboardInput : CustomInput
 
         return Input.GetKeyUp(mKey) ? sensitivity : 0;
     }
+
+	/// <summary>
+	/// Verifies that specified key modifiers are active during current frame.
+	/// </summary>
+	/// <returns>Specified key modifiers are active during current frame.</returns>
+	/// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
+	private bool checkModifiersForKeys(bool exactKeyModifiers = false)
+	{
+		if (!exactKeyModifiers && mModifiers == KeyModifier.NoModifier)
+		{
+			return true;
+		}
+
+		if (mCachedModifiersFrame != Time.frameCount)
+		{
+			KeyModifier res = KeyModifier.NoModifier;
+			
+			if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
+			{
+				res |= KeyModifier.Ctrl;
+			}
+			
+			if (Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt))
+			{
+				res |= KeyModifier.Alt;
+			}
+			
+			if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+			{
+				res |= KeyModifier.Shift;
+			}
+			
+			mCachedModifiersFrame = Time.frameCount;
+			mCachedModifiersState = res;
+		}
+
+		if (exactKeyModifiers)
+		{
+			if (
+				mKey == KeyCode.LeftControl
+				||
+				mKey == KeyCode.RightControl
+			   )
+			{
+				return (mModifiers | KeyModifier.Ctrl) == mCachedModifiersState;
+			}
+
+			if (
+				mKey == KeyCode.LeftAlt
+				||
+				mKey == KeyCode.RightAlt
+			   )
+			{
+				return (mModifiers | KeyModifier.Alt) == mCachedModifiersState;
+			}
+			
+			if (
+				mKey == KeyCode.LeftShift
+				||
+				mKey == KeyCode.RightShift
+			   )
+			{
+				return (mModifiers | KeyModifier.Shift) == mCachedModifiersState;
+			}
+		}
+		else
+		{
+			return (mModifiers & mCachedModifiersState) == mModifiers;
+		}
+		
+		return mModifiers == mCachedModifiersState;
+	}
 }
