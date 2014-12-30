@@ -3,7 +3,8 @@ InputControl
 
 InputControl works similarly to the Unity built-in input manager and allow user to customize controls in Runtime.
 
-Demo: http://gris.ucoz.ru/UnityModules/InputControl/Web/InputControl.html
+Demo:              http://gris.ucoz.ru/UnityModules/InputControl/Web/InputControl.html
+Unity Asset Store: http://u3d.as/7Bc
 
 Description:
 
@@ -112,5 +113,6 @@ e-mail: gris87@yandex.ru
 
 Links:
 
-Site:   http://gris.ucoz.ru/index/inputcontrol/0-11
-GitHub: https://github.com/Gris87/InputControl
+Site:              http://gris.ucoz.ru/index/inputcontrol/0-11
+Unity Asset Store: http://u3d.as/7Bc
+GitHub:            https://github.com/Gris87/InputControl
