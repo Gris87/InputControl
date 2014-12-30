@@ -152,17 +152,17 @@ public class Axis
     /// Returns axis value by using negative <see cref="KeyMapping"/> and positive <see cref="KeyMapping"/>.
     /// </summary>
     /// <returns>Axis value.</returns>
-	/// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
+    /// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
     /// <param name="device">Preferred input device.</param>
-	public float getValue(bool exactKeyModifiers = false, InputDevice device = InputDevice.Any)
+    public float getValue(bool exactKeyModifiers = false, InputDevice device = InputDevice.Any)
     {
         if (mInverted)
         {
-			return mNegative.getValue(exactKeyModifiers, mName, device) - mPositive.getValue(exactKeyModifiers, mName, device);
+            return mNegative.getValue(exactKeyModifiers, mName, device) - mPositive.getValue(exactKeyModifiers, mName, device);
         }
         else
         {
-			return mPositive.getValue(exactKeyModifiers, mName, device) - mNegative.getValue(exactKeyModifiers, mName, device);
+            return mPositive.getValue(exactKeyModifiers, mName, device) - mNegative.getValue(exactKeyModifiers, mName, device);
         }
     }
 }
