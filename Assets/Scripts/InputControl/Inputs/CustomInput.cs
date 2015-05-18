@@ -119,6 +119,11 @@ public abstract class CustomInput
     {
         KeyModifier res = KeyModifier.NoModifier;
 
+		if (value == null)
+		{
+			return res;
+		}
+
         do
         {
             if (value.StartsWith("Ctrl+"))

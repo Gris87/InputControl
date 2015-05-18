@@ -94,6 +94,11 @@ public class MouseInput : CustomInput
     /// <param name="value">String representation of MouseInput.</param>
     public static MouseInput FromString(string value)
     {
+		if (value == null)
+		{
+			return null;
+		}
+
         KeyModifier modifiers = modifiersFromString(ref value);
 
         if (!value.StartsWith("Mouse "))

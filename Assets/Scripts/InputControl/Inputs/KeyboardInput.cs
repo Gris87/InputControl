@@ -54,6 +54,11 @@ public class KeyboardInput : CustomInput
     /// <param name="value">String representation of KeyboardInput.</param>
     public static KeyboardInput FromString(string value)
     {
+		if (value == null)
+		{
+			return null;
+		}
+
         KeyModifier modifiers = modifiersFromString(ref value);
 
         try
@@ -104,7 +109,7 @@ public class KeyboardInput : CustomInput
         float sensitivity = 1;
 
         if (
-            axis!=null
+            axis != null
             &&
             (
              axis.Equals("Mouse X")
@@ -142,7 +147,7 @@ public class KeyboardInput : CustomInput
         float sensitivity = 1;
 
         if (
-            axis!=null
+            axis != null
             &&
             (
              axis.Equals("Mouse X")
