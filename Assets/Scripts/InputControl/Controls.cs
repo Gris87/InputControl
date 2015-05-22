@@ -29,11 +29,23 @@ public static class Controls
         public Axis horizontal;
     }
 
+
+
+	/// <summary>
+	/// Set of buttons.
+	/// </summary>
     public static Buttons buttons;
+
+	/// <summary>
+	/// Set of axes.
+	/// </summary>
     public static Axes    axes;
 
 
 
+	/// <summary>
+	/// Initializes the <see cref="Controls"/> class.
+	/// </summary>
     static Controls()
     {
         buttons.up      = InputControl.setKey("Up",    KeyCode.W,     KeyCode.UpArrow,    new JoystickInput(JoystickAxis.Axis2Negative));
@@ -48,11 +60,17 @@ public static class Controls
         load();
     }
 
+	/// <summary>
+	/// Nothing. It just call static constructor if needed.
+	/// </summary>
     public static void init()
     {
         // Nothing. It just call static constructor if needed
     }
 
+	/// <summary>
+	/// Save controls.
+	/// </summary>
     public static void save()
     {
         // It is just an example. You may remove it or modify it if you want
@@ -68,6 +86,9 @@ public static class Controls
         PlayerPrefs.Save();
     }
 
+	/// <summary>
+	/// Load controls.
+	/// </summary>
     public static void load()
     {
         // It is just an example. You may remove it or modify it if you want
@@ -100,6 +121,11 @@ public static class Controls
         }
     }
 
+	/// <summary>
+	/// Converts string representation of CustomInput to CustomInput.
+	/// </summary>
+	/// <returns>CustomInput from string.</returns>
+	/// <param name="value">String representation of CustomInput.</param>
     private static CustomInput customInputFromString(string value)
     {
         CustomInput res;
