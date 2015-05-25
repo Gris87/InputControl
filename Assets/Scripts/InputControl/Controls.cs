@@ -130,26 +130,26 @@ public static class Controls
     {
         CustomInput res;
 
-        res = KeyboardInput.FromString(value);
-
-        if (res != null)
-        {
-            return res;
-        }
-
-        res = MouseInput.FromString(value);
-
-        if (res != null)
-        {
-            return res;
-        }
-
         res = JoystickInput.FromString(value);
 
         if (res != null)
         {
             return res;
         }
+
+		res = MouseInput.FromString(value);
+		
+		if (res != null)
+		{
+			return res;
+		}
+
+		res = KeyboardInput.FromString(value);
+		
+		if (res != null)
+		{
+			return res;
+		}
 
         return null;
     }
