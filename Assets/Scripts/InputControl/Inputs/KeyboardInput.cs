@@ -741,7 +741,7 @@ namespace Internal
 /// </summary>
 public class KeyboardInput : CustomInput
 {
-	private KeyCode mKey;
+    private KeyCode mKey;
 
     private string  mCachedToString;
 
