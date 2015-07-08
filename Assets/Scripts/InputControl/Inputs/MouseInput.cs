@@ -199,7 +199,7 @@ public class MouseInput : CustomInput
                         res += "Wheel (-)";
                     break;
                     default:
-                        Debug.LogError("Unknown axis");
+						Debug.LogError("Unknown axis: " + mAxis);
                     break;
                 }
             }
@@ -320,7 +320,7 @@ public class MouseInput : CustomInput
             case MouseAxis.WheelUp:    return InputGetAxis("Mouse ScrollWheel", true);
             case MouseAxis.WheelDown:  return InputGetAxis("Mouse ScrollWheel", false);
             default:
-                Debug.LogError("Unknown axis");
+				Debug.LogError("Unknown axis: " + mAxis);
             break;
         }
 
