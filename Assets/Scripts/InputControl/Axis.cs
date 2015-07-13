@@ -112,7 +112,7 @@ public class Axis
         mName     = name;
         mInverted = false;
 
-        set(negativeKeyMapping, positiveKeyMapping);
+        Set(negativeKeyMapping, positiveKeyMapping);
     }
 
     /// <summary>
@@ -123,14 +123,14 @@ public class Axis
     {
         mName = another.mName;
 
-        set(another);
+        Set(another);
     }
 
     /// <summary>
     /// Set the same negative <see cref="KeyMapping"/> and positive <see cref="KeyMapping"/> as in another instance.
     /// </summary>
     /// <param name="another">Another Axis instance.</param>
-    public void set(Axis another)
+    public void Set(Axis another)
     {
         mNegative = another.mNegative;
         mPositive = another.mPositive;
@@ -142,7 +142,7 @@ public class Axis
     /// </summary>
     /// <param name="negativeKeyMapping">Negative KeyMapping.</param>
     /// <param name="positiveKeyMapping">Positive KeyMapping.</param>
-    public void set(KeyMapping negativeKeyMapping, KeyMapping positiveKeyMapping)
+    public void Set(KeyMapping negativeKeyMapping, KeyMapping positiveKeyMapping)
     {
         negative = negativeKeyMapping;
         positive = positiveKeyMapping;
@@ -154,15 +154,15 @@ public class Axis
     /// <returns>Axis value.</returns>
     /// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
     /// <param name="device">Preferred input device.</param>
-    public float getValue(bool exactKeyModifiers = false, InputDevice device = InputDevice.Any)
+    public float GetValue(bool exactKeyModifiers = false, InputDevice device = InputDevice.Any)
     {
         if (mInverted)
         {
-            return mNegative.getValue(exactKeyModifiers, mName, device) - mPositive.getValue(exactKeyModifiers, mName, device);
+            return mNegative.GetValue(exactKeyModifiers, mName, device) - mPositive.GetValue(exactKeyModifiers, mName, device);
         }
         else
         {
-            return mPositive.getValue(exactKeyModifiers, mName, device) - mNegative.getValue(exactKeyModifiers, mName, device);
+            return mPositive.GetValue(exactKeyModifiers, mName, device) - mNegative.GetValue(exactKeyModifiers, mName, device);
         }
     }
 }

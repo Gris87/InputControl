@@ -1,5 +1,5 @@
-using UnityEngine;
 using System.Collections.ObjectModel;
+using UnityEngine;
 
 
 
@@ -39,7 +39,7 @@ public static class Controls
     /// <summary>
     /// Set of axes.
     /// </summary>
-    public static Axes    axes;
+    public static Axes axes;
 
 
 
@@ -48,22 +48,22 @@ public static class Controls
     /// </summary>
     static Controls()
     {
-        buttons.up      = InputControl.setKey("Up",    KeyCode.W,     KeyCode.UpArrow,    new JoystickInput(JoystickAxis.Axis2Negative));
-        buttons.down    = InputControl.setKey("Down",  KeyCode.S,     KeyCode.DownArrow,  new JoystickInput(JoystickAxis.Axis2Positive));
-        buttons.left    = InputControl.setKey("Left",  KeyCode.A,     KeyCode.LeftArrow,  new JoystickInput(JoystickAxis.Axis1Negative));
-        buttons.right   = InputControl.setKey("Right", KeyCode.D,     KeyCode.RightArrow, new JoystickInput(JoystickAxis.Axis1Positive));
-        buttons.jump    = InputControl.setKey("Jump",  KeyCode.Space, KeyCode.None,       new JoystickInput(JoystickButton.Button1));
+        buttons.up      = InputControl.SetKey("Up",    KeyCode.W,     KeyCode.UpArrow,    new JoystickInput(JoystickAxis.Axis2Negative));
+        buttons.down    = InputControl.SetKey("Down",  KeyCode.S,     KeyCode.DownArrow,  new JoystickInput(JoystickAxis.Axis2Positive));
+        buttons.left    = InputControl.SetKey("Left",  KeyCode.A,     KeyCode.LeftArrow,  new JoystickInput(JoystickAxis.Axis1Negative));
+        buttons.right   = InputControl.SetKey("Right", KeyCode.D,     KeyCode.RightArrow, new JoystickInput(JoystickAxis.Axis1Positive));
+        buttons.jump    = InputControl.SetKey("Jump",  KeyCode.Space, KeyCode.None,       new JoystickInput(JoystickButton.Button1));
 
-        axes.vertical   = InputControl.setAxis("Vertical",   buttons.down, buttons.up);
-        axes.horizontal = InputControl.setAxis("Horizontal", buttons.left, buttons.right);
+        axes.vertical   = InputControl.SetAxis("Vertical",   buttons.down, buttons.up);
+        axes.horizontal = InputControl.SetAxis("Horizontal", buttons.left, buttons.right);
 
-        load();
+        Load();
     }
 
     /// <summary>
     /// Nothing. It just call static constructor if needed.
     /// </summary>
-    public static void init()
+    public static void Init()
     {
         // Nothing. It just call static constructor if needed
     }
@@ -71,10 +71,10 @@ public static class Controls
     /// <summary>
     /// Save controls.
     /// </summary>
-    public static void save()
+    public static void Save()
     {
         // It is just an example. You may remove it or modify it if you want
-        ReadOnlyCollection<KeyMapping> keys = InputControl.getKeysList();
+        ReadOnlyCollection<KeyMapping> keys = InputControl.GetKeys();
 
         foreach(KeyMapping key in keys)
         {
@@ -89,10 +89,10 @@ public static class Controls
     /// <summary>
     /// Load controls.
     /// </summary>
-    public static void load()
+    public static void Load()
     {
         // It is just an example. You may remove it or modify it if you want
-        ReadOnlyCollection<KeyMapping> keys = InputControl.getKeysList();
+        ReadOnlyCollection<KeyMapping> keys = InputControl.GetKeys();
 
         foreach(KeyMapping key in keys)
         {
@@ -102,21 +102,21 @@ public static class Controls
 
             if (inputStr != "")
             {
-                key.primaryInput = customInputFromString(inputStr);
+                key.primaryInput = CustomInputFromString(inputStr);
             }
 
             inputStr = PlayerPrefs.GetString("Controls." + key.name + ".secondary");
 
             if (inputStr != "")
             {
-                key.secondaryInput = customInputFromString(inputStr);
+                key.secondaryInput = CustomInputFromString(inputStr);
             }
 
             inputStr = PlayerPrefs.GetString("Controls." + key.name + ".third");
 
             if (inputStr != "")
             {
-                key.thirdInput = customInputFromString(inputStr);
+                key.thirdInput = CustomInputFromString(inputStr);
             }
         }
     }
@@ -126,7 +126,7 @@ public static class Controls
     /// </summary>
     /// <returns>CustomInput from string.</returns>
     /// <param name="value">String representation of CustomInput.</param>
-    private static CustomInput customInputFromString(string value)
+    private static CustomInput CustomInputFromString(string value)
     {
         CustomInput res;
 

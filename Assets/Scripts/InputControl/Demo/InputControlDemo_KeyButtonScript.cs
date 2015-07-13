@@ -29,7 +29,7 @@ public class InputControlDemo_KeyButtonScript : MonoBehaviour
     {
         if (selectedButton == this)
         {
-            CustomInput currentInput = InputControl.currentInput(ignoreMouseMovement, useKeyModifiers);
+            CustomInput currentInput = InputControl.GetCurrentInput(ignoreMouseMovement, useKeyModifiers);
 
             if (currentInput != null)
             {

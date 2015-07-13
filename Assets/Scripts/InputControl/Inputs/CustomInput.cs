@@ -13,8 +13,8 @@ public abstract class CustomInput
 
 
 
-    protected static int         mCachedModifiersFrame = 0;
-    protected static KeyModifier mCachedModifiersState = KeyModifier.NoModifier;
+    protected static int         sCachedModifiersFrame = 0;
+    protected static KeyModifier sCachedModifiersState = KeyModifier.NoModifier;
 
 
 
@@ -45,7 +45,7 @@ public abstract class CustomInput
     /// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
     /// <param name="axis">Specific actions for axis (Empty by default).</param>
     /// <param name="device">Preferred input device.</param>
-    public abstract float getInput(bool exactKeyModifiers = false, string axis = "", InputDevice device = InputDevice.Any);
+    public abstract float GetInput(bool exactKeyModifiers = false, string axis = "", InputDevice device = InputDevice.Any);
 
     /// <summary>
     /// Returns input value during the frame the user starts pressing down the key.
@@ -54,7 +54,7 @@ public abstract class CustomInput
     /// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
     /// <param name="axis">Specific actions for axis (Empty by default).</param>
     /// <param name="device">Preferred input device.</param>
-    public abstract float getInputDown(bool exactKeyModifiers = false, string axis = "", InputDevice device = InputDevice.Any);
+    public abstract float GetInputDown(bool exactKeyModifiers = false, string axis = "", InputDevice device = InputDevice.Any);
 
     /// <summary>
     /// Returns input value during the frame the user releases the key.
@@ -63,21 +63,21 @@ public abstract class CustomInput
     /// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
     /// <param name="axis">Specific actions for axis (Empty by default).</param>
     /// <param name="device">Preferred input device.</param>
-    public abstract float getInputUp(bool exactKeyModifiers = false, string axis = "", InputDevice device = InputDevice.Any);
+    public abstract float GetInputUp(bool exactKeyModifiers = false, string axis = "", InputDevice device = InputDevice.Any);
 
     /// <summary>
     /// Verifies that specified key modifiers are active during current frame.
     /// </summary>
     /// <returns>Specified key modifiers are active during current frame.</returns>
     /// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
-    protected bool checkModifiers(bool exactKeyModifiers = false)
+    protected bool CheckModifiers(bool exactKeyModifiers = false)
     {
         if (!exactKeyModifiers && mModifiers == KeyModifier.NoModifier)
         {
             return true;
         }
 
-        if (mCachedModifiersFrame != Time.frameCount)
+        if (sCachedModifiersFrame != Time.frameCount)
         {
             KeyModifier res = KeyModifier.NoModifier;
 
@@ -96,17 +96,17 @@ public abstract class CustomInput
                 res |= KeyModifier.Shift;
             }
 
-            mCachedModifiersFrame = Time.frameCount;
-            mCachedModifiersState = res;
+            sCachedModifiersFrame = Time.frameCount;
+            sCachedModifiersState = res;
         }
 
         if (exactKeyModifiers)
         {
-            return mModifiers == mCachedModifiersState;
+            return mModifiers == sCachedModifiersState;
         }
         else
         {
-            return (mModifiers & mCachedModifiersState) == mModifiers;
+            return (mModifiers & sCachedModifiersState) == mModifiers;
         }
     }
 
@@ -115,7 +115,7 @@ public abstract class CustomInput
     /// </summary>
     /// <returns>Parsed key modifiers.</returns>
     /// <param name="value">String representation of key modifiers with the rest of CustomInput string representation.</param>
-    protected static KeyModifier modifiersFromString(ref string value)
+    protected static KeyModifier ModifiersFromString(ref string value)
     {
         KeyModifier res = KeyModifier.NoModifier;
 
@@ -160,7 +160,7 @@ public abstract class CustomInput
     /// Returns a <see cref="System.String"/> that represents key modifiers.
     /// </summary>
     /// <returns>A <see cref="System.String"/> that represents key modifiers.</returns>
-    protected string modifiersToString()
+    protected string ModifiersToString()
     {
         if (mCachedModifiersToString == null)
         {

@@ -15,7 +15,7 @@ namespace Internal
         /// <summary>
         /// Map of string conversions for KeyCode.
         /// </summary>
-        private static readonly Dictionary<KeyCode, string> toStringMap = new Dictionary<KeyCode, string>()
+        private static readonly Dictionary<KeyCode, string> sToStringMap = new Dictionary<KeyCode, string>()
         {
               { KeyCode.None,              "None"                 }
             , { KeyCode.Backspace,         "Backspace"            }
@@ -343,7 +343,7 @@ namespace Internal
         /// <summary>
         /// Map of KeyCode conversions for string.
         /// </summary>
-        private static readonly Dictionary<string, KeyCode> fromStringMap = new Dictionary<string, KeyCode>()
+        private static readonly Dictionary<string, KeyCode> sFromStringMap = new Dictionary<string, KeyCode>()
         {
               { "None",                 KeyCode.None              }
             , { "Backspace",            KeyCode.Backspace         }
@@ -676,9 +676,9 @@ namespace Internal
             string[] keyCodes = Enum.GetNames(typeof(KeyCode));
 
             if (
-                keyCodes.Length != toStringMap.Count + 2 // Two duplicates for Apple keys
+                keyCodes.Length != sToStringMap.Count + 2 // Two duplicates for Apple keys
                 ||
-                keyCodes.Length != fromStringMap.Count
+                keyCodes.Length != sFromStringMap.Count
                )
             {
                 Debug.LogError("KeyCode to string conversion may fail, please contact with developer: Gris87@yandex.ru");
@@ -690,11 +690,11 @@ namespace Internal
         /// </summary>
         /// <returns>The string representation.</returns>
         /// <param name="keyCode">Key code.</param>
-        public static string toString(KeyCode keyCode)
+        public static string ToString(KeyCode keyCode)
         {
             string res;
 
-            if (toStringMap.TryGetValue(keyCode, out res))
+            if (sToStringMap.TryGetValue(keyCode, out res))
             {
                 return res;
             }
@@ -709,11 +709,11 @@ namespace Internal
         /// </summary>
         /// <returns>Key code.</param>
         /// <param name="value">The string representation.</returns>
-        public static KeyCode fromString(string value)
+        public static KeyCode FromString(string value)
         {
             KeyCode res;
 
-            if (fromStringMap.TryGetValue(value, out res))
+            if (sFromStringMap.TryGetValue(value, out res))
             {
                 return res;
             }
@@ -792,11 +792,11 @@ public class KeyboardInput : CustomInput
             return null;
         }
 
-        KeyModifier modifiers = modifiersFromString(ref value);
+        KeyModifier modifiers = ModifiersFromString(ref value);
 
         try
         {
-            return new KeyboardInput(Internal.KeyCodeConversions.fromString(value), modifiers);
+            return new KeyboardInput(Internal.KeyCodeConversions.FromString(value), modifiers);
         }
         catch (Exception)
         {
@@ -812,7 +812,7 @@ public class KeyboardInput : CustomInput
     {
         if (mCachedToString == null)
         {
-            mCachedToString = modifiersToString() + Internal.KeyCodeConversions.toString(mKey);
+            mCachedToString = ModifiersToString() + Internal.KeyCodeConversions.ToString(mKey);
         }
 
         return mCachedToString;
@@ -825,14 +825,14 @@ public class KeyboardInput : CustomInput
     /// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
     /// <param name="axis">Specific actions for axis (Empty by default).</param>
     /// <param name="device">Preferred input device.</param>
-    public override float getInput(bool exactKeyModifiers = false, string axis = "", InputDevice device = InputDevice.Any)
+    public override float GetInput(bool exactKeyModifiers = false, string axis = "", InputDevice device = InputDevice.Any)
     {
         if (
             device != InputDevice.Any
             &&
             device != InputDevice.KeyboardAndMouse
             ||
-            !checkModifiersForKeys(exactKeyModifiers)
+            !CheckModifiersForKeys(exactKeyModifiers)
            )
         {
             return 0;
@@ -863,14 +863,14 @@ public class KeyboardInput : CustomInput
     /// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
     /// <param name="axis">Specific actions for axis (Empty by default).</param>
     /// <param name="device">Preferred input device.</param>
-    public override float getInputDown(bool exactKeyModifiers = false, string axis = "", InputDevice device = InputDevice.Any)
+    public override float GetInputDown(bool exactKeyModifiers = false, string axis = "", InputDevice device = InputDevice.Any)
     {
         if (
             device != InputDevice.Any
             &&
             device != InputDevice.KeyboardAndMouse
             ||
-            !checkModifiersForKeys(exactKeyModifiers)
+            !CheckModifiersForKeys(exactKeyModifiers)
            )
         {
             return 0;
@@ -901,14 +901,14 @@ public class KeyboardInput : CustomInput
     /// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
     /// <param name="axis">Specific actions for axis (Empty by default).</param>
     /// <param name="device">Preferred input device.</param>
-    public override float getInputUp(bool exactKeyModifiers = false, string axis = "", InputDevice device = InputDevice.Any)
+    public override float GetInputUp(bool exactKeyModifiers = false, string axis = "", InputDevice device = InputDevice.Any)
     {
         if (
             device != InputDevice.Any
             &&
             device != InputDevice.KeyboardAndMouse
             ||
-            !checkModifiersForKeys(exactKeyModifiers)
+            !CheckModifiersForKeys(exactKeyModifiers)
            )
         {
             return 0;
@@ -937,14 +937,14 @@ public class KeyboardInput : CustomInput
     /// </summary>
     /// <returns>Specified key modifiers are active during current frame.</returns>
     /// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
-    private bool checkModifiersForKeys(bool exactKeyModifiers = false)
+    private bool CheckModifiersForKeys(bool exactKeyModifiers = false)
     {
         if (!exactKeyModifiers && mModifiers == KeyModifier.NoModifier)
         {
             return true;
         }
 
-        if (mCachedModifiersFrame != Time.frameCount)
+        if (sCachedModifiersFrame != Time.frameCount)
         {
             KeyModifier res = KeyModifier.NoModifier;
 
@@ -963,8 +963,8 @@ public class KeyboardInput : CustomInput
                 res |= KeyModifier.Shift;
             }
 
-            mCachedModifiersFrame = Time.frameCount;
-            mCachedModifiersState = res;
+            sCachedModifiersFrame = Time.frameCount;
+            sCachedModifiersState = res;
         }
 
         if (exactKeyModifiers)
@@ -975,7 +975,7 @@ public class KeyboardInput : CustomInput
                 mKey == KeyCode.RightControl
                )
             {
-                return (mModifiers | KeyModifier.Ctrl) == mCachedModifiersState;
+                return (mModifiers | KeyModifier.Ctrl) == sCachedModifiersState;
             }
 
             if (
@@ -984,7 +984,7 @@ public class KeyboardInput : CustomInput
                 mKey == KeyCode.RightAlt
                )
             {
-                return (mModifiers | KeyModifier.Alt) == mCachedModifiersState;
+                return (mModifiers | KeyModifier.Alt) == sCachedModifiersState;
             }
 
             if (
@@ -993,14 +993,14 @@ public class KeyboardInput : CustomInput
                 mKey == KeyCode.RightShift
                )
             {
-                return (mModifiers | KeyModifier.Shift) == mCachedModifiersState;
+                return (mModifiers | KeyModifier.Shift) == sCachedModifiersState;
             }
         }
         else
         {
-            return (mModifiers & mCachedModifiersState) == mModifiers;
+            return (mModifiers & sCachedModifiersState) == mModifiers;
         }
 
-        return mModifiers == mCachedModifiersState;
+        return mModifiers == sCachedModifiersState;
     }
 }

@@ -23,7 +23,7 @@ public class InputControlDemo_CreateButtonsScript : MonoBehaviour
         float maxNameWidth  = 0;
         float contentHeight = 4;
 
-        ReadOnlyCollection<KeyMapping> keys = InputControl.getKeysList();
+        ReadOnlyCollection<KeyMapping> keys = InputControl.GetKeys();
 
         foreach(KeyMapping key in keys)
         {

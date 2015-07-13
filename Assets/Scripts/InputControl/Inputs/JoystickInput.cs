@@ -121,7 +121,7 @@ public class JoystickInput : CustomInput
             return null;
         }
 
-        KeyModifier modifiers = modifiersFromString(ref value);
+        KeyModifier modifiers = ModifiersFromString(ref value);
 
         if (!value.StartsWith("Joystick "))
         {
@@ -257,7 +257,7 @@ public class JoystickInput : CustomInput
     {
         if (mCachedToString == null)
         {
-            string res = modifiersToString() + "Joystick ";
+            string res = ModifiersToString() + "Joystick ";
 
             if (mTarget != Joystick.AllJoysticks)
             {
@@ -301,14 +301,14 @@ public class JoystickInput : CustomInput
     /// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
     /// <param name="axis">Specific actions for axis (Empty by default).</param>
     /// <param name="device">Preferred input device.</param>
-    public override float getInput(bool exactKeyModifiers = false, string axis = "", InputDevice device = InputDevice.Any)
+    public override float GetInput(bool exactKeyModifiers = false, string axis = "", InputDevice device = InputDevice.Any)
     {
         if (
             device != InputDevice.Any
             &&
             device != InputDevice.Joystick
             ||
-            !checkModifiers(exactKeyModifiers)
+            !CheckModifiers(exactKeyModifiers)
            )
         {
             return 0;
@@ -331,10 +331,10 @@ public class JoystickInput : CustomInput
 
         if (mButton != JoystickButton.None)
         {
-            return Input.GetButton(getInputName()) ? sensitivity : 0;
+            return Input.GetButton(GetInputName()) ? sensitivity : 0;
         }
 
-        return getInputByAxis() * sensitivity;
+        return GetInputByAxis() * sensitivity;
     }
 
     /// <summary>
@@ -344,14 +344,14 @@ public class JoystickInput : CustomInput
     /// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
     /// <param name="axis">Specific actions for axis (Empty by default).</param>
     /// <param name="device">Preferred input device.</param>
-    public override float getInputDown(bool exactKeyModifiers = false, string axis = "", InputDevice device = InputDevice.Any)
+    public override float GetInputDown(bool exactKeyModifiers = false, string axis = "", InputDevice device = InputDevice.Any)
     {
         if (
             device != InputDevice.Any
             &&
             device != InputDevice.Joystick
             ||
-            !checkModifiers(exactKeyModifiers)
+            !CheckModifiers(exactKeyModifiers)
            )
         {
             return 0;
@@ -374,10 +374,10 @@ public class JoystickInput : CustomInput
 
         if (mButton != JoystickButton.None)
         {
-            return Input.GetButtonDown(getInputName()) ? sensitivity : 0;
+            return Input.GetButtonDown(GetInputName()) ? sensitivity : 0;
         }
 
-        return getInputByAxis() * sensitivity;
+        return GetInputByAxis() * sensitivity;
     }
 
     /// <summary>
@@ -387,14 +387,14 @@ public class JoystickInput : CustomInput
     /// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
     /// <param name="axis">Specific actions for axis (Empty by default).</param>
     /// <param name="device">Preferred input device.</param>
-    public override float getInputUp(bool exactKeyModifiers = false, string axis = "", InputDevice device = InputDevice.Any)
+    public override float GetInputUp(bool exactKeyModifiers = false, string axis = "", InputDevice device = InputDevice.Any)
     {
         if (
             device != InputDevice.Any
             &&
             device != InputDevice.Joystick
             ||
-            !checkModifiers(exactKeyModifiers)
+            !CheckModifiers(exactKeyModifiers)
            )
         {
             return 0;
@@ -417,19 +417,19 @@ public class JoystickInput : CustomInput
 
         if (mButton != JoystickButton.None)
         {
-            return Input.GetButtonUp(getInputName()) ? sensitivity : 0;
+            return Input.GetButtonUp(GetInputName()) ? sensitivity : 0;
         }
 
-        return getInputByAxis() * sensitivity;
+        return GetInputByAxis() * sensitivity;
     }
 
     /// <summary>
     /// Calls Input.GetAxis for a specified joystick axis.
     /// </summary>
     /// <returns>Value of joystick axis.</returns>
-    private float getInputByAxis()
+    private float GetInputByAxis()
     {
-        float joyAxis = Input.GetAxis(getInputName());
+        float joyAxis = Input.GetAxis(GetInputName());
 
         if (
             ((int)mAxis) % 2 == 1
@@ -456,7 +456,7 @@ public class JoystickInput : CustomInput
     /// Returns the name of input in InputManager according to the attributes.
     /// </summary>
     /// <returns>Input name in InputManager.</returns>
-    private string getInputName()
+    private string GetInputName()
     {
         if (mCachedInputName == null)
         {

@@ -99,7 +99,7 @@ public class MouseInput : CustomInput
             return null;
         }
 
-        KeyModifier modifiers = modifiersFromString(ref value);
+        KeyModifier modifiers = ModifiersFromString(ref value);
 
         if (!value.StartsWith("Mouse "))
         {
@@ -174,7 +174,7 @@ public class MouseInput : CustomInput
     {
         if (mCachedToString == null)
         {
-            string res = modifiersToString() + "Mouse ";
+            string res = ModifiersToString() + "Mouse ";
 
             if (mAxis != MouseAxis.None)
             {
@@ -222,14 +222,14 @@ public class MouseInput : CustomInput
     /// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
     /// <param name="axis">Specific actions for axis (Empty by default).</param>
     /// <param name="device">Preferred input device.</param>
-    public override float getInput(bool exactKeyModifiers = false, string axis="", InputDevice device=InputDevice.Any)
+    public override float GetInput(bool exactKeyModifiers = false, string axis="", InputDevice device=InputDevice.Any)
     {
         if (
             device != InputDevice.Any
             &&
             device != InputDevice.KeyboardAndMouse
             ||
-            !checkModifiers(exactKeyModifiers)
+            !CheckModifiers(exactKeyModifiers)
            )
         {
             return 0;
@@ -242,7 +242,7 @@ public class MouseInput : CustomInput
             return Input.GetKey(mouseButton) ? 1 : 0;
         }
 
-        return getInputByAxis();
+        return GetInputByAxis();
     }
 
     /// <summary>
@@ -252,14 +252,14 @@ public class MouseInput : CustomInput
     /// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
     /// <param name="axis">Specific actions for axis (Empty by default).</param>
     /// <param name="device">Preferred input device.</param>
-    public override float getInputDown(bool exactKeyModifiers = false, string axis="", InputDevice device=InputDevice.Any)
+    public override float GetInputDown(bool exactKeyModifiers = false, string axis="", InputDevice device=InputDevice.Any)
     {
         if (
             device != InputDevice.Any
             &&
             device != InputDevice.KeyboardAndMouse
             ||
-            !checkModifiers(exactKeyModifiers)
+            !CheckModifiers(exactKeyModifiers)
            )
         {
             return 0;
@@ -272,7 +272,7 @@ public class MouseInput : CustomInput
             return Input.GetKeyDown(mouseButton) ? 1 : 0;
         }
 
-        return getInputByAxis();
+        return GetInputByAxis();
     }
 
     /// <summary>
@@ -282,14 +282,14 @@ public class MouseInput : CustomInput
     /// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
     /// <param name="axis">Specific actions for axis (Empty by default).</param>
     /// <param name="device">Preferred input device.</param>
-    public override float getInputUp(bool exactKeyModifiers = false, string axis="", InputDevice device=InputDevice.Any)
+    public override float GetInputUp(bool exactKeyModifiers = false, string axis="", InputDevice device=InputDevice.Any)
     {
         if (
             device != InputDevice.Any
             &&
             device != InputDevice.KeyboardAndMouse
             ||
-            !checkModifiers(exactKeyModifiers)
+            !CheckModifiers(exactKeyModifiers)
            )
         {
             return 0;
@@ -302,14 +302,14 @@ public class MouseInput : CustomInput
             return Input.GetKeyUp(mouseButton) ? 1 : 0;
         }
 
-        return getInputByAxis();
+        return GetInputByAxis();
     }
 
     /// <summary>
     /// Calls Input.GetAxis for a specified mouse axis.
     /// </summary>
     /// <returns>Value of mouse axis.</returns>
-    private float getInputByAxis()
+    private float GetInputByAxis()
     {
         switch (mAxis)
         {

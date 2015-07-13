@@ -131,14 +131,14 @@ public class KeyMapping
     {
         mName = another.mName;
 
-        set(another);
+        Set(another);
     }
 
     /// <summary>
     /// Set the same <see cref="CustomInput"/> as in another instance.
     /// </summary>
     /// <param name="another">Another KeyMapping instance.</param>
-    public void set(KeyMapping another)
+    public void Set(KeyMapping another)
     {
         mPrimaryInput   = another.mPrimaryInput;
         mSecondaryInput = another.mSecondaryInput;
@@ -152,26 +152,26 @@ public class KeyMapping
     /// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
     /// <param name="axis">Specific actions for axis (Empty by default).</param>
     /// <param name="device">Preferred input device.</param>
-    public float getValue(bool exactKeyModifiers = false, string axis = "", InputDevice device = InputDevice.Any)
+    public float GetValue(bool exactKeyModifiers = false, string axis = "", InputDevice device = InputDevice.Any)
     {
         float res = 0;
         float cur;
 
-        cur = mPrimaryInput.getInput(exactKeyModifiers, axis, device);
+        cur = mPrimaryInput.GetInput(exactKeyModifiers, axis, device);
 
         if (cur > res)
         {
             res = cur;
         }
 
-        cur = mSecondaryInput.getInput(exactKeyModifiers, axis, device);
+        cur = mSecondaryInput.GetInput(exactKeyModifiers, axis, device);
 
         if (cur > res)
         {
             res = cur;
         }
 
-        cur = mThirdInput.getInput(exactKeyModifiers, axis, device);
+        cur = mThirdInput.GetInput(exactKeyModifiers, axis, device);
 
         if (cur > res)
         {
@@ -188,26 +188,26 @@ public class KeyMapping
     /// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
     /// <param name="axis">Specific actions for axis (Empty by default).</param>
     /// <param name="device">Preferred input device.</param>
-    public float getValueDown(bool exactKeyModifiers = false, string axis = "", InputDevice device = InputDevice.Any)
+    public float GetValueDown(bool exactKeyModifiers = false, string axis = "", InputDevice device = InputDevice.Any)
     {
         float res = 0;
         float cur;
 
-        cur = mPrimaryInput.getInputDown(exactKeyModifiers, axis, device);
+        cur = mPrimaryInput.GetInputDown(exactKeyModifiers, axis, device);
 
         if (cur > res)
         {
             res = cur;
         }
 
-        cur = mSecondaryInput.getInputDown(exactKeyModifiers, axis, device);
+        cur = mSecondaryInput.GetInputDown(exactKeyModifiers, axis, device);
 
         if (cur > res)
         {
             res = cur;
         }
 
-        cur = mThirdInput.getInputDown(exactKeyModifiers, axis, device);
+        cur = mThirdInput.GetInputDown(exactKeyModifiers, axis, device);
 
         if (cur > res)
         {
@@ -224,26 +224,26 @@ public class KeyMapping
     /// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
     /// <param name="axis">Specific actions for axis (Empty by default).</param>
     /// <param name="device">Preferred input device.</param>
-    public float getValueUp(bool exactKeyModifiers = false, string axis = "", InputDevice device = InputDevice.Any)
+    public float GetValueUp(bool exactKeyModifiers = false, string axis = "", InputDevice device = InputDevice.Any)
     {
         float res = 0;
         float cur;
 
-        cur = mPrimaryInput.getInputUp(exactKeyModifiers, axis, device);
+        cur = mPrimaryInput.GetInputUp(exactKeyModifiers, axis, device);
 
         if (cur > res)
         {
             res = cur;
         }
 
-        cur = mSecondaryInput.getInputUp(exactKeyModifiers, axis, device);
+        cur = mSecondaryInput.GetInputUp(exactKeyModifiers, axis, device);
 
         if (cur > res)
         {
             res = cur;
         }
 
-        cur = mThirdInput.getInputUp(exactKeyModifiers, axis, device);
+        cur = mThirdInput.GetInputUp(exactKeyModifiers, axis, device);
 
         if (cur > res)
         {
@@ -259,9 +259,9 @@ public class KeyMapping
     /// <returns>True if button or axis is still active.</returns>
     /// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
     /// <param name="device">Preferred input device.</param>
-    public bool isPressed(bool exactKeyModifiers = false, InputDevice device = InputDevice.Any)
+    public bool IsPressed(bool exactKeyModifiers = false, InputDevice device = InputDevice.Any)
     {
-        return getValue(exactKeyModifiers, "", device) != 0;
+        return GetValue(exactKeyModifiers, "", device) != 0;
     }
 
     /// <summary>
@@ -270,9 +270,9 @@ public class KeyMapping
     /// <returns>True if button or axis become active during this frame.</returns>
     /// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
     /// <param name="device">Preferred input device.</param>
-    public bool isPressedDown(bool exactKeyModifiers = false, InputDevice device = InputDevice.Any)
+    public bool IsPressedDown(bool exactKeyModifiers = false, InputDevice device = InputDevice.Any)
     {
-        return getValueDown(exactKeyModifiers, "", device) != 0;
+        return GetValueDown(exactKeyModifiers, "", device) != 0;
     }
 
     /// <summary>
@@ -281,8 +281,8 @@ public class KeyMapping
     /// <returns>True if button or axis stopped being active during this frame.</returns>
     /// <param name="exactKeyModifiers">If set to <c>true</c> check that only specified key modifiers are active, otherwise check that at least specified key modifiers are active.</param>
     /// <param name="device">Preferred input device.</param>
-    public bool isPressedUp(bool exactKeyModifiers = false, InputDevice device = InputDevice.Any)
+    public bool IsPressedUp(bool exactKeyModifiers = false, InputDevice device = InputDevice.Any)
     {
-        return getValueUp(exactKeyModifiers, "", device) != 0;
+        return GetValueUp(exactKeyModifiers, "", device) != 0;
     }
 }
