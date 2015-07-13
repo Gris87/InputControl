@@ -1394,22 +1394,22 @@ public static class InputControl
     /// <param name="key">KeyMapping instance.</param>
     public static void removeKey(KeyMapping key)
     {
-		bool good = true;
+        bool good = true;
 
         if (!mKeysList.Remove(key))
-		{
-			good = false;
-		}
+        {
+            good = false;
+        }
 
-		if (!mKeysMap.Remove(key.name))
-		{
-			good = false;
-		}
+        if (!mKeysMap.Remove(key.name))
+        {
+            good = false;
+        }
 
-		if (!good)
-		{
-			Debug.LogError("Failed to remove key \"" + key.name + "\"");
-		}
+        if (!good)
+        {
+            Debug.LogError("Failed to remove key \"" + key.name + "\"");
+        }
     }
 
     /// <summary>
@@ -1524,22 +1524,22 @@ public static class InputControl
     /// <param name="axis">Axis instance.</param>
     public static void removeAxis(Axis axis)
     {
-		bool good = true;
+        bool good = true;
 
-		if (!mAxesList.Remove(axis))
-		{
-			good = false;
-		}
+        if (!mAxesList.Remove(axis))
+        {
+            good = false;
+        }
 
-		if (!mAxesMap.Remove(axis.name))
-		{
-			good = false;
-		}
+        if (!mAxesMap.Remove(axis.name))
+        {
+            good = false;
+        }
 
-		if (!good)
-		{
-			Debug.LogError("Failed to remove axis \"" + axis.name + "\"");
-		}
+        if (!good)
+        {
+            Debug.LogError("Failed to remove axis \"" + axis.name + "\"");
+        }
     }
 
     /// <summary>

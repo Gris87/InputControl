@@ -116,10 +116,10 @@ public class JoystickInput : CustomInput
     /// <param name="value">String representation of JoystickInput.</param>
     public static JoystickInput FromString(string value)
     {
-		if (value == null)
-		{
-			return null;
-		}
+        if (value == null)
+        {
+            return null;
+        }
 
         KeyModifier modifiers = modifiersFromString(ref value);
 

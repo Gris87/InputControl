@@ -119,10 +119,10 @@ public abstract class CustomInput
     {
         KeyModifier res = KeyModifier.NoModifier;
 
-		if (value == null)
-		{
-			return res;
-		}
+        if (value == null)
+        {
+            return res;
+        }
 
         do
         {

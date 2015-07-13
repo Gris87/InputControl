@@ -94,10 +94,10 @@ public class MouseInput : CustomInput
     /// <param name="value">String representation of MouseInput.</param>
     public static MouseInput FromString(string value)
     {
-		if (value == null)
-		{
-			return null;
-		}
+        if (value == null)
+        {
+            return null;
+        }
 
         KeyModifier modifiers = modifiersFromString(ref value);
 
@@ -199,7 +199,7 @@ public class MouseInput : CustomInput
                         res += "Wheel (-)";
                     break;
                     default:
-						Debug.LogError("Unknown axis: " + mAxis);
+                        Debug.LogError("Unknown axis: " + mAxis);
                     break;
                 }
             }
@@ -320,7 +320,7 @@ public class MouseInput : CustomInput
             case MouseAxis.WheelUp:    return InputGetAxis("Mouse ScrollWheel", true);
             case MouseAxis.WheelDown:  return InputGetAxis("Mouse ScrollWheel", false);
             default:
-				Debug.LogError("Unknown axis: " + mAxis);
+                Debug.LogError("Unknown axis: " + mAxis);
             break;
         }
 
