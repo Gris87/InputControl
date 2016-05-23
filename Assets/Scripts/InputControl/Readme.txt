@@ -16,27 +16,27 @@ Example:
 
 static Controls()
 {
-    buttons.up        = InputControl.setKey("Up",        KeyCode.W,            KeyCode.UpArrow,     new JoystickInput(JoystickAxis.Axis2Negative));
-    buttons.down      = InputControl.setKey("Down",      KeyCode.S,            KeyCode.DownArrow,   new JoystickInput(JoystickAxis.Axis2Positive));
-    buttons.left      = InputControl.setKey("Left",      KeyCode.A,            KeyCode.LeftArrow,   new JoystickInput(JoystickAxis.Axis1Negative));
-    buttons.right     = InputControl.setKey("Right",     KeyCode.D,            KeyCode.RightArrow,  new JoystickInput(JoystickAxis.Axis1Positive));
-    buttons.fire1     = InputControl.setKey("Fire1",     MouseButton.Left,     KeyCode.LeftControl, new JoystickInput(JoystickButton.Button1));
-    buttons.fire2     = InputControl.setKey("Fire2",     MouseButton.Right,    KeyCode.LeftAlt,     new JoystickInput(JoystickButton.Button2));
-    buttons.fire3     = InputControl.setKey("Fire3",     MouseButton.Middle,   KeyCode.LeftCommand, new JoystickInput(JoystickButton.Button3));
-    buttons.jump      = InputControl.setKey("Jump",      KeyCode.Space,        KeyCode.None,        new JoystickInput(JoystickButton.Button4));
-    buttons.run       = InputControl.setKey("Run",       KeyCode.LeftShift,    KeyCode.RightShift,  new JoystickInput(JoystickButton.Button5));
-    buttons.lookUp    = InputControl.setKey("LookUp",    MouseAxis.MouseUp,    KeyCode.None,        new JoystickInput(JoystickAxis.Axis4Negative));
-    buttons.lookDown  = InputControl.setKey("LookDown",  MouseAxis.MouseDown,  KeyCode.None,        new JoystickInput(JoystickAxis.Axis4Positive));
-    buttons.lookLeft  = InputControl.setKey("LookLeft",  MouseAxis.MouseLeft,  KeyCode.None,        new JoystickInput(JoystickAxis.Axis3Negative));
-    buttons.lookRight = InputControl.setKey("LookRight", MouseAxis.MouseRight, KeyCode.None,        new JoystickInput(JoystickAxis.Axis3Positive));
+    buttons.up        = InputControl.SetKey("Up",        KeyCode.W,            KeyCode.UpArrow,     new JoystickInput(JoystickAxis.Axis2Negative));
+    buttons.down      = InputControl.SetKey("Down",      KeyCode.S,            KeyCode.DownArrow,   new JoystickInput(JoystickAxis.Axis2Positive));
+    buttons.left      = InputControl.SetKey("Left",      KeyCode.A,            KeyCode.LeftArrow,   new JoystickInput(JoystickAxis.Axis1Negative));
+    buttons.right     = InputControl.SetKey("Right",     KeyCode.D,            KeyCode.RightArrow,  new JoystickInput(JoystickAxis.Axis1Positive));
+    buttons.fire1     = InputControl.SetKey("Fire1",     MouseButton.Left,     KeyCode.LeftControl, new JoystickInput(JoystickButton.Button1));
+    buttons.fire2     = InputControl.SetKey("Fire2",     MouseButton.Right,    KeyCode.LeftAlt,     new JoystickInput(JoystickButton.Button2));
+    buttons.fire3     = InputControl.SetKey("Fire3",     MouseButton.Middle,   KeyCode.LeftCommand, new JoystickInput(JoystickButton.Button3));
+    buttons.jump      = InputControl.SetKey("Jump",      KeyCode.Space,        KeyCode.None,        new JoystickInput(JoystickButton.Button4));
+    buttons.run       = InputControl.SetKey("Run",       KeyCode.LeftShift,    KeyCode.RightShift,  new JoystickInput(JoystickButton.Button5));
+    buttons.lookUp    = InputControl.SetKey("LookUp",    MouseAxis.MouseUp,    KeyCode.None,        new JoystickInput(JoystickAxis.Axis4Negative));
+    buttons.lookDown  = InputControl.SetKey("LookDown",  MouseAxis.MouseDown,  KeyCode.None,        new JoystickInput(JoystickAxis.Axis4Positive));
+    buttons.lookLeft  = InputControl.SetKey("LookLeft",  MouseAxis.MouseLeft,  KeyCode.None,        new JoystickInput(JoystickAxis.Axis3Negative));
+    buttons.lookRight = InputControl.SetKey("LookRight", MouseAxis.MouseRight, KeyCode.None,        new JoystickInput(JoystickAxis.Axis3Positive));
 
-    axes.vertical     = InputControl.setAxis("Vertical",   buttons.down,     buttons.up);
-    axes.horizontal   = InputControl.setAxis("Horizontal", buttons.left,     buttons.right);
-    axes.mouseX       = InputControl.setAxis("Mouse X",    buttons.lookDown, buttons.lookUp);
-    axes.mouseY       = InputControl.setAxis("Mouse Y",    buttons.lookLeft, buttons.lookRight);
+    axes.vertical     = InputControl.SetAxis("Vertical",   buttons.down,     buttons.up);
+    axes.horizontal   = InputControl.SetAxis("Horizontal", buttons.left,     buttons.right);
+    axes.mouseX       = InputControl.SetAxis("Mouse X",    buttons.lookDown, buttons.lookUp);
+    axes.mouseY       = InputControl.SetAxis("Mouse Y",    buttons.lookLeft, buttons.lookRight);
 }
 
-You can easy change this configuration in Runtime by calling InputControl.setKey() and InputControl.setAxis()
+You can easy change this configuration in Runtime by calling InputControl.SetKey() and InputControl.SetAxis()
 
 
 
@@ -87,8 +87,8 @@ InputControl.smoothCoefficient = InputControl.NO_SMOOTH;
 
 
 When you setup button configuration you can create KeyboardInput, MouseInput or JoystickInput instance with providing key modifiers:
-buttons.copy  = InputControl.setKey("Copy",  new KeyboardInput(KeyCode.C, KeyModifier.Ctrl));
-buttons.paste = InputControl.setKey("Paste", new KeyboardInput(KeyCode.V, KeyModifier.Ctrl), new KeyboardInput(KeyCode.Insert, KeyModifier.Shift));
+buttons.copy  = InputControl.SetKey("Copy",  new KeyboardInput(KeyCode.C, KeyModifier.Ctrl));
+buttons.paste = InputControl.SetKey("Paste", new KeyboardInput(KeyCode.V, KeyModifier.Ctrl), new KeyboardInput(KeyCode.Insert, KeyModifier.Shift));
 
 It might be useful if you want use shortcuts in your application.
 
